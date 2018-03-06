@@ -67,7 +67,7 @@ class Arene :
                 long = random.randint(0, long_max)
                 larg = random.randint(0, larg_max)
 
-                m = Mur(x, y, 0, long, larg, 0)
+                m = Mur(x, y, 0, long, larg, 40)
                 self.ajouter_cube(m)
 
                 i = i + 1

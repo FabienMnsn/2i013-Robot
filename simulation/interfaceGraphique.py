@@ -8,6 +8,7 @@ from basiques.mur import *
 from basiques.sol import *
 from structures.capteur import *
 import random
+import time
 
 # code
     
@@ -153,37 +154,50 @@ def clavier(event):
     
     touche=event.keysym
     #print(touche)
+    capteur = Capteur(a1)
     if touche=='Up':
         #a1.liste_robot[0].rotation(90)
         #a1.liste_robot[0].move(a1.liste_robot[0].direction)
         #x,y,z = a1.liste_robot[0].position
-        capteur = Capteur(a1)
+        #capteur = Capteur(a1)
         #test = capteur.detecter()
-        print(robot.coords)
+        #print(robot.coords)
         x = (robot.coords[0][0] + robot.coords[1][0]) /2
         y = (robot.coords[0][1] + robot.coords[1][1]) /2
 
-        print("milieux face avant rob=", round(x,2), round(y,2))
+        #print("milieux face avant rob=", round(x,2), round(y,2))
+        """
         #print(robot.dimension[2])
         estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
         
         if(estdansunbloc == False):
             print("est dans un bloc:",estdansunbloc)
-        a1.liste_robot[0].setVitesse(1)
-        robot.move_bis()
+        """
+        res = capteur.detecter()
+        
+        if(res):
+            canvas_console.delete(ALL)
+            canvas_console.create_text(250,15, text="#___EMERGENCY ALERT : IMMINENT CRASH!___#", fill="black", width=500, justify='center')
+        else:
+            canvas_console.delete(ALL)
+            a1.liste_robot[0].setVitesse(2)
+            robot.move_bis()
         rafraichir(a1)
         #if(capteur.detecter() == False):
         #    a1.liste_robot[0].move_bis()
         #    rafraichir(a1)
     
     if touche =='Left':
+        canvas_console.delete(ALL)
         bouton_rotation_G()
         
     if touche =='Right':
+        canvas_console.delete(ALL)
         bouton_rotation_D()
         
     if touche=='Down':
-        a1.liste_robot[0].setVitesse(-1)
+        canvas_console.delete(ALL)
+        a1.liste_robot[0].setVitesse(-2)
         a1.liste_robot[0].move_bis()
         rafraichir(a1)
         
@@ -247,7 +261,7 @@ bouton8 = Button(fenetre, text= "Rt D", command=bouton_rotation_D).pack(side=LEF
 # ___________________________________FONCTIONS DRAW___________________________________
 
 def rafraichir(arene):
-    
+
     canvas1.delete(ALL) 
     i = 0
     for c in arene.liste_cube:
@@ -259,10 +273,10 @@ def rafraichir(arene):
             dessiner_cube(c,arene)
             
     if(len(arene.liste_robot) == 1):
-        print(arene.liste_robot[0].tete.orientation)
+        #print(arene.liste_robot[0].tete.orientation)
         dessiner_robot(arene.liste_robot[0])
         #print("R.rafrai.",arene.liste_robot[0].position)
-
+    
 def dessiner_cube(cube, arene):
     if isinstance(cube, Cube) and cube.x + cube.larg < arene.lx and cube.y + cube.long < arene.ly:
         canvas1.create_rectangle(cube.x, cube.y, cube.x + cube.larg, cube.y + cube.long, fill="darkgrey")

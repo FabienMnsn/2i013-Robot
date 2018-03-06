@@ -1,12 +1,18 @@
+
 from structures.arene import *
 from structures.robot import *
+"""
+from arene import *
+from robot import *
+"""
 
 def isCube(x,y,z,cube): # FONCTIONNE
         #print("isCube:",x,y,z,cube.safficher())
-        for i in range (cube.x, cube.x + cube.larg+1):
-            for j in range (cube.y, cube.y + cube.long+1):
-                if x == i and y == j and cube.haut >= z and z >= cube.z:
-                        return True
+
+        if (x <= cube.x+cube.larg and x >= cube.x) and (y <= cube.y + cube.long and y >= cube.y) and (cube.haut >= z and z >= cube.z):
+                #os.system("cls")
+                #print("VOUS ETES DANS UN MUR !")
+                return True
         return False
 
 def isCubeList(x,y,z,liste_cube):
@@ -15,7 +21,7 @@ def isCubeList(x,y,z,liste_cube):
                 objet = liste_cube[i]
                 if(isinstance(objet,Mur)):
                         if isCube(x,y,z,objet):
-                                print("sortie pour objet :",i)
+                                #print("sortie pour objet :",i)
                                 return True
                 i = i + 1
         return False
@@ -31,15 +37,21 @@ class Capteur :
                 x,y,z = r.position
                 long, larg, haut = r.dimension
                 dirx, diry = r.direction
-                ex = x
-                ey = y + (long/2)*diry # coordonnées de l'éclaireur : mises à la tete du robot
+                (x0,y0), (x1,y1), (x2,y2), (x3,y3) = r.coords
+                ex = (x0+x1)/2
+                ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
+                
 
                 i = 0
                 while i < zone : # balayage de la zone
+                        #print("Cpt.detec:",ex, ey)
                         if isCubeList(ex,ey,haut,self.arene.liste_cube):
+                                #print("suis dans un bloc")
+                                #print("cpt.detec:",ex,ey)
                                 return True
-                        ex = ex + dirx
-                        ey = ey + diry
+                        #print("cpt.detec:",ex,ey)
+                        ex = ex + r.tete.orientation[0]
+                        ey = ey + r.tete.orientation[1]
                         i  = i + 1
                 return False
         

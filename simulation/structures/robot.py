@@ -2,7 +2,7 @@
 
 import random
 import math
-from structures.teteRobot import*
+from structures.teteRobot import *
 #code
 
 class Robot:
@@ -23,7 +23,7 @@ class Robot:
         self.dimension = dimension
         self.vitesse = vitesse
         self.tete= Creation_TeteRobot()
-    
+    """
     def move(self,direc):
         x, y, z = self.getPosition()
         a, b = direc
@@ -41,26 +41,31 @@ class Robot:
         #yt= y
         #zt= z + haut/2
         #(self.tete).setPosition((xt, yt, zt))
-
+    """
 
     def move_bis(self):
         x, y, z = self.position
         xdir, ydir = self.direction
-        larg, long, haut = self.dimension
+        #larg, long, haut = self.dimension
         (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
         
         vitesse = self.vitesse
-        x += self.direction[0]*vitesse
-        y += self.direction[1]*vitesse
 
-        x0 += self.direction[0]*vitesse
-        y0 += self.direction[1]*vitesse
-        x1 += self.direction[0]*vitesse
-        y1 += self.direction[1]*vitesse
-        x2 += self.direction[0]*vitesse
-        y2 += self.direction[1]*vitesse
-        x3 += self.direction[0]*vitesse
-        y3 += self.direction[1]*vitesse
+        v0 = (self.direction[0]*vitesse)/10
+        v1 = (self.direction[1]*vitesse)/10
+        
+        x += v0
+        y += v1
+        
+
+        x0 += v0
+        y0 += v1
+        x1 += v0
+        y1 += v1
+        x2 += v0
+        y2 += v1
+        x3 += v0
+        y3 += v1
         
 
         self.__setPosition((x, y, z))
@@ -88,10 +93,10 @@ class Robot:
         return teta
         #teta: int en degré
 
-    
+    """
     def rotation(self, teta):
 
-        """la rotation est effectuée dans le sens anti-horaire"""
+        #la rotation est effectuée dans le sens anti-horaire
         teta = math.radians(teta)
         a, b = self.getDirection()
         temp = a
@@ -102,7 +107,7 @@ class Robot:
         if(b == -0.0):
             b = abs(b)
         self.__setDirection((a, b))
-
+    """
 
     def rotation_bis(self,teta):
         """Effectue une rotation du robot (sur lui-même) de teta°"""
