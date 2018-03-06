@@ -5,7 +5,7 @@ from tkinter import *
 from structures.arene import *
 from basiques.cube import *
 from basiques.mur import *
-from basique.sol import *
+from basiques.sol import *
 from structures.capteur import *
 import random
 
