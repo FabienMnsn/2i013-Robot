@@ -6,11 +6,11 @@
 # import
 
 from tkinter import *
-from Arene import *
-from Cube import *
-from Mur import *
-from Sol import *
-from Capteur import *
+from structures.arene import *
+from basiques.cube import *
+from basiques.mur import *
+from basique.sol import *
+from structures.capteur import *
 import random
 
 # code
