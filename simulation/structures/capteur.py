@@ -1,5 +1,5 @@
-from Arene import *
-from Robot import *
+from structures.arene import *
+from structures.robot import *
 
 def isCube(x,y,z,cube): # FONCTIONNE
         #print("isCube:",x,y,z,cube.safficher())
