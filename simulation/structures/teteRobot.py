@@ -23,8 +23,6 @@ class TeteRobot:
         vrx = vx * math.cos(angle) - vy * math.sin(angle)
         vry = vx * math.sin(angle) + vy * math.cos(angle)
 
-        #vrx = round(vrx)
-        #vry = round(vry)
         
         self.setOrientation((vrx,vry))
 		
@@ -50,10 +48,10 @@ class TeteRobot:
 
 
 def Creation_TeteRobot():
-    """Creation d'une tete de robot"""
+    """Creation d'une tete de robot avec un direction fixee"""
 
-    orx= 10
-    ory= 10
+    orx= 0
+    ory= 25
     
     return TeteRobot((orx, ory))
 

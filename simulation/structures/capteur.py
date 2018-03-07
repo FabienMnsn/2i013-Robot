@@ -1,4 +1,5 @@
 
+
 from structures.arene import *
 from structures.robot import *
 """
@@ -7,7 +8,7 @@ from robot import *
 """
 
 def isCube(x,y,z,cube): # FONCTIONNE
-        #print("isCube:",x,y,z,cube.safficher())
+        """fonction qui chercher si un point x,y,z est dans un mur et retourne true dans ce cas. Sinon retourne false"""
 
         if (x <= cube.x+cube.larg and x >= cube.x) and (y <= cube.y + cube.long and y >= cube.y) and (cube.haut >= z and z >= cube.z):
                 #os.system("cls")
@@ -16,6 +17,7 @@ def isCube(x,y,z,cube): # FONCTIONNE
         return False
 
 def isCubeList(x,y,z,liste_cube):
+        """fonction qui fait la meme chose que celle du dessus mais applique a la liste entiere d'objets de l'arene"""
         i = 0
         while i < len(liste_cube) :
                 objet = liste_cube[i]
@@ -31,7 +33,36 @@ class Capteur :
         def __init__(self,arene):
                 self.arene = arene
 
+        def detecter_distance(self):
+                """donne la distance par rapport a l'obstacle situé devant la tete du robot"""
+                distance_max_recherche = 50
+                r = self.arene.liste_robot[0]
+                x,y,z = r.position
+                long, larg, haut = r.dimension
+                dirx, diry = r.direction
+                (x0,y0), (x1,y1), (x2,y2), (x3,y3) = r.coords
+                ex = (x0+x1)/2
+                ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
+                cpt = 0
+                """
+                while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False) and cpt < distance_max_recherche:
+                        ex = ex + (r.tete.orientation[0]/10)
+                        ey = ey + (r.tete.orientation[1]/10)
+                        cpt += 1
+                return cpt
+                """
+                while cpt < distance_max_recherche:
+                        if (isCubeList(ex,ey,haut,self.arene.liste_cube)):
+                                return cpt
+                        ex = ex + (r.tete.orientation[0]/10)
+                        ey = ey + (r.tete.orientation[1]/10)
+                        cpt += 1
+                return -1
+
+                
+
         def detecter(self):
+                """chercher si un objet est devant le robot retourne True dans ce cas"""
                 zone = 3
                 r = self.arene.liste_robot[0]
                 x,y,z = r.position
@@ -54,8 +85,3 @@ class Capteur :
                         ey = ey + r.tete.orientation[1]
                         i  = i + 1
                 return False
-        
-        
-                      
-                        
-
