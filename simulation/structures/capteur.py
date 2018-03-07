@@ -31,6 +31,24 @@ class Capteur :
         def __init__(self,arene):
                 self.arene = arene
 
+        def detecter_distance(self):
+                r = self.arene.liste_robot[0]
+                x,y,z = r.position
+                long, larg, haut = r.dimension
+                dirx, diry = r.direction
+                (x0,y0), (x1,y1), (x2,y2), (x3,y3) = r.coords
+                ex = (x0+x1)/2
+                ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
+                cpt = 0
+                while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False):
+                        ex = ex + r.tete.orientation[0]
+                        ey = ey + r.tete.orientation[1]
+                        cpt = cpt +1
+                return cpt
+
+
+                
+
         def detecter(self):
                 zone = 3
                 r = self.arene.liste_robot[0]
