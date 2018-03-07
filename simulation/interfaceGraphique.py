@@ -147,6 +147,7 @@ canvas_console.pack()
 
 
 def clavier(event):
+    """fonction d'interaction clavier"""
     robot = a1.liste_robot[0]
     long, larg, haut = robot.dimension
     capteur = Capteur(a1)
@@ -194,12 +195,6 @@ def clavier(event):
     if touche =='z':
         robot.tete.setOrientation(robot.direction)
         rafraichir(a1)
-
-    if touche =='t':
-        distance_obstacle = capteur.detecter_distance()
-        print("Distance au prochain obstacle : ",distance_obstacle)
-        rafraichir(a1)
-    
         
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)

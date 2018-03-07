@@ -23,25 +23,7 @@ class Robot:
         self.dimension = dimension
         self.vitesse = vitesse
         self.tete= Creation_TeteRobot()
-    """
-    def move(self,direc):
-        x, y, z = self.getPosition()
-        a, b = direc
-        vitesse = self.getVitesse()
-        #xt, yt, zt = (self.tete).getPosition()
-        longr, larg, haut = self.getDimension()
-        
-        x += a*vitesse
-        y += b*vitesse
-        #z += c*vitesse
-        z += 0
-        self.__setPosition((x, y, z))
-        
-        #xt= x + larg/2
-        #yt= y
-        #zt= z + haut/2
-        #(self.tete).setPosition((xt, yt, zt))
-    """
+
 
     def move_bis(self):
         x, y, z = self.position
@@ -67,12 +49,8 @@ class Robot:
         x3 += v0
         y3 += v1
         
-
         self.__setPosition((x, y, z))
-        #print("1:",self.coords)
         self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
-        #self.setCoords( ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2)) )
-        #print("2:",self.coords)
         #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
         
         
@@ -91,23 +69,7 @@ class Robot:
         if(sgn < 0):
             return -1*teta
         return teta
-        #teta: int en degré
 
-    """
-    def rotation(self, teta):
-
-        #la rotation est effectuée dans le sens anti-horaire
-        teta = math.radians(teta)
-        a, b = self.getDirection()
-        temp = a
-        a = math.ceil(a*math.cos(teta) - b*math.sin(teta))
-        b = math.ceil(temp*math.sin(teta) + b*math.cos(teta))
-        if(a == -0.0):
-            a = abs(a)
-        if(b == -0.0):
-            b = abs(b)
-        self.__setDirection((a, b))
-    """
 
     def rotation_bis(self,teta):
         """Effectue une rotation du robot (sur lui-même) de teta°"""
@@ -196,30 +158,19 @@ class Robot:
 def Creation_Robot(arene):
         """creation d'un Robot avec une position aleatoire"""
 
-        x = random.randint(175, arene.lx/2)
-        y = random.randint(175, arene.ly/2)
-
-        #x = random.randint(0, 100)
-        #y = random.randint(0, 100)
-
-        #x = 60
-        #y = 60
+        x = random.randint(100, arene.lx/2)
+        y = random.randint(100, arene.ly/2)
         z = 1   #un robot est posé sur le sol
 
         larg = 30
         long = 50
         haut = 15
-        
-        dirx = 2
-        diry = 2
 
         dirxy1 = (x, y)
         dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
-        
         newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1]) )
-
         vitesse = 1
-
+        
         coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
 
         return Robot((x, y, z), coords, newdir, (larg, long, haut), vitesse)
