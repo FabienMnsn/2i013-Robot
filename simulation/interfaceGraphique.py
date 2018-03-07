@@ -168,7 +168,7 @@ def clavier(event):
         #print("milieux face avant rob=", round(x,2), round(y,2))
         """
         #print(robot.dimension[2])
-        estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
+c        estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
         
         if(estdansunbloc == False):
             print("est dans un bloc:",estdansunbloc)
@@ -199,6 +199,8 @@ def clavier(event):
         bouton_rotation_D()
         
     if touche=='Down':
+        distance_obstacle = capteur.detecter_distance()
+        print("Distance au prochain obstacle : ",distance_obstacle)
         canvas_console.delete(ALL)
         a1.liste_robot[0].setVitesse(-2)
         a1.liste_robot[0].move_bis()
