@@ -41,8 +41,8 @@ class Capteur :
                 ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
                 cpt = 0
                 while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False):
-                        ex = ex + r.tete.orientation[0]
-                        ey = ey + r.tete.orientation[1]
+                        ex = ex + (r.tete.orientation[0]/10)
+                        ey = ey + (r.tete.orientation[1]/10)
                         cpt = cpt +1
                 return cpt
 
