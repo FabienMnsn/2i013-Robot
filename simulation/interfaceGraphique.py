@@ -281,6 +281,7 @@ def dessiner_sol(s1):
 def dessiner_robot(robot):
     x, y, z = robot.position
     (x0,y0), (x1,y1), (x2,y2), (x3,y3) = robot.coords
+    milieu_avant_robot_xy = (((x0 + x1)/2), ((y0+y1)/2))
     long, larg, haut = robot.dimension
     dirx, diry = robot.direction
     dirtetex, dirtetey = robot.tete.orientation
@@ -291,7 +292,7 @@ def dessiner_robot(robot):
 
     # creation d'une fleche indiquant la direction du robot
     canvas1.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*3), ((y0+y1)/2 + dirtetey*3), fill="black", arrow='last')
-
+    canvas1.create_oval(milieu_avant_robot_xy[0]-4, milieu_avant_robot_xy[1]-4, milieu_avant_robot_xy[0]+4, milieu_avant_robot_xy[1]+4, fill="red")
 
 def affichage_distance_canvas(distance, limite):
     """si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur"""

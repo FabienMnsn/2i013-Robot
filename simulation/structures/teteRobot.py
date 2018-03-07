@@ -51,7 +51,7 @@ def Creation_TeteRobot():
     """Creation d'une tete de robot avec un direction fixee"""
 
     orx= 0
-    ory= 10
+    ory= 25
     
     return TeteRobot((orx, ory))
 
