@@ -173,7 +173,10 @@ def clavier(event):
         if(estdansunbloc == False):
             print("est dans un bloc:",estdansunbloc)
         """
+        distance_obstacle = capteur.detecter_distance()
+        print("Distance au prochain obstacle : ",distance_obstacle)
         res = capteur.detecter()
+        
         
         if(res):
             canvas_console.delete(ALL)
