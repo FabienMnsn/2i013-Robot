@@ -156,25 +156,15 @@ def clavier(event):
     #print(touche)
     capteur = Capteur(a1)
     if touche=='Up':
-        #a1.liste_robot[0].rotation(90)
-        #a1.liste_robot[0].move(a1.liste_robot[0].direction)
-        #x,y,z = a1.liste_robot[0].position
-        #capteur = Capteur(a1)
-        #test = capteur.detecter()
-        #print(robot.coords)
         x = (robot.coords[0][0] + robot.coords[1][0]) /2
         y = (robot.coords[0][1] + robot.coords[1][1]) /2
 
-        #print("milieux face avant rob=", round(x,2), round(y,2))
-        """
-        #print(robot.dimension[2])
-c        estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
-        
-        if(estdansunbloc == False):
-            print("est dans un bloc:",estdansunbloc)
-        """
         distance_obstacle = capteur.detecter_distance()
         print("Distance au prochain obstacle : ",distance_obstacle)
+        
+        #canvas_console.delete(ALL)
+        #canvas_console.create_text(250, 15, text="Distance au prochain obstacle : ", fill="black", width=500,justify='center')
+        
         res = capteur.detecter()
         
         
@@ -217,6 +207,12 @@ c        estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
     if touche =='z':
         robot.tete.setOrientation(robot.direction)
         rafraichir(a1)
+
+    if touche =='t':
+        distance_obstacle = capteur.detecter_distance()
+        print("Distance au prochain obstacle : ",distance_obstacle)
+        rafraichir(a1)
+    
         
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)
