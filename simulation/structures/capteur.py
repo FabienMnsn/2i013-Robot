@@ -33,7 +33,10 @@ class Capteur :
                 self.arene = arene
 
         def detecter_distance(self):
+<<<<<<< HEAD
                 distance_max_recherche = 50
+=======
+>>>>>>> DaoudFabien
                 r = self.arene.liste_robot[0]
                 x,y,z = r.position
                 long, larg, haut = r.dimension
@@ -42,6 +45,7 @@ class Capteur :
                 ex = (x0+x1)/2
                 ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
                 cpt = 0
+<<<<<<< HEAD
                 """
                 while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False) and cpt < distance_max_recherche:
                         ex = ex + (r.tete.orientation[0]/10)
@@ -56,6 +60,14 @@ class Capteur :
                         ey = ey + (r.tete.orientation[1]/10)
                         cpt += 1
                 return -1
+=======
+                while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False):
+                        ex = ex + (r.tete.orientation[0]/10)
+                        ey = ey + (r.tete.orientation[1]/10)
+                        cpt = cpt +1
+                return cpt
+
+>>>>>>> DaoudFabien
 
                 
 
