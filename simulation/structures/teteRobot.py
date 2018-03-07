@@ -52,7 +52,7 @@ class TeteRobot:
 def Creation_TeteRobot():
     """Creation d'une tete de robot"""
 
-    orx= 10
+    orx= 0
     ory= 10
     
     return TeteRobot((orx, ory))

@@ -115,7 +115,7 @@ def bouton_rotation_G():
 # ___________________________________FENETRE PRINCIPALE___________________________________
 
 fenetre = Tk()
-fenetre.geometry("800x700")
+fenetre.geometry("525x700")
 fenetre.title("Robot 2i013 Alpha 3.1")
 fenetre.resizable(width=True, height=True)
 # affichage d'un texte dans la fenetre principale
@@ -145,70 +145,52 @@ canvas_console.pack()
 
 #_________________________________TOUCHES CLAVIER_________________________________
 
-#robot_rectangle=canvas1.create_rectangle(0, 0, 0, 0, fill="white")
 
 def clavier(event):
-    #xr,yr,zr = a1.liste_robot[0].position
     robot = a1.liste_robot[0]
     long, larg, haut = robot.dimension
-    
-    touche=event.keysym
-    #print(touche)
     capteur = Capteur(a1)
+    touche=event.keysym
+    distance_obstacle = capteur.detecter_distance()
+    distance_arret_urgence = 6
+    #print(touche)
+    
+    
     if touche=='Up':
-        #a1.liste_robot[0].rotation(90)
-        #a1.liste_robot[0].move(a1.liste_robot[0].direction)
-        #x,y,z = a1.liste_robot[0].position
-        #capteur = Capteur(a1)
-        #test = capteur.detecter()
-        #print(robot.coords)
-        x = (robot.coords[0][0] + robot.coords[1][0]) /2
-        y = (robot.coords[0][1] + robot.coords[1][1]) /2
-
-        #print("milieux face avant rob=", round(x,2), round(y,2))
-        """
-        #print(robot.dimension[2])
-        estdansunbloc = isCubeList(x,y,robot.position[2], a1.liste_cube)
-        
-        if(estdansunbloc == False):
-            print("est dans un bloc:",estdansunbloc)
-        """
-        res = capteur.detecter()
-        
-        if(res):
-            canvas_console.delete(ALL)
-            canvas_console.create_text(250,15, text="#___EMERGENCY ALERT : IMMINENT CRASH!___#", fill="black", width=500, justify='center')
+        #distance_obstacle = capteur.detecter_distance()
+        #print("Distance au prochain obstacle : ",distance_obstacle)
+        if(distance_obstacle <= distance_arret_urgence and distance_obstacle != -1):
+            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         else:
-            canvas_console.delete(ALL)
+            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
             a1.liste_robot[0].setVitesse(2)
             robot.move_bis()
         rafraichir(a1)
-        #if(capteur.detecter() == False):
-        #    a1.liste_robot[0].move_bis()
-        #    rafraichir(a1)
     
     if touche =='Left':
-        canvas_console.delete(ALL)
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         bouton_rotation_G()
         
     if touche =='Right':
-        canvas_console.delete(ALL)
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         bouton_rotation_D()
         
     if touche=='Down':
-        canvas_console.delete(ALL)
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].setVitesse(-2)
         a1.liste_robot[0].move_bis()
         rafraichir(a1)
         
     if touche =='q':
-        #a1.liste_robot[0].tete.orientation = (-10, -10)
-        robot.tete.rotation(-8)
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        robot.tete.rotation(-1)
         rafraichir(a1)
+        
     if touche =='d':
-        #a1.liste_robot[0].tete.orientation = (10, 10)
-        robot.tete.rotation(8)
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        robot.tete.rotation(1)
         rafraichir(a1)
+
     if touche =='z':
         robot.tete.setOrientation(robot.direction)
         rafraichir(a1)
@@ -308,10 +290,20 @@ def dessiner_robot(robot):
 
     # creation d'une fleche indiquant la direction du robot
     canvas1.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*3), ((y0+y1)/2 + dirtetey*3), fill="black", arrow='last')
-    
-    """canvas1.create_oval((x0+x1)/2, (y0+y1)/2, x + larg / 3, y + long / 4,
-                        outline="black")  # creation d'un cercle representant la tete du robot
-    """
+
+
+def affichage_distance_canvas(distance, limite):
+    """si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur"""
+    if(distance == -1):
+        canvas_console.delete(ALL)
+        canvas_console.create_text(250,15, text="{Contact dans} scanner_out_of_range m", fill="black", width=500, justify='center')
+    elif(distance > 0 and distance <= limite):
+        canvas_console.delete(ALL)
+        canvas_console.create_text(250,15, text="EMERGENCY BRAKING", fill="black", width=500, justify='center')
+    else:
+        canvas_console.delete(ALL)
+        canvas_console.create_text(250,15, text=('Contact dans',distance,"m"), fill="black", width=500, justify='center')
+        
 
 # ___________________________________MAINLOOP___________________________________
 

@@ -206,9 +206,9 @@ def Creation_Robot(arene):
         #y = 60
         z = 1   #un robot est posé sur le sol
 
-        larg = 40
-        long = 40
-        haut = 10
+        larg = 30
+        long = 50
+        haut = 15
         
         dirx = 2
         diry = 2
