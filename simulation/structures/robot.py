@@ -159,8 +159,8 @@ class Robot:
 def Creation_Robot(arene):
         """creation d'un Robot avec une position aleatoire"""
 
-        x = random.randint(100, arene.lx/2)
-        y = random.randint(100, arene.ly/2)
+        x = random.randint(50, int(arene.lx/3))
+        y = random.randint(50, int(arene.ly/3))
         z = 1   #un robot est posé sur le sol
 
         larg = 30
