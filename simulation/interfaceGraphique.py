@@ -20,7 +20,7 @@ a1 = Creation_Arene()
 
 strat = Strategy()
 test = TestStrategy(strat)
-a1.liste_strat=strat.dessine_carre(50)
+a1.liste_strat=strat.dessine_carre(100)
 # ___________________________________GENERATEUR DE MUR___________________________________
 
 
@@ -131,16 +131,13 @@ canvas_console.pack()
 #_________________________________TOUCHES CLAVIER_________________________________
 
 def strateg():
-    a1.liste_robot[0].setVitesse(2)
+    #a1.liste_robot[0].setVitesse(2)
     test.Test2(a1.liste_robot[0],a1.liste_strat)
     rafraichir(a1)
-    fenetre.after(50,strateg)
+    fenetre.after(20,strateg)
 
-def temps(y):
-    i=0
-    while i<y:
-        i=i+1
-
+def reset_strategie():
+    a1.liste_strat=strat.dessine_carre(100)
 
 
 def clavier(event):
@@ -199,14 +196,8 @@ def clavier(event):
         rafraichir(a1)
 
     if touche == 'b':
-        fenetre.after(50,strateg)
-        """while len(a1.liste_strat) >0:
-            #print(strat.dessine_carre(70))
-            time.sleep(0.1)
-            a1.liste_robot[0].setVitesse(2)
-            test.Test2(a1.liste_robot[0],a1.liste_strat)
-            #test.Test(a1.liste_robot[0])
-            rafraichir(a1)"""
+        fenetre.after(20,strateg)
+        reset_strategie()
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)
 
