@@ -95,6 +95,7 @@ class Robot:
         
         self.setCoords(newcoords)   #maj coords des 4 points du robot
         #print("coords=",self.coords)
+        self.tete.rotation(teta)
         self.calcdir()              #maj direction du robot
         
 

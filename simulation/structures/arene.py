@@ -14,12 +14,13 @@ class Arene :
     - liste_cube : une liste contenant des "cubes"(sol,mur,obstacle) avec leurs coordonnées dans l'arene
     """
 
-    def __init__(self,lx,ly,lz,liste_cube) :
+    def __init__(self,lx,ly,lz,liste_cube,liste_strat) :
         self.lx = lx
         self.ly = ly
         self.lz = lz
         self.liste_cube = liste_cube
         self.liste_robot = []
+        self.liste_strat=liste_strat
 
     def ajouter_cube(self,cube) :
         """Si c'est possible on ajoute un cube dans l'arene
@@ -205,7 +206,7 @@ def Creation_Arene() :
     ly = 500
     lz = 500 # valeurs limites de l'arène
 
-    arene = Arene(lx,ly,lz,liste_cube)
+    arene = Arene(lx,ly,lz,liste_cube,[])
 
     return arene
 

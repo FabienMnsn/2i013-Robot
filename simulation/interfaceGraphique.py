@@ -7,6 +7,7 @@ from basiques.cube import *
 from basiques.mur import *
 from basiques.sol import *
 from structures.capteur import *
+from TestStrategy import *
 import random
 import time
 
@@ -17,10 +18,12 @@ import time
 
 a1 = Creation_Arene()
 
-
+strat = Strategy()
+test = TestStrategy(strat)
+a1.liste_strat=strat.dessine_carre(50)
 # ___________________________________GENERATEUR DE MUR___________________________________
 
-#
+
 
 def gen_aleatoire():
     a1.generateur_arene()
@@ -92,30 +95,12 @@ def ajout_robot():
         canvas_console.create_text(250, 15, text="Il y a déjà un robot OU pas de sol !", fill="black", width=500, justify='center')
 
 
-# ___________________________________ON CLIC BOUTON ROTATION DROITE & GAUCHE___________________________________
-
-def bouton_rotation_D():
-    if a1.liste_robot:
-        a1.liste_robot[0].rotation_bis(10)
-        a1.liste_robot[0].rotation_tete(10)
-        a1.liste_robot[0].calcdir()
-        #print(a1.liste_robot[0].direction)
-        rafraichir(a1)
-
-
-def bouton_rotation_G():
-    if a1.liste_robot:
-        a1.liste_robot[0].rotation_bis(-10)
-        a1.liste_robot[0].rotation_tete(-10)
-        a1.liste_robot[0].calcdir()
-        #print(a1.liste_robot[0].direction)
-        rafraichir(a1)
 
 
 # ___________________________________FENETRE PRINCIPALE___________________________________
 
 fenetre = Tk()
-fenetre.geometry("525x700")
+fenetre.geometry("600x700")
 fenetre.title("Robot 2i013 Alpha 3.1")
 fenetre.resizable(width=True, height=True)
 # affichage d'un texte dans la fenetre principale
@@ -157,6 +142,7 @@ def clavier(event):
     #print(touche)
     
     
+    
     if touche=='Up':
         #distance_obstacle = capteur.detecter_distance()
         #print("Distance au prochain obstacle : ",distance_obstacle)
@@ -170,11 +156,15 @@ def clavier(event):
     
     if touche =='Left':
         affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-        bouton_rotation_G()
+        a1.liste_robot[0].rotation_bis(-10)
+        rafraichir(a1)
+        #bouton_rotation_G()
         
     if touche =='Right':
         affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-        bouton_rotation_D()
+        a1.liste_robot[0].rotation_bis(10)
+        rafraichir(a1)
+        #bouton_rotation_D()
         
     if touche=='Down':
         affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
@@ -195,7 +185,12 @@ def clavier(event):
     if touche =='z':
         robot.tete.setOrientation(robot.direction)
         rafraichir(a1)
-        
+
+    if touche == 'b':
+        #print(strat.dessine_carre(70))
+        a1.liste_robot[0].setVitesse(2)
+        test.Test2(a1.liste_robot[0],a1.liste_strat)
+        rafraichir(a1)
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)
 
@@ -234,11 +229,6 @@ bouton5 = Button(fenetre, text="Generation Salle(WIP)", command=gen_aleatoire).p
 #creation d'un bouton qui ajoute un robot à l'arene
 bouton6 = Button(fenetre, text= "Ajout Robot", command=ajout_robot).pack(side=LEFT)
 
-#creation d'un bouton de rotation du robot dans le sens anti-horaire
-bouton7 = Button(fenetre, text= "Rt G", command=bouton_rotation_G).pack(side=LEFT)
-
-#creation d'un bouton de rotation du robot dans le sens horaire
-bouton8 = Button(fenetre, text= "Rt D", command=bouton_rotation_D).pack(side=LEFT)
 
 
 # ___________________________________FONCTIONS DRAW___________________________________
