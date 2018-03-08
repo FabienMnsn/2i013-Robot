@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 import json
 from structures.arene import *
 from structures.robot import *
@@ -18,7 +19,7 @@ def CsvToJson(nomfichierJson):
             ligne=line.split(";")
             if ligne[0] == 'Arene':
                 """On cree une nouvelle arene avec les parametres trouves sur la ligne, separes par des ';' """
-                arene = Arene(int(ligne[1]),int(ligne[2]),int(ligne[3]),liste_cube,liste_robot)
+                arene = Arene(int(ligne[1]), int(ligne[2]), int(ligne[3]), liste_cube, liste_robot)
                 arene.liste_robot=liste_robot
             elif ligne[0] == 'Cube':
                 """On ajoute le cube a la liste de cube de l'arene, avec parametres trouves sur la ligne"""

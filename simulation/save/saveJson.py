@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 import json
 from structures.arene import Arene
 from structures.robot import Robot

@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 #imports
 from structures.arene import *
 from structures.robot import *

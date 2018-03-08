@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 import random
 from interface.featuresGL import *
 from structures.robot import *
