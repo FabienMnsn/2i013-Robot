@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 # import
 
-from tkinter import *
+from Tkinter import *
 from structures.arene import *
 from basiques.cube import *
 from basiques.mur import *
@@ -311,6 +311,5 @@ def affichage_distance_canvas(distance, limite):
         
 
 # ___________________________________MAINLOOP___________________________________
-
 fenetre.mainloop()
 

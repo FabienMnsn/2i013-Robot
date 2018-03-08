@@ -1,4 +1,4 @@
-
+#-*- coding: utf-8 -*-
 
 from structures.arene import *
 from structures.robot import *
