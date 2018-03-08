@@ -35,7 +35,7 @@ class Capteur :
 
         def detecter_distance(self):
                 """donne la distance par rapport a l'obstacle situé devant la tete du robot"""
-                distance_max_recherche = 50
+                distance_max_recherche = 150
                 r = self.arene.liste_robot[0]
                 x,y,z = r.position
                 long, larg, haut = r.dimension
