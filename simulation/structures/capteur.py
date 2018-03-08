@@ -21,7 +21,7 @@ def isCubeList(x,y,z,liste_cube):
         i = 0
         while i < len(liste_cube) :
                 objet = liste_cube[i]
-                if(isinstance(objet,Mur)):
+                if(not(isinstance(objet, Sol))):
                         if isCube(x,y,z,objet):
                                 #print("sortie pour objet :",i)
                                 return True

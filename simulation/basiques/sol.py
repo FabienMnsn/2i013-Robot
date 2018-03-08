@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from basiques.cube import Cube
 
 class Sol(Cube):

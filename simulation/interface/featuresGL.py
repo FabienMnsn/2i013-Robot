@@ -1,3 +1,4 @@
+import pyglet
 from pyglet.gl import *
 from pyglet.window import key
 from pyglet.window import FPSDisplay
