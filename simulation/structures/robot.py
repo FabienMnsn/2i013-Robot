@@ -33,8 +33,8 @@ class Robot:
         
         vitesse = self.vitesse
 
-        v0 = (self.direction[0]*vitesse)/10
-        v1 = (self.direction[1]*vitesse)/10
+        v0 = ((self.direction[0]*vitesse)/10)/2
+        v1 = ((self.direction[1]*vitesse)/10)/2
         
         x += v0
         y += v1
