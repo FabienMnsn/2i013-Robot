@@ -246,19 +246,22 @@ bouton8 = Button(fenetre, text= "Rt D", command=bouton_rotation_D).pack(side=LEF
 def rafraichir(arene):
 
     canvas1.delete(ALL) 
-    i = 0
-    for c in arene.liste_cube:
-        if isinstance(c, Sol):
-            dessiner_sol(c)
-        if isinstance(c, Mur):
-            dessiner_mur(c,arene)
-        elif isinstance(c, Cube):
-            dessiner_cube(c,arene)
-            
+
+    i = arene.liste_cube[0]
+    dessiner_sol(i)
+    
     if(len(arene.liste_robot) == 1):
         #print(arene.liste_robot[0].tete.orientation)
         dessiner_robot(arene.liste_robot[0])
         #print("R.rafrai.",arene.liste_robot[0].position)
+    
+    for c in arene.liste_cube:
+        #if isinstance(c, Sol):
+            #dessiner_sol(c)
+        if isinstance(c, Mur):
+            dessiner_mur(c,arene)
+        elif isinstance(c, Cube):
+            dessiner_cube(c,arene)
     
 def dessiner_cube(cube, arene):
     if isinstance(cube, Cube) and cube.x + cube.larg < arene.lx and cube.y + cube.long < arene.ly:
