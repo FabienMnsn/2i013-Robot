@@ -130,6 +130,18 @@ canvas_console.pack()
 
 #_________________________________TOUCHES CLAVIER_________________________________
 
+def strateg():
+    a1.liste_robot[0].setVitesse(2)
+    test.Test2(a1.liste_robot[0],a1.liste_strat)
+    rafraichir(a1)
+    fenetre.after(50,strateg)
+
+def temps(y):
+    i=0
+    while i<y:
+        i=i+1
+
+
 
 def clavier(event):
     """fonction d'interaction clavier"""
@@ -187,10 +199,14 @@ def clavier(event):
         rafraichir(a1)
 
     if touche == 'b':
-        #print(strat.dessine_carre(70))
-        a1.liste_robot[0].setVitesse(2)
-        test.Test2(a1.liste_robot[0],a1.liste_strat)
-        rafraichir(a1)
+        fenetre.after(50,strateg)
+        """while len(a1.liste_strat) >0:
+            #print(strat.dessine_carre(70))
+            time.sleep(0.1)
+            a1.liste_robot[0].setVitesse(2)
+            test.Test2(a1.liste_robot[0],a1.liste_strat)
+            #test.Test(a1.liste_robot[0])
+            rafraichir(a1)"""
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)
 
@@ -201,10 +217,6 @@ canvas1.bind_all('<Key>', clavier)
 
 def effacer():
     """efface tout le canvas"""
-    canvas1.delete(ALL) 
-    canvas_console.delete(ALL)
-    while len(a1.liste_cube) > 0:
-        a1.liste_cube.pop(-1)
     while len(a1.liste_robot) > 0:
         a1.liste_robot.pop(-1)
 

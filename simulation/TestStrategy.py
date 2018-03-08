@@ -5,7 +5,13 @@ import time
 class TestStrategy():
     def __init__(self,strategy):
         self.strategy = strategy
-        
+
+
+    def temps(self):
+        i=0
+        while(i<500):
+            i=i+1
+            
     def Test(self,robot):
         i = 0
         liste = self.strategy.dessine_carre(50)
