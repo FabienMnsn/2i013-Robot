@@ -14,6 +14,7 @@ c1 = Creation_Cube(a1)
 s1 = Creation_Sol(a1)
 m1 = Creation_Mur(a1)
 r1 = Creation_Robot(a1)
+#
 
 
 c1.safficher()
