@@ -1,11 +1,10 @@
 
+#imports
 
 from structures.arene import *
 from structures.robot import *
-"""
-from arene import *
-from robot import *
-"""
+
+#code
 
 def isCube(x,y,z,cube): # FONCTIONNE
         """fonction qui chercher si un point x,y,z est dans un mur et retourne true dans ce cas. Sinon retourne false"""
@@ -44,13 +43,7 @@ class Capteur :
                 ex = (x0+x1)/2
                 ey = (y0+y1)/2# coordonnées de l'éclaireur : mises à la tete du robot
                 cpt = 0
-                """
-                while(isCubeList(ex,ey,haut,self.arene.liste_cube) == False) and cpt < distance_max_recherche:
-                        ex = ex + (r.tete.orientation[0]/10)
-                        ey = ey + (r.tete.orientation[1]/10)
-                        cpt += 1
-                return cpt
-                """
+
                 while cpt < distance_max_recherche:
                         if (isCubeList(ex,ey,haut,self.arene.liste_cube)):
                                 return cpt
