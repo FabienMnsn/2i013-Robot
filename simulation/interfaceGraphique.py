@@ -21,6 +21,7 @@ a1 = Creation_Arene()
 strat = Strategy()
 test = TestStrategy(strat)
 a1.liste_strat=strat.dessine_carre(100)
+
 # ___________________________________GENERATEUR DE MUR___________________________________
 
 
@@ -139,23 +140,31 @@ def strateg():
         rafraichir(a1)
         fenetre.after(20,strateg)
 
+"""def strateg_avance():
+    test.Test_avance_objectif(a1,a1.liste_strat)
+    rafraichir(a1)
+    fenetre.after(20,strateg_avance)"""
+
+
 def reset_strategie():
     a1.liste_strat=strat.dessine_carre(100)
+    #a1.liste_strat=strat.avance_objectif(a1.liste_robot[0],300,300)
 
 
 def clavier(event):
     """fonction d'interaction clavier"""
     robot = a1.liste_robot[0]
     long, larg, haut = robot.dimension
-    capteur = Capteur(a1)
+    #capteur = Capteur(a1)
     touche=event.keysym
-    distance_obstacle = capteur.detecter_distance()
+    distance_obstacle = robot.retourne_distance(a1)#capteur.detecter_distance()
     distance_arret_urgence = 6
     #print(touche)
     
     
     
     if touche=='Up':
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].setVitesse(2)
         robot.move_bis(a1)
         rafraichir(a1)
@@ -193,6 +202,7 @@ def clavier(event):
         rafraichir(a1)
 
     if touche == 'b':
+        a1.liste_strat=strat.dessine_carre(100)
         fenetre.after(20,strateg)
         reset_strategie()
         

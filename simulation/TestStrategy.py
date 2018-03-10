@@ -34,5 +34,45 @@ class TestStrategy():
                 liste.pop(i)
 
         return liste
+
+    def Test_avance_objectif(self,arene,liste):
+        robot = arene.liste_robot[0]
+
+        if len(liste) == 0:
+            return
+
+        else:
+            i,j = liste[0]
+            if i == 'x' :
+                robot.move_bis(arene)
+                liste.pop(0)
+            elif i == 'r':
+                robot.rotation_bis(-90)
+                liste.pop(0)
+            elif i == 'y' :
+                robot.move_bis(arene)
+                liste.pop(0)
+
+        return liste
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
                 
             

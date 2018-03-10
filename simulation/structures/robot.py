@@ -85,6 +85,10 @@ class Robot:
             self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
             #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
         
+    def retourne_distance(self,arene):
+        capteur = Capteur(arene)
+        return capteur.detecter_distance()
+    
         
     def retourne_angle(self,x,y,xx,yy) :
         """ retourne un angle teta en radian selon une direction initale d'un
