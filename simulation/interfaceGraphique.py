@@ -132,9 +132,12 @@ canvas_console.pack()
 
 def strateg():
     #a1.liste_robot[0].setVitesse(2)
-    test.Test2(a1.liste_robot[0],a1.liste_strat)
-    rafraichir(a1)
-    fenetre.after(20,strateg)
+    res = test.Test2(a1,a1.liste_strat)
+    if res == False :
+        return
+    else :
+        rafraichir(a1)
+        fenetre.after(20,strateg)
 
 def reset_strategie():
     a1.liste_strat=strat.dessine_carre(100)
