@@ -23,7 +23,7 @@ class TestStrategy():
                 liste.pop(i)
             elif liste[i] > 0 :
                 if distance > 3 :
-                    robot.move_bis()
+                    robot.move_bis(arene)
                     liste[i] = liste[i] -1
                 else :
                     print("Arret de la strategie : Présence d'un mur")

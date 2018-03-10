@@ -156,14 +156,8 @@ def clavier(event):
     
     
     if touche=='Up':
-        #distance_obstacle = capteur.detecter_distance()
-        #print("Distance au prochain obstacle : ",distance_obstacle)
-        if(distance_obstacle <= distance_arret_urgence and distance_obstacle != -1):
-            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-        else:
-            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-            a1.liste_robot[0].setVitesse(2)
-            robot.move_bis()
+        a1.liste_robot[0].setVitesse(2)
+        robot.move_bis(a1)
         rafraichir(a1)
     
     if touche =='Left':
@@ -181,7 +175,7 @@ def clavier(event):
     if touche=='Down':
         affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].setVitesse(-2)
-        a1.liste_robot[0].move_bis()
+        a1.liste_robot[0].move_bis(a1)
         rafraichir(a1)
         
     if touche =='q':

@@ -3,6 +3,7 @@
 import random
 import math
 from structures.teteRobot import *
+from structures.capteur import *
 #code
 
 class Robot:
@@ -16,6 +17,8 @@ class Robot:
         sa tete: Class TeteRobot
     """
 
+
+    
     def __init__(self, position, coords, direction, dimension, vitesse):
         self.position = position
         self.coords = coords
@@ -25,33 +28,62 @@ class Robot:
         self.tete= Creation_TeteRobot()
 
 
-    def move_bis(self):
-        x, y, z = self.position
-        xdir, ydir = self.direction
-        #larg, long, haut = self.dimension
-        (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
+    def rotation_detection(self,arene):
+        """test si il y'a un mur devant le robot à l'aide d'une rotation"""
+        tmp = self.tete.orientation
+        new = (25,0)
+        robot_test = self
+        robot_test.tete.setOrientation(new)
+        i = 0
+        capteur = Capteur(arene)
+        distance_urgence = 6
         
-        vitesse = self.vitesse
+        while i < 100:
+            distance_obstacle = capteur.detecter_distance2(robot_test)
+            ## deplacement que si la distance_obstacle est respectée
+            if distance_obstacle > distance_urgence or distance_obstacle == -1:
+                robot_test.tete.rotation(1)
+                i = i +1
+            else :
+                self.tete.setOrientation(tmp)
+                return True
+        self.tete.setOrientation(tmp)
+        return False
 
-        v0 = ((self.direction[0]*vitesse)/10)/2
-        v1 = ((self.direction[1]*vitesse)/10)/2
-        
-        x += v0
-        y += v1
-        
+    def move_bis(self,arene):
+        capteur = Capteur(arene)
+        distance_urgence = 6
+        distance_obstacle = capteur.detecter_distance()
+        ## deplacement que si la distance_obstacle est respectée
+        first_test = (distance_obstacle > distance_urgence or distance_obstacle == -1)
+        #second_test = self.rotation_detection(arene)==False
+        if first_test :#and second_test :
+            x, y, z = self.position
+            xdir, ydir = self.direction
+            #larg, long, haut = self.dimension
+            (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
+            
+            vitesse = self.vitesse
 
-        x0 += v0
-        y0 += v1
-        x1 += v0
-        y1 += v1
-        x2 += v0
-        y2 += v1
-        x3 += v0
-        y3 += v1
+            v0 = ((self.direction[0]*vitesse)/10)/2
+            v1 = ((self.direction[1]*vitesse)/10)/2
+            
+            x += v0
+            y += v1
+            
+
+            x0 += v0
+            y0 += v1
+            x1 += v0
+            y1 += v1
+            x2 += v0
+            y2 += v1
+            x3 += v0
+            y3 += v1
         
-        self.__setPosition((x, y, z))
-        self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
-        #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
+            self.__setPosition((x, y, z))
+            self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
+            #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
         
         
     def retourne_angle(self,x,y,xx,yy) :
@@ -112,6 +144,7 @@ class Robot:
     def rotation_tete(self, teta):
         self.tete.rotation(teta)
 
+    
     def toString(self):
         return "ROBOT[Corps]|position: {0}, direction: {1}, dimension{2}, vitesse: {3}".format(self.getPosition(),self.getDirection(),self.getDimension(),self.getVitesse())+"\n"+self.tete.toString()
 
