@@ -291,7 +291,7 @@ def dessiner_robot(robot):
     # creation d'une fleche indiquant la direction du robot
     canvas1.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*3), ((y0+y1)/2 + dirtetey*3), fill="black", arrow='last')
     canvas1.create_oval(milieu_avant_robot_xy[0]-4, milieu_avant_robot_xy[1]-4, milieu_avant_robot_xy[0]+4, milieu_avant_robot_xy[1]+4, fill="red")
-"""
+
 def affichage_distance_canvas(distance, limite):
     #si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur
     if(distance == -1):
@@ -303,7 +303,7 @@ def affichage_distance_canvas(distance, limite):
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text=('Contact dans',distance,"m"), fill="black", width=500, justify='center')
-"""     
+ 
 
 # ___________________________________MAINLOOP___________________________________
 
