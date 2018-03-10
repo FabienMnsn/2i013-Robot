@@ -161,30 +161,28 @@ def clavier(event):
         rafraichir(a1)
     
     if touche =='Left':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].rotation_bis(-10)
         rafraichir(a1)
-        #bouton_rotation_G()
         
     if touche =='Right':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].rotation_bis(10)
         rafraichir(a1)
-        #bouton_rotation_D()
         
     if touche=='Down':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].setVitesse(-2)
         a1.liste_robot[0].move_bis(a1)
         rafraichir(a1)
         
     if touche =='q':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         robot.tete.rotation(-1)
         rafraichir(a1)
         
     if touche =='d':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         robot.tete.rotation(1)
         rafraichir(a1)
 
@@ -283,9 +281,9 @@ def dessiner_robot(robot):
     # creation d'une fleche indiquant la direction du robot
     canvas1.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*3), ((y0+y1)/2 + dirtetey*3), fill="black", arrow='last')
     canvas1.create_oval(milieu_avant_robot_xy[0]-4, milieu_avant_robot_xy[1]-4, milieu_avant_robot_xy[0]+4, milieu_avant_robot_xy[1]+4, fill="red")
-
+"""
 def affichage_distance_canvas(distance, limite):
-    """si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur"""
+    #si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur
     if(distance == -1):
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text="{Contact dans} scanner_out_of_range m", fill="black", width=500, justify='center')
@@ -295,7 +293,7 @@ def affichage_distance_canvas(distance, limite):
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text=('Contact dans',distance,"m"), fill="black", width=500, justify='center')
-        
+"""     
 
 # ___________________________________MAINLOOP___________________________________
 
