@@ -1,6 +1,6 @@
 #imports
 
-from Robot2I013 import *
+from robot2I013 import *
 from simulation import *
 from strategie import *
 

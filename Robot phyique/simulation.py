@@ -7,7 +7,7 @@ class Simulation:
     def run(self):
         cpt=0
         while self.strategie.stop==False:
-            self.strategie.update(cpt)
+            self.strategie.update()
             cpt+=1
         print("Arret")
         
