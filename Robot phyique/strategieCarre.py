@@ -14,8 +14,8 @@ class strategieCarre:
         self.robot.stop()
         return True""""
 
-    def update(self):
-        self.stop=False
+    def update(self,cpt):
+        self.stop= False
         angle_prec = self.robot.read_encoder()
         self.robot.set_motor_dps(self.robot.MOTOR_LEFT,120)
         self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,120)
@@ -37,7 +37,7 @@ class strategieCarre:
             set_motor_position(self.robot.MOTOR_RIGHT, 360)
             #on "réactive" les moteurs en marche avant
             self.robot.set_motor_dps(self.robot.MOTOR_RIGHT + self.robot.MOTOR_LEFT,120)
-        elif cpt = 4:
+        elif cpt == 4:
             self.stop = True
         elif cpt > 4:
             print ("le compteur de cote à depassé la valeur max 4 : pb?")

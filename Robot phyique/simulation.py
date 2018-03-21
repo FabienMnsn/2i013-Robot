@@ -1,9 +1,5 @@
 #import
-
-
 #code
-
-
 class Simulation:
     def __init__(self,strategie):
         self.strategie=strategie
@@ -11,7 +7,7 @@ class Simulation:
     def run(self):
         cpt=0
         while self.strategie.stop==False:
-            self.strategie.update()
+            self.strategie.update(cpt)
             cpt+=1
         print("Arret")
         
