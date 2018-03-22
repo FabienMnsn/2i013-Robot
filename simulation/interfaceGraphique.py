@@ -20,7 +20,8 @@ a1 = Creation_Arene()
 
 strat = Strategy()
 test = TestStrategy(strat)
-a1.liste_strat=strat.dessine_carre(50)
+a1.liste_strat=strat.dessine_carre(100)
+
 # ___________________________________GENERATEUR DE MUR___________________________________
 
 
@@ -131,66 +132,66 @@ canvas_console.pack()
 #_________________________________TOUCHES CLAVIER_________________________________
 
 def strateg():
-    a1.liste_robot[0].setVitesse(2)
-    test.Test2(a1.liste_robot[0],a1.liste_strat)
+    #a1.liste_robot[0].setVitesse(2)
+    res = test.Test2(a1,a1.liste_strat)
+    if res == False :
+        return
+    else :
+        rafraichir(a1)
+        fenetre.after(20,strateg)
+
+"""def strateg_avance():
+    test.Test_avance_objectif(a1,a1.liste_strat)
     rafraichir(a1)
-    fenetre.after(50,strateg)
+    fenetre.after(20,strateg_avance)"""
 
-def temps(y):
-    i=0
-    while i<y:
-        i=i+1
 
+def reset_strategie():
+    a1.liste_strat=strat.dessine_carre(100)
+    #a1.liste_strat=strat.avance_objectif(a1.liste_robot[0],300,300)
 
 
 def clavier(event):
     """fonction d'interaction clavier"""
     robot = a1.liste_robot[0]
     long, larg, haut = robot.dimension
-    capteur = Capteur(a1)
+    #capteur = Capteur(a1)
     touche=event.keysym
-    distance_obstacle = capteur.detecter_distance()
+    distance_obstacle = robot.retourne_distance(a1)#capteur.detecter_distance()
     distance_arret_urgence = 6
     #print(touche)
     
     
     
     if touche=='Up':
-        #distance_obstacle = capteur.detecter_distance()
-        #print("Distance au prochain obstacle : ",distance_obstacle)
-        if(distance_obstacle <= distance_arret_urgence and distance_obstacle != -1):
-            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-        else:
-            affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
-            a1.liste_robot[0].setVitesse(2)
-            robot.move_bis()
+        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        a1.liste_robot[0].setVitesse(2)
+        robot.move_bis(a1)
         rafraichir(a1)
     
     if touche =='Left':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].rotation_bis(-10)
         rafraichir(a1)
-        #bouton_rotation_G()
         
     if touche =='Right':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].rotation_bis(10)
         rafraichir(a1)
-        #bouton_rotation_D()
         
     if touche=='Down':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         a1.liste_robot[0].setVitesse(-2)
-        a1.liste_robot[0].move_bis()
+        a1.liste_robot[0].move_bis(a1)
         rafraichir(a1)
         
     if touche =='q':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         robot.tete.rotation(-1)
         rafraichir(a1)
         
     if touche =='d':
-        affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
+        #affichage_distance_canvas(distance_obstacle, distance_arret_urgence)
         robot.tete.rotation(1)
         rafraichir(a1)
 
@@ -199,14 +200,9 @@ def clavier(event):
         rafraichir(a1)
 
     if touche == 'b':
-        fenetre.after(50,strateg)
-        """while len(a1.liste_strat) >0:
-            #print(strat.dessine_carre(70))
-            time.sleep(0.1)
-            a1.liste_robot[0].setVitesse(2)
-            test.Test2(a1.liste_robot[0],a1.liste_strat)
-            #test.Test(a1.liste_robot[0])
-            rafraichir(a1)"""
+        a1.liste_strat=strat.dessine_carre(100)
+        fenetre.after(20,strateg)
+        reset_strategie()
         
     #canvas1.coords(robot_rectangle,x, y, x + larg, y + long)
 
@@ -297,7 +293,7 @@ def dessiner_robot(robot):
     canvas1.create_oval(milieu_avant_robot_xy[0]-4, milieu_avant_robot_xy[1]-4, milieu_avant_robot_xy[0]+4, milieu_avant_robot_xy[1]+4, fill="red")
 
 def affichage_distance_canvas(distance, limite):
-    """si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur"""
+    #si la distance obtenue != -1 alors cette fonction l'affiche. Sinon elle affiche un message d'erreur
     if(distance == -1):
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text="{Contact dans} scanner_out_of_range m", fill="black", width=500, justify='center')
@@ -307,7 +303,7 @@ def affichage_distance_canvas(distance, limite):
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text=('Contact dans',distance,"m"), fill="black", width=500, justify='center')
-        
+ 
 
 # ___________________________________MAINLOOP___________________________________
 

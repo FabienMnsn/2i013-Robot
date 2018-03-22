@@ -1,36 +1,19 @@
 from structures.robot import *
 from Strategy import *
+from structures.capteur import *
+from structures.arene import *
 import time
 
 class TestStrategy():
     def __init__(self,strategy):
         self.strategy = strategy
 
-
-    def temps(self):
-        i=0
-        while(i<500):
-            i=i+1
             
-    def Test(self,robot):
+    def Test2(self,arene,liste):
         i = 0
-        liste = self.strategy.dessine_carre(50)
-        while i < len(liste):
-            if liste[i] > 0:
-                y=0
-                while y < liste[i]:
-                    #time.sleep(1)
-                    robot.move_bis()
-                    y = y +1
-            else :
-                #time.sleep(1)
-                robot.rotation_bis(-90)
-            i = i +1
-        
-
-    def Test2(self,robot,liste):
-        i = 0
-
+        robot = arene.liste_robot[0]
+        capteur = Capteur(arene)
+        distance = capteur.detecter_distance()
         if len(liste) == 0:
             return
         elif  liste[i] != 0 :
@@ -39,13 +22,57 @@ class TestStrategy():
                 robot.rotation_bis(-90)
                 liste.pop(i)
             elif liste[i] > 0 :
-                robot.move_bis()
-                liste[i] = liste[i] -1
+                if distance > 3 :
+                    robot.move_bis(arene)
+                    liste[i] = liste[i] -1
+                else :
+                    print("Arret de la strategie : Présence d'un mur")
+                    return False
                 if liste[i] == 0:
                     liste.pop(i)
             elif liste[i] == 0:
                 liste.pop(i)
 
         return liste
+
+    def Test_avance_objectif(self,arene,liste):
+        robot = arene.liste_robot[0]
+
+        if len(liste) == 0:
+            return
+
+        else:
+            i,j = liste[0]
+            if i == 'x' :
+                robot.move_bis(arene)
+                liste.pop(0)
+            elif i == 'r':
+                robot.rotation_bis(-90)
+                liste.pop(0)
+            elif i == 'y' :
+                robot.move_bis(arene)
+                liste.pop(0)
+
+        return liste
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
                 
             

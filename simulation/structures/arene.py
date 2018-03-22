@@ -104,46 +104,7 @@ class Arene :
                 i= i+1
         return False
 
-    """
-    def isCube(self,x,y,z) :
-        #return True si il y'a un cube à la position (x,y,z)
-            #de l'arene et False sinon
-        i = 0
-        while i<len(self.liste_cube) :
-            c = self.liste_cube[i]
-            if c.x == x and c.y == y and c.z == z :
-                return True
-            else :
-                i= i+1
-        return False
-
-    def isCubeAtPoint(self,x,y,z) :
-        #return True si le point à la position (x,y,z) appartient à un cube
-            #de l'arene et False sinon
-        i = 0
-        cube = None
-        if (self.liste_cube is None) or x >= self.lx or x < 0 or y >= self.ly or y < 0 or z >= self.lz or z < 0 :
-            return False
-        while i<len(self.liste_cube) :
-            c = self.liste_cube[i]
-            if (c.x+c.larg >=x and c.x <= x) and (c.y+c.long >= y and c.y<= y) and (c.z+c.haut >= z and c.z<= z):
-                return True
-            i= i+1
-        return False
-
-    def renvoie_cube(self,x,y,z) :
-         #Renvoie le cube à la position (x,y,z) si il y'en a un
-            #et None sinon 
-
-        i = 0
-        while i<len(self.liste_cube) :
-            c = self.liste_cube[i]
-            if c.x == x and c.y == y and c.z == z :
-                return c
-            else :
-                i= i+1
-        return None
-    """
+		
     def ajouter_robot(self,robot) :
         """Si c'est possible on ajoute un robot dans l'arene
             et on return True, et False sinon"""
@@ -242,8 +203,3 @@ def chargerEnv(nomfichier):
                 arene.liste_robot.append(Robot((x,y,z),(a,b,c),(lo,la,ha)))
         print("Arene chargée.")
         return arene
-                  
-	     
-
-"Arene.py 1ere soumission (Daoud)"           
-"Arene.py 2eme soumission (Vinson)" 

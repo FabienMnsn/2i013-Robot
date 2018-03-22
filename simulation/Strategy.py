@@ -1,3 +1,6 @@
+from structures.robot import *
+from structures.arene import *
+
 class Strategy():
     def __init__(self):
         True
@@ -13,6 +16,38 @@ class Strategy():
             i = i+1
 
         return L
-            
+
+
+    def avance_objectif(self,robot,xx,yy):
+        x,y,z = robot.position
+        L = []
+        while x != xx :
+            if x < xx :
+                L.append(('x',1))
+                x = x + 1
+            if x > xx :
+                L.append(('x',-1))
+                x = x - 1
+
+
+        L.append(('r',-90))
+        
+        while y != yy:
+            if y < yy :
+                L.append(('y',1))
+                y = y + 1
+
+            if y > yy :
+                L.append(('y',-1))
+                y = y - 1
+                
+        return L
+
+    
+        
+                
+        
+        
+        
         
         

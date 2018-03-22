@@ -17,7 +17,7 @@ def loadFic(nomfichier="defaultsave"):
     return deserialiser(content) #On deserialise la ligne et on retourne l'objet reconstitué
         
 def serialiser(obj):
-    return json.dumps(obj, default=serialiser_aux)
+    return json.dumps(obj, default=serialiser_aux, indent=4)
 
 def serialiser_aux(obj):
     dic = obj.__dict__
