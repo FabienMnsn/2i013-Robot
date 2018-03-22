@@ -26,9 +26,15 @@ class strategieCarre:
                 #compteur pour les 4 cotes du carre: quand cpt_exec = 4, la strat est terminee
             self.cpt_exec += 1
             self.robot.stop()
-            self.robot.offset_motor_encoder(self.robot.MOTOR_LEFT + self.robot.MOTOR_RIGHT,0)
+            #self.robot.offset_motor_encoder(self.robot.MOTOR_LEFT + self.robot.MOTOR_RIGHT,0)
             #faire tourner le moteur gauche dans un sens (-360) ~> valeur a changer ?
-            self.robot.set_motor_position(self.robot.MOTOR_LEFT, -360)
+            #self.robot.set_motor_position(self.robot.MOTOR_LEFT, -360)
+            
+            """
+            self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,60)
+            manque un truc pour compter le nb de rotations jusqua 90
+            self.robot.set_motor_dps(self.robot.MOTOR_LEFT,60)
+            """
 
             self.robot.set_motor_position(self.robot.MOTOR_RIGHT, 360)
             #on "reactive" les moteurs en marche avant
