@@ -13,6 +13,7 @@ class strategieRot90:
 
         quart_cercle = (2 * math.pi * (self.robot.WHEEL_DIAMETER/2.0))/4.0
         self.robot.set_motor_dps(self.robot.MOTOR_LEFT,200)
+		self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,-200)
         angle_actuel,y = self.robot.get_motor_position()
 
         dist = ((angle_actuel - self.angle_prec)/360.0) * math.pi * (self.robot.WHEEL_DIAMETER/2.0) * 2
@@ -20,4 +21,4 @@ class strategieRot90:
         if dist > quart_cercle:
             self.robot.stop()
             self.stop = True
-            
+           
