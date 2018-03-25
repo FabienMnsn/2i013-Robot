@@ -25,6 +25,8 @@ simu2 = Simulation(stratCarre)
 print("**Debut de la strategie de deplacement tout droit**")
 simu1.run()
 print("**Fin de la strategie**")
+
+
 """
 #lancement de la strategie Carre
 print("**Debut de la strategie Carre**")
