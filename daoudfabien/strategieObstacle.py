@@ -10,28 +10,31 @@ class strategieObstacle:
     def update(self):
         stop = False
 		
-        dist_obst = self.robot.get_distance()
+        dist_obst = self.robot.moyenne_dist()
         if dist > 1000 or dist == 8190 : # on continue si la distance est assez grande
             self.robot.set_motor_dps(self.robot.MOTOR_LEFT,150)
             self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,150)
             angle_actuel,y = self.robot.get_motor_position()
 
-        else :
+        else : # obstacle trouve
             """ sinon on n'avance pas, on tourne a 90 degres on avance
                 de 30 ou 40cm, puis on tourne le robot a sa position initiale
                 """
 		strat90 = strategieRot90(self.robot)
-		statDroit = strategieToutDroit70(self.robot)
+		statDroit = strategieToutDroit(self.robot)
 		
-		strat90.update() # tourner a droite
-		stratDroit.update() # avancer 
-		strat90.update()  # tourner a gauche
-		stratDroit.update() # avancer
-		strat90.update() # tourner a gauche 
-		stratDroit.update() # avancer
-		strat90.update() # tourner a droite
+		strat90.update('D') # tourner a droite
+		stratDroit.update(30) # avancer 
+		strat90.update('G')  # tourner a gauche
+		stratDroit.update(30) # avancer
+		strat90.update('G') # tourner a gauche 
+		stratDroit.update(30) # avancer
+		strat90.update('D') # tourner a droite
 		
-            # a continuer
+        # Quand l'obstacle a ete evite on continue d'avancer
+
+        self.robot.set_motor_dps(self.robot.MOTOR_LEFT,150)
+        self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,150)
                 
             
         
