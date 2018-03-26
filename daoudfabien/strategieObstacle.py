@@ -33,8 +33,8 @@ class strategieObstacle:
 		
         # Quand l'obstacle a ete evite on continue d'avancer
 
-        self.robot.set_motor_dps(self.robot.MOTOR_LEFT,150)
-        self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,150)
+        #self.robot.set_motor_dps(self.robot.MOTOR_LEFT,150)
+        #self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,150)
                 
             
         
