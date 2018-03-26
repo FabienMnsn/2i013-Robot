@@ -15,7 +15,7 @@ class strategieRot90:
 
         if direction == 'D' :
             self.robot.set_motor_dps(self.robot.MOTOR_LEFT,200)
-		    self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,-200)
+			self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,-200)
         
         elif direction == 'G' :
             self.robot.set_motor_dps(self.robot.MOTOR_LEFT,-200)
