@@ -20,6 +20,17 @@ class strategieObstacle:
             """ sinon on n'avance pas, on tourne a 90 degres on avance
                 de 30 ou 40cm, puis on tourne le robot a sa position initiale
                 """
+		strat90 = strategieRot90(self.robot)
+		statDroit = strategieToutDroit70(self.robot)
+		
+		strat90.update() # tourner a droite
+		stratDroit.update() # avancer 
+		strat90.update()  # tourner a gauche
+		stratDroit.update() # avancer
+		strat90.update() # tourner a gauche 
+		stratDroit.update() # avancer
+		strat90.update() # tourner a droite
+		
             # a continuer
                 
             
