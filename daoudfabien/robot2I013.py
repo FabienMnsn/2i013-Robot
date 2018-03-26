@@ -160,6 +160,15 @@ class Robot2I013(object):
             2. Lorsque la valeur est en dehors de l'intervalle, le retour est **8190**.
         """
         return self.distanceSensor.read_range_single(False)
+    
+    def moyenne_dist(self):
+	"""
+    retourne la moyenne des distances obtenues par le capteur de distance en mm
+    """
+	somme=0 
+	for i in range (0,5):
+		somme+=self.get_distance()
+	return somme/5
 
     def servo_rotate(self,position):
         """
