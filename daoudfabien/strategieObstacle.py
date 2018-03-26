@@ -11,7 +11,7 @@ class strategieObstacle:
         stop = False
 		
         dist_obst = self.robot.get_distance()
-        if dist > 100 or dist == 8190 : # on continue si la distance est assez grande
+        if dist > 1000 or dist == 8190 : # on continue si la distance est assez grande
             self.robot.set_motor_dps(self.robot.MOTOR_LEFT,150)
             self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,150)
             angle_actuel,y = self.robot.get_motor_position()
