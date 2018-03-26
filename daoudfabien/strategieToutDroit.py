@@ -19,6 +19,6 @@ class strategieToutDroit70:
         #print("diff",(angle_actuel - self.angle_prec)/360.0)
         #print("angles:",self.angle_prec, angle_actuel)
         #print("distance",dist)
-        if dist > distance:
+        if dist > distance*10:
             self.stop = True
             
