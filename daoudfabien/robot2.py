@@ -2,8 +2,9 @@
 
 import random
 import math
-from structures.teteRobot import *
-from structures.capteur import *
+from teteRobot import *
+from capteur import *
+from arene import *
 
 #code
 
@@ -134,7 +135,7 @@ class Robot:
         return self.roue_gauche,self.roue_droite
         
     def get_distance(self):
-        capteur = Capteur(self.arene)
+        capteur = Capteur(self.arene,self)
         dist = capteur.detecter_distance()*10
 
         if dist > 8000 :
@@ -211,11 +212,11 @@ class Robot:
         self.__setDirection(newdir)
 
     def moyenne_dist(self):
-	"""retourne la moyenne des distances obtenues par le capteur de distance en mm"""
-	somme=0 
-	for i in range (0,5):
-		somme+=self.get_distance()
-	return somme/5
+	#retourne la moyenne des distances obtenues par le capteur de distance en mm
+        somme=0 
+        for i in range(0,5):
+            somme+=self.get_distance()
+        return somme/5
     
     def servo_rotate(self, position):
         self.tete.rotation(position)
@@ -279,10 +280,12 @@ def Creation_Robot(arene):
         dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
         newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1]) )
         vitesse = 1
+
+        #arene = Arene(500,500,0,[],[]).generateur_arene()
         
         coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
-
-        return Robot((x, y, z), coords, newdir, (larg, long, haut), vitesse)
+        return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, arene)
+        
 
         
 
