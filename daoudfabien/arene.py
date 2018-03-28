@@ -56,7 +56,7 @@ class Arene :
             self.ajouter_cube(m4)
 
             #generation de cubes aleatoires
-            nb_obstacles = 5
+            nb_obstacles = 2
             i = 0
             long_max = 90
             larg_max = 90

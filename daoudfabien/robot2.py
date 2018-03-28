@@ -94,20 +94,20 @@ class Robot:
         #larg, long, haut = self.dimension
         (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
             
-        vitesse = dps/360 * WHEEL_CIRCUMFERENCE
+        vitesse = dps/360 * self.WHEEL_CIRCUMFERENCE
         
         v0 = ((self.direction[0]*vitesse)/10)/2
         v1 = ((self.direction[1]*vitesse)/10)/2
 
         if port == 1:
-            self.dps_roue_gauche += dps
+            self.dps_roue_gauche = dps
             self.roue_gauche += dps
         elif port == 2:
-            self.dps_roue_droite = position
+            self.dps_roue_droite = dps
             self.roue_droite += dps
         elif port == 3:
-            self.dps_roue_gauche = position
-            self.dps_roue_droite = position
+            self.dps_roue_gauche = dps
+            self.dps_roue_droite = dps
             self.roue_gauche += dps
             self.roue_droite += dps
         else:
@@ -265,11 +265,11 @@ class Robot:
         f.write('Robot;' + str(self.position) + ';' +  str(self.direction) + ';' + str(self.dimension) + ';' + str(self.vitesse) + ';\n')
 
 
-def Creation_Robot(arene):
+def Creation_Robot():
         """creation d'un Robot avec une position aleatoire"""
 
-        x = random.randint(50, int(arene.lx/3))
-        y = random.randint(50, int(arene.ly/3))
+        x = 60
+        y = 60
         z = 1   #un robot est posé sur le sol
 
         larg = 30
@@ -282,9 +282,10 @@ def Creation_Robot(arene):
         vitesse = 1
 
         #arene = Arene(500,500,0,[],[]).generateur_arene()
+        a=Creation_Arene()
         
         coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
-        return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, arene)
+        return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, a)
         
 
         

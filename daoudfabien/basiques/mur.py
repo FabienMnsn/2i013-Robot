@@ -18,7 +18,7 @@ class Mur(Cube):
         """
         print("Mur(x=%.2f,y=%.2f,z=%.2f, larg=%.2f,long=%.2f,haut=%.2f)"%(self.x, self.y, self.z, self.larg, self.long, self.haut))
 			
-def Creation_Mur(arene):
+def Creation_Mur():
     """Création d'un mur avec une hauteur et une epaisseur fixé par les limites de l'Arene"""
 
     x = random.randint(0, arene.lx)
@@ -34,15 +34,15 @@ def Creation_Mur(arene):
 
 
 #creation d'u constructeur temporaire pour l'affichage tkinter
-def Creation_Mur_xy(x, y, arene):
+def Creation_Mur_xy(x, y):
     """Création d'un mur avec une hauteur et une epaisseur fixé par les limites de l'Arene"""
 
     x = x
     y = y
     z = 1  # un mur est posé au sol
 
-    larg = random.randint(50, arene.lx)
-    long = 20
+    larg = 60
+    long = 35
     haut = 499  # un mur monte jusqu'au plafond
 
     return Mur(x, y, z, larg, long, haut)

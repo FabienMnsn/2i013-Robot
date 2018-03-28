@@ -16,48 +16,50 @@ import time
 
 # _________________________CREATION DU ARENE DE BASE ~> PAS TRES PROPRE__________________________
 
-a1 = Creation_Arene()
-robot=Creation_Robot(a1)
-strat = Strategy()
-test = TestStrategy(strat)
-a1.liste_strat=strat.dessine_carre(100)
+#a1 = Creation_Arene()
+
+robot=Creation_Robot()
+
+#strat = Strategy()
+#test = TestStrategy(strat)
+#a1.liste_strat=strat.dessine_carre(100)
 
 # ___________________________________GENERATEUR DE MUR___________________________________
 
 
 
 def gen_aleatoire():
-    a1.generateur_arene()
-    rafraichir(a1,robot)
+    robot.arene.generateur_arene()
+    rafraichir(robot)
 
 # ___________________________________GESTION DES CLICS (G & D)___________________________________
 
 # fonction detection du clic gauche (ajout d'un obstacle de type cube)
 def clicgauche(event):
-    if a1.possede_sol():
+    if robot.arene.possede_sol():
         X = event.x
         Y = event.y
-        c1 = Creation_Cube_xy(X, Y, a1)
-        if a1.ajouter_cube(c1):
-            dessiner_cube(c1, a1)
+        m1 = Creation_Mur_xy(X, Y)
+        if robot.arene.ajouter_cube(m1):
+            dessiner_mur(m1)
         else:
             canvas_console.delete(ALL)
-            canvas_console.create_text(250, 15, text="Error : object 'Cube' outside arena ", fill="black", width=500,justify='center')
-            print("Error : object 'Cube' outside arena ")
+            canvas_console.create_text(250, 15, text="Error : object 'Mur' outside arena ", fill="black", width=500,justify='center')
+            print("Error : object 'Mur' outside arena ")
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250, 15, text="Ajoutez un sol avant de poser des blocs !", fill="black", width=500,justify='center')
         print("Ajoutez un sol avant de poser des blocs !")
 
-
+"""
 # fonction detection du clic droit (ajout d'un mur)
 def clicdroit(event):
-    if a1.possede_sol():
+    if robot.arene.possede_sol():
         X = event.x
         Y = event.y
-        m1 = Creation_Mur_xy(X, Y, a1)
-        if a1.ajouter_cube(m1):
-            dessiner_mur(m1, a1)
+        m1 = Creation_Mur_xy(X, Y, robot.arene)
+        if robot.arene.ajouter_cube(m1):
+            dessiner_mur(m1)
         else:
             canvas_console.delete(ALL)
             canvas_console.create_text(250, 15, text="Error : object 'Mur' outside arena ", fill="black", width=500, justify='center')
@@ -66,34 +68,35 @@ def clicdroit(event):
         canvas_console.delete(ALL)
         canvas_console.create_text(250, 15, text="Ajoutez un sol avant de poser des blocs !", fill="black", width=500,justify='center')
         print("Ajoutez un sol avant de poser des blocs !")
-
+"""
 
 # ___________________________________AJOUT D'UN SOL VIA LE BOUTON___________________________________
 
 def ajout_sol():
     global s1
-    if not a1.possede_sol():
-        s1 = Creation_Sol(a1)
-        if a1.ajouter_cube(s1):
+    if not robot.arene.possede_sol():
+        s1 = Creation_Sol(robot.arene)
+        if robot.arene.ajouter_cube(s1):
             dessiner_sol(s1)
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250,15, text="Il y a déjà un sol !", fill="black", width=500, justify='center')
         print("Il y a déjà un sol !")
+    rafraichir(robot)
 
 
 #___________________________________AJOUT D'UN ROBOT VIA LE BOUTON___________________________________
-
+"""
 def ajout_robot():
 
-    if a1.possede_sol():
-        robot=Creation_Robot(a1)
+    if robot.arene.possede_sol():
+        rob=Creation_Robot(robot.arene)
         dessiner_robot(robot)
 
     else:
         canvas_console.delete(ALL)
         canvas_console.create_text(250, 15, text="Il y a déjà un robot OU pas de sol !", fill="black", width=500, justify='center')
-
+"""
 
 
 
@@ -118,9 +121,9 @@ frame2 = LabelFrame(fenetre, text="Informations", borderwidth=2, relief=GROOVE)
 frame2.pack(side=TOP, padx=5, pady=5)
 
 # creation d'un canvas principal (toile ou tableau) dans la fenetre
-canvas1 = Canvas(frame1, width=a1.lx, height=a1.ly)
+canvas1 = Canvas(frame1, width=robot.arene.lx, height=robot.arene.ly)
 canvas1.bind('<Button-1>', clicgauche)
-canvas1.bind('<Button-3>', clicdroit)
+#canvas1.bind('<Button-3>', clicdroit)
 canvas1.pack()
 
 #creation canvas secondaire pour affichage messages erreur
@@ -129,7 +132,7 @@ canvas_console.pack()
 
 
 #_________________________________TOUCHES CLAVIER_________________________________
-
+"""
 def strateg():
     #a1.liste_robot[0].setVitesse(2)
     res = test.Test2(a1,a1.liste_strat)
@@ -139,10 +142,10 @@ def strateg():
         rafraichir(a1)
         fenetre.after(20,strateg)
 
-"""def strateg_avance():
+def strateg_avance():
     test.Test_avance_objectif(a1,a1.liste_strat)
     rafraichir(a1)
-    fenetre.after(20,strateg_avance)"""
+    fenetre.after(20,strateg_avance)
 
 
 def reset_strategie():
@@ -151,7 +154,7 @@ def reset_strategie():
 
 
 def clavier(event):
-    """fonction d'interaction clavier"""
+    #fonction d'interaction clavier
     robot = Creation_Robot(a1)
     long, larg, haut = robot.dimension
     #capteur = Capteur(a1)
@@ -160,17 +163,16 @@ def clavier(event):
     distance_arret_urgence = 6
     
 
-       
-
 canvas1.bind_all('<Key>', clavier)
-
+"""
 
 # ___________________________________NETTOYAGE DU CANEVAS___________________________________
 
 def effacer():
     """efface tout le canvas"""
-    while len(a1.liste_robot) > 0:
-        a1.liste_robot.pop(-1)
+    while len(robot.arene.liste_cube) > 0:
+        robot.arene.liste_cube.pop(-1)
+    canvas1.delete(ALL)
 
 
 # ___________________________________LES BOUTONS___________________________________
@@ -185,46 +187,44 @@ bouton2 = Button(fenetre, text="Effacer tout", command=effacer).pack(side=LEFT)
 bouton3 = Button(fenetre, text="Nouveau Sol", command=ajout_sol).pack(side=LEFT)
 
 # creation d'un bouton qui affiche l'état de l'arene
-bouton4 = Button(fenetre, text="Etat Arene", command=a1.afficher).pack(side=LEFT)
+bouton4 = Button(fenetre, text="Etat Arene", command=robot.arene.afficher).pack(side=LEFT)
 
 # creation bouton qui genere des murs tout autour de l'arene ainsi que des obstacles
 bouton5 = Button(fenetre, text="Generation Salle(WIP)", command=gen_aleatoire).pack(side=LEFT)
-
+"""
 #creation d'un bouton qui ajoute un robot à l'arene
 bouton6 = Button(fenetre, text= "Ajout Robot", command=ajout_robot).pack(side=LEFT)
-
+"""
 
 
 # ___________________________________FONCTIONS DRAW___________________________________
 
-def rafraichir(arene,robot):
-
+def rafraichir(robot):
     canvas1.delete(ALL) 
     i = 0
-    for c in arene.liste_cube:
+    for c in robot.arene.liste_cube:
         if isinstance(c, Sol):
             dessiner_sol(c)
         if isinstance(c, Mur):
-            dessiner_mur(c,arene)
+            dessiner_mur(c)
         elif isinstance(c, Cube):
-            dessiner_cube(c,arene)
+            dessiner_cube(c)
             
     #if(len(arene.liste_robot) == 1):
         #print(arene.liste_robot[0].tete.orientation)
     dessiner_robot(robot)
         #print("R.rafrai.",arene.liste_robot[0].position)
     
-def dessiner_cube(cube, arene):
-    if isinstance(cube, Cube) and cube.x + cube.larg < arene.lx and cube.y + cube.long < arene.ly:
-        canvas1.create_rectangle(cube.x, cube.y, cube.x + cube.larg, cube.y + cube.long, fill="darkgrey")
-        canvas1.create_text(cube.x + cube.larg / 2, cube.y + cube.long / 2, text="Cube", fill="darkgrey",
-                            activefill="black")
+def dessiner_cube(cube):
+    #if isinstance(cube, Cube) and cube.x + cube.larg < arene.lx and cube.y + cube.long < arene.ly:
+    canvas1.create_rectangle(cube.x, cube.y, cube.x + cube.larg, cube.y + cube.long, fill="darkgrey")
+    canvas1.create_text(cube.x + cube.larg / 2, cube.y + cube.long / 2, text="Cube", fill="darkgrey",activefill="black")
 
 
-def dessiner_mur(mur, arene):
-    if isinstance(mur, Mur) and mur.x + mur.larg < arene.lx and mur.y + mur.long < arene.ly:
-        canvas1.create_rectangle(mur.x, mur.y, mur.x + mur.larg, mur.y + mur.long, fill="yellow")
-        canvas1.create_text(mur.x + mur.larg / 2, mur.y + mur.long / 2, text="Mur", fill="yellow", activefill="Black")
+def dessiner_mur(mur):
+    #if isinstance(mur, Mur) and mur.x + mur.larg < arene.lx and mur.y + mur.long < arene.ly:
+    canvas1.create_rectangle(mur.x, mur.y, mur.x + mur.larg, mur.y + mur.long, fill="yellow")
+    canvas1.create_text(mur.x + mur.larg / 2, mur.y + mur.long / 2, text="Mur", fill="yellow", activefill="Black")
 
 
 def dessiner_sol(s1):
@@ -262,6 +262,8 @@ def affichage_distance_canvas(distance, limite):
  
 
 # ___________________________________MAINLOOP___________________________________
+
+dessiner_robot(robot)
 
 fenetre.mainloop()
 
