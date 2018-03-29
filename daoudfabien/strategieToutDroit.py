@@ -1,6 +1,10 @@
 from robot2I013 import *
 import math
 
+
+
+
+
 class strategieToutDroit70:
     def __init__(self,robot):
         self.robot = robot

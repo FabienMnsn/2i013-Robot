@@ -1,6 +1,6 @@
 #import
-from tkinter import *
-from new_inter import *
+#from tkinter import *
+#from new_inter import *
 
 #code
 class Simulation:
@@ -13,7 +13,7 @@ class Simulation:
         while self.strategie.stop==False:
             self.strategie.update()
             #test = self.strategie.robot
-            print(self.strategie.robot.safficher())
+            #print(self.strategie.robot.safficher())
             #interface.rafraichir(test)
             cpt+=1
             
