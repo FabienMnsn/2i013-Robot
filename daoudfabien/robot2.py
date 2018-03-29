@@ -23,7 +23,8 @@ class Robot:
     WHEEL_DIAMETER           = 66.5 #  diametre de la roue (mm)
     WHEEL_BASE_CIRCUMFERENCE = WHEEL_BASE_WIDTH * math.pi # perimetre du cercle de rotation (mm)
     WHEEL_CIRCUMFERENCE      = WHEEL_DIAMETER   * math.pi # perimetre de la roue (mm)
-
+    MOTOR_LEFT               = 1
+    MOTOR_RIGHT              = 2
     
     def __init__(self, position, coords, direction, dimension, vitesse, arene):
         self.position = position
@@ -40,27 +41,6 @@ class Robot:
         self.max = -1
 
 
-    def rotation_detection(self,arene):
-        """test si il y'a un mur devant le robot à l'aide d'une rotation"""
-        tmp = self.tete.orientation
-        new = (25,0)
-        robot_test = self
-        robot_test.tete.setOrientation(new)
-        i = 0
-        capteur = Capteur(arene)
-        distance_urgence = 6
-        
-        while i < 100:
-            distance_obstacle = capteur.detecter_distance2(robot_test)
-            ## deplacement que si la distance_obstacle est respectée
-            if distance_obstacle > distance_urgence or distance_obstacle == -1:
-                robot_test.tete.rotation(1)
-                i = i +1
-            else :
-                self.tete.setOrientation(tmp)
-                return True
-        self.tete.setOrientation(tmp)
-        return False
 
     def set_motor_limits(self,port,dps):
         self.max = dps
@@ -95,9 +75,15 @@ class Robot:
         (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
             
         vitesse = dps/360 * self.WHEEL_CIRCUMFERENCE
+        print("vitesse", vitesse)
+
+        norm_dir_tmp = math.sqrt(math.pow(xdir, 2) + math.pow(ydir, 2))
+        print("norm_dir:", norm_dir_tmp)
+        dir_tmp = (xdir / norm_dir_tmp, ydir / norm_dir_tmp)
+        print("dir_tmp", dir_tmp)
         
-        v0 = ((self.direction[0]*vitesse)/10)/2
-        v1 = ((self.direction[1]*vitesse)/10)/2
+        v0 = (dir_tmp[0]*vitesse)
+        v1 = (dir_tmp[1]*vitesse)
 
         if port == 1:
             self.dps_roue_gauche = dps

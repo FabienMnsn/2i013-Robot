@@ -1,4 +1,3 @@
-from robot2 import *
 from Strategy import *
 from capteur import *
 from arene import *

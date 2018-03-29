@@ -162,13 +162,11 @@ class Robot2I013(object):
         return self.distanceSensor.read_range_single(False)
     
     def moyenne_dist(self):
-	"""
-    retourne la moyenne des distances obtenues par le capteur de distance en mm
-    """
-	somme=0 
-	for i in range (0,5):
-		somme+=self.get_distance()
-	return somme/5
+        #retourne la moyenne des distances obtenues par le capteur de distance en mm#
+        somme=0 
+        for i in range (0,5):
+            somme+=self.get_distance()
+        return somme/5
 
     def servo_rotate(self,position):
         """

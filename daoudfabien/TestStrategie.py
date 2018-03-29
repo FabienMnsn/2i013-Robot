@@ -1,18 +1,24 @@
 #imports
 
-from robot2I013 import *
+#from robot2I013 import *
 from simulation import *
 from strategieToutDroit70 import *
-from strategieCarre import *
+#from strategieCarre import *
+from robot2 import *
 
 #script de test de la simulation
 
 #creation d un robot
-robot1 = Robot2I013()
+
+#robot1 = Robot2I013()
+robot1 = Creation_Robot()
+
 #creation d une strategie tout droit
 stratDroit = strategieToutDroit70(robot1)
 #creation d une simulation tout droit
 simu1 = Simulation(stratDroit)
+
+
 
 """
 #creation d une strategie carre
