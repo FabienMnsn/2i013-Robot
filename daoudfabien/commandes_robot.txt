@@ -1,0 +1,5 @@
+sudo op/2I013/wlan-connect 2I013robot-X pswd
+
+pswd = 2I013robot
+
+ssh pi@ 10.0.X.1 pwd robots1234
