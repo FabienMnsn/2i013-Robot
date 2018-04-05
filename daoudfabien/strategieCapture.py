@@ -1,9 +1,14 @@
 from robot2I013 import *
+from time import strftime
+from datetime import datetime
 
 #code
 robot = Robot2I013()
 img = robot.get_image()
-img.save("Image.jpg")
+
+date = str(datetime.now())
+
+img.save(date+".jpg")
 
 """
 class strategieCamera:
