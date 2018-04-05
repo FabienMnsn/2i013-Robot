@@ -1,0 +1,5 @@
+connexion au wifi:
+-> clé wifi 
+commandes (sudo/mdp)
+-> transfert fichiers sur dossiers robot
+-> utilisation des commandes
