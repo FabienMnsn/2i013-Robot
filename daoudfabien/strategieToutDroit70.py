@@ -13,7 +13,7 @@ class strategieToutDroit70:
         #print("angle prec",self.angle_prec)
 
     def update(self):
-        stop=False
+        #self.stop=False
         
         self.robot.set_motor_dps(self.robot.MOTOR_RIGHT, 600)
         self.robot.set_motor_dps(self.robot.MOTOR_LEFT, 600)
