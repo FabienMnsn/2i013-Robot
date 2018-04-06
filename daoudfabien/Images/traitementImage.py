@@ -1,20 +1,48 @@
+#imports
+
 from PIL import Image
+import time
+import operator
 
+#code
 
-# ouverture du fichier image
-
-
-img = Image.open("image5.jpg")
-MARGE = 5
+img = Image.open("ImageCopie.jpg")
+MARGE = 40 
+TAUX = 20 #en pourcent
+TAUX_CONVERTED = TAUX*255/100 #conversion pourcent en valeur pixel
+print(TAUX_CONVERTED)
 # affichage des caractéristiques de l'image
 
-print(img.format,img.size, img.mode)
-cpt_r = 0
-cpt_g = 0
-
+#print(img.format,img.size, img.mode)
+cptR = 0
+cptG = 0
+cptB = 0
+l = []
 for x in range(img.size[0]):
     for y in range(img.size[1]):
         r,g,b = img.getpixel((x,y))
+        liste_couleur = [("r",r),("g",g),("b",b)]
+        #print("list:",liste_couleur)
+        liste_couleur.sort(key=operator.itemgetter(1), reverse=True)#tri de la liste
+        #print("trié:",liste_couleur)
+        #time.sleep(2)
+        #print()
+        #if(liste_couleur[0][1] > liste_couleur[1][1] + MARGE_CONVERTED):
+        if(liste_couleur[0][0] == "r" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED):
+            #print("dominante rouge")
+            img.putpixel((x,y),(255,0,0))
+            cptR += 1
+        elif(liste_couleur[0][0] == "g" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED / 5):
+            #print("dominante vert")
+            img.putpixel((x,y),(0,255,0))
+            cptG += 1
+        elif(liste_couleur[0][0] == "b" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED):
+            #print("dominante bleu")
+            img.putpixel((x,y),(0,0,255))
+            cptB += 1
+            
+print(cptR, cptG, cptB)
+"""                
         maximum = max(r, g, b)
         if(maximum == r and maximum > 180):
             img.putpixel((x,y),(255,0,0))
@@ -22,7 +50,7 @@ for x in range(img.size[0]):
             img.putpixel((x,y),(0,255,0))
         elif(maximum == b and maximum > 128):
             img.putpixel((x,y),(0,0,255))
-            
+           
 # affichage de l'image
 
 #img.show()
@@ -47,7 +75,7 @@ for x in range(img.size[0]-MARGE):
 
         
 # fermeture du fichier image
-
+"""
 img.show()
 img.close()
 
