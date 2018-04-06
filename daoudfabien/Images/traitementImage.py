@@ -5,6 +5,12 @@ import time
 import operator
 
 #code
+#resultats des test (jugement a l oeil nu)
+"""
+test 4 couleurs minimum~> (7/11 images detectees)
+test 3 couleusr minimum ~>(11/11 images detectees)
+test detection des 4 zones de couleur entiere ou presque ~> (6/11 detectees)
+"""
 fic0 = "ImageCopie.jpg"
 #liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
 liste_fic = [
@@ -26,7 +32,7 @@ for i in range(0,len(liste_fic)):
     TAUX = 25 #en pourcent
     TAUX_CONVERTED = TAUX*255/100 #conversion pourcent en valeur pixel
     print(TAUX_CONVERTED)
-    # affichage des caractéristiques de l'image
+    # affichage des caracteristiques de l image
 
     #print(img.format,img.size, img.mode)
     cptR = 0
