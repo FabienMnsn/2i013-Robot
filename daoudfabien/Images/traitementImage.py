@@ -100,4 +100,5 @@ for i in range(0,len(liste_fic)):
     img.close()
     """
 
+	#lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
 
