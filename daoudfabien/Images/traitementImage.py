@@ -8,7 +8,7 @@ import operator
 
 img = Image.open("ImageCopie.jpg")
 MARGE = 40 
-TAUX = 20 #en pourcent
+TAUX = 25 #en pourcent
 TAUX_CONVERTED = TAUX*255/100 #conversion pourcent en valeur pixel
 print(TAUX_CONVERTED)
 # affichage des caractéristiques de l'image
@@ -17,6 +17,7 @@ print(TAUX_CONVERTED)
 cptR = 0
 cptG = 0
 cptB = 0
+cptY = 0
 l = []
 for x in range(img.size[0]):
     for y in range(img.size[1]):
@@ -32,7 +33,7 @@ for x in range(img.size[0]):
             #print("dominante rouge")
             img.putpixel((x,y),(255,0,0))
             cptR += 1
-        elif(liste_couleur[0][0] == "g" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED / 5):
+        elif(liste_couleur[0][0] == "g" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED / 7):
             #print("dominante vert")
             img.putpixel((x,y),(0,255,0))
             cptG += 1
@@ -40,21 +41,17 @@ for x in range(img.size[0]):
             #print("dominante bleu")
             img.putpixel((x,y),(0,0,255))
             cptB += 1
+        elif(liste_couleur[0][1] > 210 and
+             (liste_couleur[0][0] == "r" or
+             liste_couleur[0][0] == "g") and
+             liste_couleur[0][1] - liste_couleur[1][1] < TAUX_CONVERTED and
+             liste_couleur[1][1] > liste_couleur[2][1] + TAUX_CONVERTED):
+            img.putpixel((x,y),(255,255,0))
+            cptY += 1
             
-print(cptR, cptG, cptB)
-"""                
-        maximum = max(r, g, b)
-        if(maximum == r and maximum > 180):
-            img.putpixel((x,y),(255,0,0))
-        elif(maximum == g and maximum > 128):
-            img.putpixel((x,y),(0,255,0))
-        elif(maximum == b and maximum > 128):
-            img.putpixel((x,y),(0,0,255))
-           
-# affichage de l'image
+print("rouge:",cptR,"vert:",cptG,"bleu:",cptB,"jaune:",cptY)
 
-#img.show()
-
+"""
 # pixel de test (Vert) haut droit -> x+20, y
 # pixel de test (Rouge) bas gauche -> x, y+20
 # piexel de test (Bleu) bas droit -> x+20, y+20
