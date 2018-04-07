@@ -3,7 +3,7 @@
 from PIL import Image
 import time
 import operator
-
+import random
 #code
 #resultats des test (jugement a l oeil nu)
 """
@@ -14,22 +14,23 @@ test detection des 4 zones de couleur entiere ou presque ~> (6/11 detectees)
 fic0 = "ImageCopie.jpg"
 #liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
 liste_fic = [
-    "2018-03-06 02_51_06.486124",
-    "2018-03-06 02_51_13.082451",
-    "2018-03-06 02_51_18.273973",
-    "2018-03-06 02_51_23.256724",
-    "2018-03-06 02_51_28.118059",
-    "2018-03-06 02_51_43.625168",
-    "2018-03-06 02_51_48.413961",
-    "2018-03-06 02_51_54.161908",
-    "2018-03-06 02_52_18.483662",
-    "Image",
-    "ImageCopie"]
+	"2018-03-06 02_51_06.486124",
+	"2018-03-06 02_51_13.082451",
+	"2018-03-06 02_51_18.273973",
+	"2018-03-06 02_51_23.256724",
+	"2018-03-06 02_51_28.118059",
+	"2018-03-06 02_51_43.625168",
+	"2018-03-06 02_51_48.413961",
+	"2018-03-06 02_51_54.161908",
+	"2018-03-06 02_52_18.483662",
+	"Image",
+	"ImageCopie"]
+	
 for i in range(0,len(liste_fic)):
     img = Image.open(liste_fic[i]+".jpg")
 
-    COEF_FENETRE_RECHERCHE = 40 
-    TAUX = 25 #en pourcent
+    COEF_FENETRE_RECHERCHE = 80 
+    TAUX = 20 #en pourcent
     TAUX_CONVERTED = TAUX*255/100 #conversion pourcent en valeur pixel
     print(TAUX_CONVERTED)
     # affichage des caracteristiques de l image
@@ -64,7 +65,7 @@ for i in range(0,len(liste_fic)):
                 cptB += 1
             elif(liste_couleur[0][1] > 210 and
                  (liste_couleur[0][0] == "r" or
-                 liste_couleur[0][0] == "g") and
+                  liste_couleur[0][0] == "g")and
                  liste_couleur[0][1] - liste_couleur[1][1] < TAUX_CONVERTED and
                  liste_couleur[1][1] > liste_couleur[2][1] + TAUX_CONVERTED):
                 img.putpixel((x,y),(255,255,0))
@@ -72,7 +73,7 @@ for i in range(0,len(liste_fic)):
                 
     #affichage nb pxl R, V, B, J            
     print("rouge:",cptR,"vert:",cptG,"bleu:",cptB,"jaune:",cptY)
-    img.show()
+    
     #mise en commentaire temporaire...
     """
     # pixel de test (Vert) haut droit -> x+20, y
@@ -91,14 +92,37 @@ for i in range(0,len(liste_fic)):
             test3 = ( r_bd,g_bd,b_bd ) == (0,0,255) # test pixel bleu
 
             if test1 and test2 and test3 :
-                print("Balise trouvee : ",( (x+COEF_FENETRE_RECHERCHE)/2, (y+COEF_FENETRE_RECHERCHE)/2 ) )
+                #print("Balise trouvee : ",( (x+COEF_FENETRE_RECHERCHE)/2, (y+COEF_FENETRE_RECHERCHE)/2 ) )
+                img.putpixel((x,y), (0,0,0))"""
 
-            
-    # fermeture du fichier image
+    #DETECTION DE LA BALISE QUI MARCHE :)
+    #le carre d'observation est une subdivision entiere de l'image ~> 1/10
+    TAILLE_X = img.size[0]//10
+    TAILLE_Y = img.size[1]//10
+    for x in range(0, img.size[0]-TAILLE_X):
+        for y in range(0, img.size[1]-TAILLE_Y):
+
+            r_hg,g_hg,b_hg = img.getpixel( (x+10, y+10) )
+            r_hd,g_hd,b_hd = img.getpixel( (x+TAILLE_X-10, y+10 ) )
+            r_bd,g_bd,b_bd = img.getpixel( (x+TAILLE_X-10, y+TAILLE_Y-10) )
+            r_bg,g_bg,b_bg = img.getpixel( (x+10, y+TAILLE_Y-10) )
+
+            test1 = ( r_hg,g_hg,b_hg ) == (255,255,0) #test pixel jaune
+            test2 = ( r_hd,g_hd,b_hd ) == (0,255,0) # test pixel vert
+            test3 = ( r_bd,g_bd,b_bd ) == (0,0,255) # test pixel bleu
+            test4 = ( r_bg,g_bg,b_bg ) == (255,0,0) # test pixel rouge
+
+            if(test1 and test2 and test3 and test4):
+                for j in range(x, x+TAILLE_X):
+                    for k in range(y, y+TAILLE_Y):
+                        #print("peinture!")
+                        img.putpixel((j,k),(0,0,0))
+                print("Balise trouvee :",x-TAILLE_X, y-TAILLE_Y)
     
+    # fermeture du fichier image
     img.show()
     img.close()
-    """
+	
 
-	#lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
+#lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
 
