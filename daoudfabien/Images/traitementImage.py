@@ -102,10 +102,10 @@ for i in range(0,len(liste_fic)):
     for x in range(0, img.size[0]-TAILLE_X):
         for y in range(0, img.size[1]-TAILLE_Y):
 
-            r_hg,g_hg,b_hg = img.getpixel( (x+10, y+10) )
-            r_hd,g_hd,b_hd = img.getpixel( (x+TAILLE_X-10, y+10 ) )
-            r_bd,g_bd,b_bd = img.getpixel( (x+TAILLE_X-10, y+TAILLE_Y-10) )
-            r_bg,g_bg,b_bg = img.getpixel( (x+10, y+TAILLE_Y-10) )
+            r_hg,g_hg,b_hg = img.getpixel( (x+5, y+5) )
+            r_hd,g_hd,b_hd = img.getpixel( (x+TAILLE_X-5, y+5 ) )
+            r_bd,g_bd,b_bd = img.getpixel( (x+TAILLE_X-5, y+TAILLE_Y-5) )
+            r_bg,g_bg,b_bg = img.getpixel( (x+5, y+TAILLE_Y-5) )
 
             test1 = ( r_hg,g_hg,b_hg ) == (255,255,0) #test pixel jaune
             test2 = ( r_hd,g_hd,b_hd ) == (0,255,0) # test pixel vert
