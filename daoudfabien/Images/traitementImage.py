@@ -6,36 +6,37 @@ import operator
 import random
 #code
 #resultats des test (jugement a l oeil nu)
+
+
+def detection_carre(img,x,y,couleur,zone):
+    for i in range(x,x+zone):
+        for j in range(y,y+zone):
+            if (img.getpixel((i,j)) == couleur):
+                
+                #print("pixel trouve",couleur)
+                return True
+    return False
+
 """
 test 4 couleurs minimum~> (7/11 images detectees)
 test 3 couleusr minimum ~>(11/11 images detectees)
 test detection des 4 zones de couleur entiere ou presque ~> (6/11 detectees)
 """
 fic0 = "ImageCopie.jpg"
-#liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
-liste_fic = [
-	"2018-03-06 02_51_06.486124",
-	"2018-03-06 02_51_13.082451",
-	"2018-03-06 02_51_18.273973",
-	"2018-03-06 02_51_23.256724",
-	"2018-03-06 02_51_28.118059",
-	"2018-03-06 02_51_43.625168",
-	"2018-03-06 02_51_48.413961",
-	"2018-03-06 02_51_54.161908",
-	"2018-03-06 02_52_18.483662",
-	"Image",
-	"ImageCopie"]
-	
-for i in range(0,len(liste_fic)):
-    img = Image.open(liste_fic[i]+".jpg")
+
+
+def traitement_image(image):
+    """traite une image et cherche une balise
+    return True si une balise a ete trouvee, False sinon"""
+    #for i in range(0,len(liste_fic)):
+    #img = Image.open(liste_fic[i]+".jpg")
+
+    img = Image.open(image+".jpg")
 
     COEF_FENETRE_RECHERCHE = 80 
     TAUX = 20 #en pourcent
     TAUX_CONVERTED = TAUX*255/100 #conversion pourcent en valeur pixel
-    print(TAUX_CONVERTED)
-    # affichage des caracteristiques de l image
 
-    #print(img.format,img.size, img.mode)
     cptR = 0
     cptG = 0
     cptB = 0
@@ -72,57 +73,46 @@ for i in range(0,len(liste_fic)):
                 cptY += 1
                 
     #affichage nb pxl R, V, B, J            
-    print("rouge:",cptR,"vert:",cptG,"bleu:",cptB,"jaune:",cptY)
+    #print("rouge:",cptR,"vert:",cptG,"bleu:",cptB,"jaune:",cptY)
     
     #mise en commentaire temporaire...
-    """
-    # pixel de test (Vert) haut droit -> x+20, y
-    # pixel de test (Rouge) bas gauche -> x, y+20
-    # piexel de test (Bleu) bas droit -> x+20, y+20
 
-    for x in range(img.size[0]-COEF_FENETRE_RECHERCHE):
-        for y in range(img.size[1]-COEF_FENETRE_RECHERCHE):
-            
-            r_hd,g_hd,b_hd = img.getpixel( (x+COEF_FENETRE_RECHERCHE, y ) )
-            r_bd,g_bd,b_bd = img.getpixel( (x+COEF_FENETRE_RECHERCHE, y+COEF_FENETRE_RECHERCHE) )
-            r_bg,g_bg,b_bg = img.getpixel( (x, y+COEF_FENETRE_RECHERCHE) )
-            
-            test1 = ( r_bg,g_bg,b_bg ) == (255,0,0) # test pixel rouge
-            test2 = ( r_hd,g_hd,b_hd ) == (0,255,0) # test pixel vert
-            test3 = ( r_bd,g_bd,b_bd ) == (0,0,255) # test pixel bleu
-
-            if test1 and test2 and test3 :
-                #print("Balise trouvee : ",( (x+COEF_FENETRE_RECHERCHE)/2, (y+COEF_FENETRE_RECHERCHE)/2 ) )
-                img.putpixel((x,y), (0,0,0))"""
 
     #DETECTION DE LA BALISE QUI MARCHE :)
     #le carre d'observation est une subdivision entiere de l'image ~> 1/10
-    TAILLE_X = img.size[0]//10
-    TAILLE_Y = img.size[1]//10
-    for x in range(0, img.size[0]-TAILLE_X):
-        for y in range(0, img.size[1]-TAILLE_Y):
 
-            r_hg,g_hg,b_hg = img.getpixel( (x+5, y+5) )
-            r_hd,g_hd,b_hd = img.getpixel( (x+TAILLE_X-5, y+5 ) )
-            r_bd,g_bd,b_bd = img.getpixel( (x+TAILLE_X-5, y+TAILLE_Y-5) )
-            r_bg,g_bg,b_bg = img.getpixel( (x+5, y+TAILLE_Y-5) )
+    TAILLE = 40
+    #TAILLE_Y = img.size[1]//10
+    ZONE_DETEC = 5
+    for x in range(0, img.size[0]-TAILLE):
+        for y in range(0, img.size[1]-TAILLE):
+            if detection_carre(img,x,y,(255,255,0),ZONE_DETEC) :
+                if detection_carre(img,x+TAILLE-ZONE_DETEC,y,(0,255,0),ZONE_DETEC) :
+                    if detection_carre(img,x+TAILLE-ZONE_DETEC,y+TAILLE-ZONE_DETEC,(0,0,255),ZONE_DETEC) :
+                        if detection_carre(img,x,y+TAILLE-ZONE_DETEC,(255,0,0),ZONE_DETEC) :
+                            img.putpixel( (x+TAILLE-3,y+TAILLE-3),(255,0,255))
+                            img.show()
+                            img.close()
+                            return (x+TAILLE-3,y+TAILLE-3)
+                            
 
-            test1 = ( r_hg,g_hg,b_hg ) == (255,255,0) #test pixel jaune
-            test2 = ( r_hd,g_hd,b_hd ) == (0,255,0) # test pixel vert
-            test3 = ( r_bd,g_bd,b_bd ) == (0,0,255) # test pixel bleu
-            test4 = ( r_bg,g_bg,b_bg ) == (255,0,0) # test pixel rouge
 
-            if(test1 and test2 and test3 and test4):
-                for j in range(x, x+TAILLE_X):
-                    for k in range(y, y+TAILLE_Y):
-                        #print("peinture!")
-                        img.putpixel((j,k),(0,0,0))
-                print("Balise trouvee :",x-TAILLE_X, y-TAILLE_Y)
-    
-    # fermeture du fichier image
-    img.show()
-    img.close()
+#liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
+liste_fic = [
+	"2018-03-06 02_51_06.486124",
+	"2018-03-06 02_51_13.082451",
+	"2018-03-06 02_51_18.273973",
+	"2018-03-06 02_51_23.256724",
+	"2018-03-06 02_51_28.118059",
+	"2018-03-06 02_51_43.625168",
+	"2018-03-06 02_51_48.413961",
+	"2018-03-06 02_51_54.161908",
+	"2018-03-06 02_52_18.483662",
+	"Image",
+	"ImageCopie"]
 	
-
+for picture in liste_fic:
+    t = traitement_image(picture)
+    print(t)
 #lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
 
