@@ -1,68 +1,27 @@
-#imports
-from structures.arene import *
-from structures.robot import *
-from basiques.cube import *
-from basiques.mur import *
-from basiques.sol import *
-from save.saveJson import *
+from robots.robot import Robot as rien
+from robots.rconverter import RConverter as Robot
+from composants.cube import *
+from composants.mur import *
+from composants.sol import *
+from composants.arene import *
 
-#main de test
+#from strategie.strat70 import Strat70 as Strat
+#from strategie.stratCarre70 import StratCarre70 as Strat
+#from strategie.stratRotD90 import StratRotD90 as Strat
+LXA,LYA,LZA=10000,10000,30000 #En mm
 
-a1 = Creation_Arene()
-c1 = Creation_Cube(a1)
-s1 = Creation_Sol(a1)
-m1 = Creation_Mur(a1)
-r1 = Creation_Robot(a1)
+POS=(LXA/2,LYA/2,1)
+DIR=90
+V=360
 
+r=Robot(POS,DIR,V)
+print(r.toString())
 
-c1.safficher()
-print('\n')
-s1.safficher()
-print('\n')
-m1.safficher()
-print('\n')
-r1.safficher()
-print('\n')
+a=Arene(LXA,LYA,LZA)
+a.generationA()
+a.addRobot(r)
+print(a.toString())
 
-a1.ajouter_cube(c1)
-a1.ajouter_cube(s1)
-a1.ajouter_cube(m1)
-a1.ajouter_robot(r1)
+r.move()
 
-a1.afficher()
-print('\n')
-
-print('_________________________________________________________')
-print("Avant sauvegarde")
-c1.safficher()
-s1.safficher()
-m1.safficher()
-r1.safficher()
-#Avant sauvegarde
-print('_________________________________________________________')
-saveFic(a1,'save')
-newa=loadFic('save')
-print('_________________________________________________________')
-print("Après chargement")
-c1.safficher()
-s1.safficher()
-m1.safficher()
-r1.safficher()
-#Après sauvegarde
-print('_________________________________________________________')
-r1 = Creation_Robot(a1)
-print("avant mouvement:")
-r1.safficher()
-
-r1.setVitesse(100)
-print("set vitesse à",r1.getVitesse(),":")
-r1.safficher()
-
-print("après mouvement:")
-r1.move()
-r1.safficher()
-
-print("rotation de 180°")
-r1.rotation(180)
-r1.safficher()	#rotation de seulement 90°??? ~> Error
-
+print(a.toString())
