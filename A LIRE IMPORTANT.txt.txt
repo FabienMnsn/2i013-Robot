@@ -1,0 +1,7 @@
+J'ai refait une organisation propre, normalement ya pas trop de problemes
+(surtout au niveau des imports).
+Mais au cas ou j'ai gardé le dossier 'daoudfabien__backup' qui est l'ancien dossier sur lequel on travaillait.
+
+Donc maintenant faut essayer de travailler avec cette arborescence.
+
+voila c'est tout :)
