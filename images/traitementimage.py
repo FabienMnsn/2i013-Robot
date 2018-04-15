@@ -94,7 +94,7 @@ def traitement_image(image):
                             img.show()
                             img.close()
                             return (x+TAILLE-3,y+TAILLE-3)
-                            
+    return (-1, -1) #return (-1,-1) si l'ago ne trouve pas de balise                    
 
 
 #liste des differentes images pour tester plusieur detetction de couleurs (temporaire)

@@ -6,7 +6,8 @@ from datetime import datetime
 robot = Robot2I013()
 img = robot.get_image()
 date = str(datetime.now())
-img.save(date+".jpg")
+#img.save(date+".jpg")
+img.save("capture.jpg") #nom fixe pour pouvoir recuperer l'image facilement dans une autre strat
 
 """
 class strategieCamera:
