@@ -2,8 +2,8 @@
 
 import random
 import math
-from robot_sim.teterobot import *
-from robot_sim.capteur import *
+from teterobot import *
+from capteur import *
 from basiques.arene import *
 
 #code
@@ -113,7 +113,7 @@ class Robot:
         x3 += v0
         y3 += v1
         
-        self.__setPosition((x, y, z))
+        self.setPosition((x, y, z))
         self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
         #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
 
@@ -231,7 +231,7 @@ class Robot:
         return self.vitesse
 
     """-----------------------SETTER-------------------------"""
-    def __setPosition(self, position):
+    def setPosition(self, position):
         self.position = position
 
     def __setDirection(self, direction):
@@ -254,9 +254,9 @@ class Robot:
 def Creation_Robot():
         """creation d'un Robot avec une position aleatoire"""
 
-        x = 60
-        y = 60
-        z = 1   #un robot est posé sur le sol
+        x = 0.0
+        y = 0.0
+        z = 100 #un robot est posé sur le sol
 
         larg = 30
         long = 50
