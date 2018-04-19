@@ -2,7 +2,7 @@
 
 import random
 import math
-from teterobot import *
+from robot_sim.teterobot import *
 from robot_sim.capteur import *
 from basiques.arene import *
 
