@@ -75,12 +75,12 @@ class Robot:
         (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
             
         vitesse = dps/360 * self.WHEEL_CIRCUMFERENCE
-        print("vitesse", vitesse)
+        #print("vitesse", vitesse)
 
         norm_dir_tmp = math.sqrt(math.pow(xdir, 2) + math.pow(ydir, 2))
-        print("norm_dir:", norm_dir_tmp)
+        #print("norm_dir:", norm_dir_tmp)
         dir_tmp = (xdir / norm_dir_tmp, ydir / norm_dir_tmp)
-        print("dir_tmp", dir_tmp)
+        #print("dir_tmp", dir_tmp)
         
         v0 = (dir_tmp[0]*vitesse)
         v1 = (dir_tmp[1]*vitesse)

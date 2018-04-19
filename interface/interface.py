@@ -18,7 +18,7 @@ class Interface:
         self.root = Tk()
         self.canvas = Canvas(self.root, bg="ivory", width=500, height=500)
         self.canvas.pack()
-        self.root.mainloop()
+        ##self.root.mainloop()
         #self.frame = LabelFrame(self, text="Ceci est un LabelFrame", borderwidth=2, relief=GROOVE)
         #self.frame.pack(side=TOP, padx=5, pady=5)
 

@@ -14,7 +14,11 @@ interface = Interface()
 
 #_____boucle de test de mise a jour de l'interface_____
 for i in range(0, 5):
-    
-    robot1.servo_rotate(45)
-    robot1.setPosition((250+10*1, 250+10*i, 10))
+    #print(robot1.safficher())
+    #robot1.servo_rotate(45)
     interface.rafraichir(robot1)
+    robot1.set_motor_dps(3,-10)
+    robot1.get_distance()
+    #print("dist. moy. =",robot1.get_distance(),"(mm)")
+    #sleep(1)
+    

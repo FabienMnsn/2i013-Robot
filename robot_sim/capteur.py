@@ -6,33 +6,34 @@ from robot_sim.robot2 import *
 
 #code
 
-def isCube(x,y,z,cube): # FONCTIONNE
-        """fonction qui chercher si un point x,y,z est dans un mur et retourne true dans ce cas. Sinon retourne false"""
 
-        if (x <= cube.x+cube.larg and x >= cube.x) and (y <= cube.y + cube.long and y >= cube.y) and (cube.haut >= z and z >= cube.z):
-                #os.system("cls")
-                #print("VOUS ETES DANS UN MUR !")
-                return True
-        return False
-
-def isCubeList(x,y,z,liste_cube):
-        """fonction qui fait la meme chose que celle du dessus mais applique a la liste entiere d'objets de l'arene"""
-        i = 0
-        while i < len(liste_cube) :
-                objet = liste_cube[i]
-                if(not(isinstance(objet, Sol))):
-                        if isCube(x,y,z,objet):
-                                #print("sortie pour objet :",i)
-                                return True
-                i = i + 1
-        return False
         
 
-class Capteur : 
+class Capteur: 
         def __init__(self,arene,robot):
                 self.robot = robot
                 self.arene = arene
-                
+
+        def isCube(x,y,z,cube): # FONCTIONNE
+                """fonction qui chercher si un point x,y,z est dans un mur et retourne true dans ce cas. Sinon retourne false"""
+                if (x <= cube.x+cube.larg and x >= cube.x) and (y <= cube.y + cube.long and y >= cube.y) and (cube.haut >= z and z >= cube.z):
+                        #os.system("cls")
+                        #print("VOUS ETES DANS UN MUR !")
+                        return True
+                return False
+
+        def isCubeList(x,y,z,liste_cube):
+                """fonction qui fait la meme chose que celle du dessus mais applique a la liste entiere d'objets de l'arene"""
+                i = 0
+                while i < len(liste_cube) :
+                        objet = liste_cube[i]
+                        if(not(isinstance(objet, Sol))):
+                                if isCube(x,y,z,objet):
+                                        #print("sortie pour objet :",i)
+                                        return True
+                        i = i + 1
+                return False
+        
         def detecter_distance(self):
                 """donne la distance par rapport a l'obstacle situé devant la tete du robot"""
                 distance_max_recherche = 150
