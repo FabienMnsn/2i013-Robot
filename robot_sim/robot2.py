@@ -32,7 +32,7 @@ class Robot:
         self.direction = direction
         self.dimension = dimension
         self.vitesse = vitesse
-        self.tete= Creation_TeteRobot()
+        self.tete= Creation_TeteRobot(self)
         self.roue_gauche = 0
         self.roue_droite = 0 # angle des roues
         self.dps_roue_droite = 0
@@ -195,8 +195,8 @@ class Robot:
         dirxy1 = (self.position[0], self.position[1])
         dirxy2 = ( ((x0 + x1)/2), ((y0+y1)/2) )
         newdir = ( (dirxy2[0]-dirxy1[0]), (dirxy2[1]-dirxy1[1]) )
-        self.__setDirection(newdir)
-
+        self.__setAndNormaliseDirection(newdir)
+                
     def moyenne_dist(self):
 	#retourne la moyenne des distances obtenues par le capteur de distance en mm
         somme=0 
@@ -234,8 +234,13 @@ class Robot:
     def setPosition(self, position):
         self.position = position
 
-    def setDirection(self, direction):
-        self.direction = direction
+    def setAndNormaliseDirection(self, direction):
+        norme_direction = math.sqrt(math.pow(direction[0], 2) + math.pow(direction[1], 2))
+        if (norme_direction != 0):
+            new_direction = (direction[0]/norme_direction, direction[1]/norme_direction)
+            self.direction = new_direction
+        else:
+            self.direction = direction
 
     def setVitesse(self, vitesse):
         self.vitesse = vitesse
@@ -261,11 +266,15 @@ def Creation_Robot():
         larg = 30
         long = 50
         haut = 15
+        
+        vitesse = 1
 
+        """
         dirxy1 = (x, y)
         dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
-        newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1]) )
-        vitesse = 1
+        newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1])
+        """           
+        newdir = (0,1)
 
         #arene = Arene(500,500,0,[],[]).generateur_arene()
         a=Creation_Arene()

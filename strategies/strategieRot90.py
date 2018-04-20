@@ -1,5 +1,9 @@
+#imports
 
-import robot_gopy.robot2I013
+#from robot_gopy.robot2I013 import *
+from robot_sim.robot2 import *
+
+#code
 
 class strategieRot90():
     

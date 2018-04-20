@@ -1,29 +1,78 @@
-#imports
-
-from robot_gopy.robot2I013 import *
+#imports strategies
 from strategies.simulation import *
 from strategies.strategieToutDroit70 import *
 from strategies.strategieRot90 import *
-#from strategieCarre import *
-#from robot2 import *
+from strategies.strategieCarre import *
+from strategies.strategieRotServo import *
 
-#script de test de la simulation
+#imports robots
+from robot_sim.robot2 import *
+#from robot_gopy.robot2I013 import *
 
-#creation d un robot
-
-robot1 = Robot2I013()
-#robot1 = Creation_Robot()
-
-#creation d une strategie tout droit
-#stratDroit = strategieToutDroit70(robot1)
-strat90 = strategieRot90(robot1)
-#creation d une simulation tout droit
-#simu1 = Simulation(stratDroit)
-simu1 = Simulation(strat90)
+#code
 
 
-#lancement de la strategie (ou plutot la boucle de la simu) tout droit
-print("**Debut de la strategie de deplacement tout droit**")
-simu1.run()
+#________________VARIABLES DE SELECTION___________________
+
+
+STRAT = 0
+
+###____numero de la strategie____####
+# 0 = strategietoutdroit70          #
+# 1 = strategieRot90                #
+# 2 = strategieRotServo             #
+# 3 = strategieCarre                #
+# 4 = NON ASSIGNEE                  #
+#####################################
+
+ROBOT = 0           #(0=simulation, 1=gopigo)
+
+#________________INSTANCES DE ROBOT_______________________
+#rob_phy = Robot2I013()
+rob_sim = Creation_Robot()
+
+#________________SWITCH ENTRE SIMULATIONS_________________
+if  (STRAT == 0):
+    ## tout droit 70
+    if(ROBOT == 1):
+        #robot physique
+        strategie = strategieToutDroit70(rob_phy)
+    else:
+        strategie = strategieToutDroit70(rob_sim)
+        
+#____________________________________________________   
+elif(STRAT == 1):
+    ## rotation90
+    if(ROBOT == 1):
+        strategie = strategieRot90(rob_phy)
+    else:
+        strategie = strategieRot90(rob_sim)
+        
+#____________________________________________________
+elif(STRAT == 2):
+    ## rotation servo
+    if(ROBOT == 1):
+        strategie = strategieRotServo(rob_phy)
+    else:
+        strategie = strategieRotServo(rob_sim)
+        
+#____________________________________________________
+elif(STRAT == 3):
+    ## dessin carre
+    print("strat <carre:",STRAT,"> non definie !")
+    
+#____________________________________________________
+elif(STRAT == 4):
+    ##autre strat a venir...
+    print("strat",STRAT," non definie !")
+    
+#____________________________________________________
+else:
+    print("Error : bad 'SIM' number <",STRAT,">")
+    
+#________________LANCEMENT DE LA SIMULATION_______________
+
+simulation = Simulation(strategie)
+print("**Debut de la strategie**")
+simulation.run()
 print("**Fin de la strategie**")
-

@@ -1,5 +1,5 @@
-from robot_gopy.robot2I013 import *
-#from robot2 import *
+#from robot_gopy.robot2I013 import *
+from robot_sim.robot2 import *
 
 #code
 
