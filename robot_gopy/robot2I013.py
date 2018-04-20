@@ -1,6 +1,6 @@
 import time
 import math
-from easygopigo3 import EasyGoPiGo3,Servo,DistanceSensor,MotionSensor
+from robot_gopy.easygopigo3 import EasyGoPiGo3,Servo,DistanceSensor,MotionSensor
 import picamera
 from io import BytesIO
 from PIL import Image
