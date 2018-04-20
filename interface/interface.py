@@ -36,7 +36,7 @@ class Interface:
         dirx, diry = robot.direction
         dirtetex, dirtetey = robot.tete.orientation
         self.canvas.create_polygon(robot.coords, fill="blue")
-        self.canvas.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*3), ((y0+y1)/2 + dirtetey*3), fill="black", arrow='last')
+        self.canvas.create_line((x0+x1)/2, (y0+y1)/2, ((x0+x1)/2 + dirtetex*100), ((y0+y1)/2 + dirtetey*100), fill="black", arrow='last')
         self.canvas.create_oval(milieu_avant_robot_xy[0]-4, milieu_avant_robot_xy[1]-4, milieu_avant_robot_xy[0]+4, milieu_avant_robot_xy[1]+4, fill="red")
         #print("Action:dessin robot")
         

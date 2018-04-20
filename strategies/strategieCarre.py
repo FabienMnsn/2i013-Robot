@@ -1,6 +1,7 @@
-from robot_gopy.robot2I013 import *
-from strategieRot90 import *
+#from robot_gopy.robot2I013 import *
+from strategies.strategieRot90 import *
 import math
+from robot_sim import *
 
 
 class strategieCarre:
