@@ -37,11 +37,11 @@ class Cube:
         # setcolor robot
         if (setcolor == 2):
             colorf1 = ('c3f', (1., 1., 1.,) * 4)
-            colorf2 = ('c3f', (0.9, 0.9, 0.9,) * 4)
-            colorf3 = ('c3f', (1., 1., 1.,) * 4)
-            colorf4 = ('c3f', (0.9, 0.9, 0.9,) * 4)
-            colorf5 = ('c3f', (1., 1., 1.,) * 4)
-            colorf6 = ('c3f', (0.9, 0.9, 0.9,) * 4)
+            colorf2 = ('c3f', (0.95, 0.95, 0.95,) * 4)
+            colorf3 = ('c3f', (0.90, 0.90, 0.90,) * 4)
+            colorf4 = ('c3f', (0.85, 0.85, 0.85,) * 4)
+            colorf5 = ('c3f', (0.80, 0.80, 0.80,) * 4)
+            colorf6 = ('c3f', (0.75, 0.75, 0.75,) * 4)
 
         # setcolor Sol
         if (setcolor == 3):
@@ -210,7 +210,7 @@ class Window(pyglet.window.Window):
         # premier argument gere le rapprochement du cube de la camera
 
         # repositionnement de la camera par rapport au robot
-        eyex, eyey, eyez = 0, 0, 0
+        eyex, eyey, eyez = 0, 0, -50
         visex, visey, visez = 0, 0, 0
         for o in self.listcube:
             if o.type == 2:
@@ -289,11 +289,11 @@ if __name__ == "__main__":
     #la taille de la fenetre est importante pour le screenshot et le traitement d'image potentiels bugs...
     #C = Cube(0,0,0,400,300,20,1)
 
-    newwindow.addcube(0, 0, 0, 10000, 0, 20000,1) #SOL
+    newwindow.addcube(0, 0, 0, 10000, 0, 20000,3) #SOL
     #newwindow.addcube(0, 0, 0, 400, 300, 20,1)
     #newwindow.addcube(200, 0, 200, 20, 300, 400,4)
     #newwindow.addcube(200, 0, 600, 20, 300, 400,1)
-    newwindow.addcube(50, 0, 200, 50, 50, 50, 3)
+    newwindow.addcube(0, -25, +50, 50, 50, 50, 2) #robot
     newwindow.addbalise(0, 50, 0, 100, "f")  # pour les mur de face en z
     newwindow.addbalise(-100, 50, 200, 100, "c")
     
