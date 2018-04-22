@@ -283,18 +283,22 @@ class Window(pyglet.window.Window):
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.png')
 
 
-# securite pour que le script ne se lance pas n importe quand
+            
 if __name__ == "__main__":
-    newwindow = Window(800, 800, "Arena", resizable=False)
-    newwindow.addcube(-200, 200, 200, 20, 400, 400, 1)  # pour un mur de cote l epaisseur sera en l
-    newwindow.addcube(200, 200, 200, 20, 400, 400, 1)
-    newwindow.addcube(200, 200, 600, 20, 400, 400, 1)
-    newwindow.addcube(0, 25, 200, 50, 50, 50, 2)
-    newwindow.addcube(0, -2, 0, 1000, 2, 1000, 3)  # pour un sol elle sera en l
+    newwindow = Window(720, 480, "Arene Virtuelle", resizable=False)
+    #la taille de la fenetre est importante pour le screenshot et le traitement d'image potentiels bugs...
+    #C = Cube(0,0,0,400,300,20,1)
+
+    newwindow.addcube(0, 0, 0, 10000, 0, 20000,1) #SOL
+    #newwindow.addcube(0, 0, 0, 400, 300, 20,1)
+    #newwindow.addcube(200, 0, 200, 20, 300, 400,4)
+    #newwindow.addcube(200, 0, 600, 20, 300, 400,1)
+    newwindow.addcube(50, 0, 200, 50, 50, 50, 3)
     newwindow.addbalise(0, 50, 0, 100, "f")  # pour les mur de face en z
     newwindow.addbalise(-100, 50, 200, 100, "c")
-
+    
     pyglet.clock.schedule_interval(newwindow.update, newwindow.frame_rate)
     pyglet.app.run()
 
 # ps: lien utile: http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/programming_guide/graphics.html
+
