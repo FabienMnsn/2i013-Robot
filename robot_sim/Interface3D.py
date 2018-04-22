@@ -232,11 +232,8 @@ class Window(pyglet.window.Window):
         glLoadIdentity()
 
     def on_key_press(self, symbol, modifiers):
-        if symbol == key.UP:
-            glRotatef(self.xRotation, self.INDROT, 0, 0)
-        elif symbol == key.DOWN:
-            glRotatef(self.yRotation, -self.INDROT, 0, 0)
-        elif symbol == key.LEFT:
+        
+        if symbol == key.LEFT:
             glRotatef(self.yRotation, 0, self.INDROT, 0)
         elif symbol == key.RIGHT:
             glRotatef(self.yRotation, 0, -self.INDROT, 0)
@@ -254,20 +251,7 @@ class Window(pyglet.window.Window):
                 glTranslatef(-self.INDTRSLT, 0, 0)
                 self.listcube[i].px -= self.INDTRSLT
                 i += 1
-        elif symbol == key.Z:  # vers le haut
-            self.clear()
-            i = 0
-            while i < len(self.listcube):
-                glTranslatef(0, -self.INDTRSLT, 0)
-                self.listcube[i].py -= self.INDTRSLT
-                i += 1
-        elif symbol == key.S:  # vers le bas
-            self.clear()
-            i = 0
-            while i < len(self.listcube):
-                glTranslatef(0, self.INDTRSLT, 0)
-                self.listcube[i].py += self.INDTRSLT
-                i += 1
+        
         elif symbol == key.P:
             self.clear()
             i = 0
