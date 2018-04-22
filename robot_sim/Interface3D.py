@@ -210,18 +210,24 @@ class Window(pyglet.window.Window):
         # premier argument gere le rapprochement du cube de la camera
 
         # repositionnement de la camera par rapport au robot
-        eyex, eyey, eyez = 0, 0, -50
+        eyex, eyey, eyez = 0, 70, 70
         visex, visey, visez = 0, 0, 0
         for o in self.listcube:
             if o.type == 2:
                 # glTranslatef(o.px, o.py, o.pz-(o.cp/2))
                 eyex, eyey, eyez = o.px, o.py, o.pz - (o.cp / 2)
                 visex, visey, visez = o.px, o.py, o.pz - o.cl
-        gluLookAt(
+        """gluLookAt(
             eyex, eyey, eyez,  # eye
             visex, visey, visez,  # lookAt
             0.0, 1.0, 0.0)  # up
-
+        """
+        #vue temporaire pour voir larene des le debut
+        gluLookAt(
+            0, 100, 400,  # eye
+            0, 0, 0,  # lookAt
+            0.0, 1.0, 0.0)  # up
+        
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
@@ -293,7 +299,7 @@ if __name__ == "__main__":
     #newwindow.addcube(0, 0, 0, 400, 300, 20,1)
     #newwindow.addcube(200, 0, 200, 20, 300, 400,4)
     #newwindow.addcube(200, 0, 600, 20, 300, 400,1)
-    newwindow.addcube(0, -25, +50, 50, 50, 50, 2) #robot
+    newwindow.addcube(0, 25, 50, 50, 50, 50, 2) #robot
     newwindow.addbalise(0, 50, 0, 100, "f")  # pour les mur de face en z
     newwindow.addbalise(-100, 50, 200, 100, "c")
     
