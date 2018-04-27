@@ -35,11 +35,11 @@ class Cube():
         """return la position du cube sous forme d'un triplet -> (x, y, z)"""
         return self.x, self.y, self.z
 
-def Creation_Cube(arene):
+def Creation_Cube():
     """Creation d'un cube de taille et coordonnees aleatoires"""
-    x = random.randint(0,arene.lx)
-    y = random.randint(0,arene.ly)
-    z = random.randint(0,arene.lz)
+    x = 0 #random.randint(0,arene.lx)
+    y = 0 #random.randint(0,arene.ly)
+    z = 0 #random.randint(0,arene.lz)
     
     larg = random.randint(50,70)
     long = random.randint(50,70)

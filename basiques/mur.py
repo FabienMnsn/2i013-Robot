@@ -21,13 +21,13 @@ class Mur(Cube):
 def Creation_Mur():
     """Création d'un mur avec une hauteur et une epaisseur fixé par les limites de l'Arene"""
 
-    x = random.randint(0, arene.lx)
-    y = random.randint(0, arene.ly)
-    z = 1   #un mur est posé au sol
+    x = random.randint(0, 50)
+    y = random.randint(0, 50)
+    z = random.randint(0, 50)
 
     larg = random.randint(10, 50) #largeur arbitraire
-    long = random.randint(20,100)
-    haut = arene.lz-1   #un mur va jusq'au plafond 
+    long = 200#un mur va jusq'au plafond
+    haut = random.randint(10, 50)  
     
     return Mur(x, y, z, larg, long, haut)
 
