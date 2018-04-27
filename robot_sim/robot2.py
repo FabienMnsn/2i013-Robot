@@ -259,13 +259,13 @@ class Robot:
 def Creation_Robot():
         """creation d'un Robot avec une position aleatoire"""
 
-        x = 250
-        y = 250
-        z = 100 #un robot est posé sur le sol
+        x = 0
+        y = 0
+        z = 0 #un robot est posé sur le sol
 
-        larg = 30
-        long = 50
-        haut = 15
+        larg = 25
+        long = 20
+        haut = 40
         
         vitesse = 1
 
