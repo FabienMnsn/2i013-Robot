@@ -366,7 +366,7 @@ class Window(pyglet.window.Window):
         self.lookatZ = 0
 
         self.upX = 0
-        self.upY = 10
+        self.upY = 1
         self.upZ = 0
         
         # methodes et variables de champ fenetre
@@ -453,44 +453,7 @@ class Window(pyglet.window.Window):
 
         elif symbol ==key.SPACE:
             print(self.eyeX, self.eyeY, self.eyeZ, "|", self.upX, self.upY, self.upZ)
-            
-        elif symbol == key.UP:  # camera vers le haut (regarde vers le centre de la scene)
-            #calcul de rotation de cam autours de l axe X (X ne bouge pas mais Y et Z si)
-            angle = math.radians(4)
-            new_eyeY = self.eyeY*math.cos(angle) - self.eyeZ*math.sin(angle)
-            new_eyeZ = self.eyeY*math.sin(angle) + self.eyeZ*math.cos(angle)
-            self.eyeY = round(new_eyeY,0)
-            self.eyeZ = round(new_eyeZ,0)
-            #calcul de la rotation du vecteur vertical autours de l axe X (pareil que la camera ci-dessus)
-            new_upY = self.upY*math.cos(angle) - self.upZ*math.sin(angle)
-            new_upZ = self.upY*math.sin(angle) + self.upZ*math.cos(angle)
-            self.upY = new_upY
-            self.upZ = new_upZ
-            #assignation a la vue des valeur calculees
-            gluLookAt(
-            self.eyeX, self.eyeY, self.eyeZ,  
-            self.lookatX, self.lookatY, self.lookatZ,
-            self.upX, self.upY, self.upZ)
-            
-        elif symbol == key.DOWN:  # vers le bas
-            #calcul de rotation de cam autours de l axe X (X ne bouge pas mais Y et Z si)
-            angle = math.radians(-4)
-            new_eyeY = self.eyeY*math.cos(angle) - self.eyeZ*math.sin(angle)
-            new_eyeZ = self.eyeY*math.sin(angle) + self.eyeZ*math.cos(angle)
-            self.eyeY = round(new_eyeY,0)
-            self.eyeZ = round(new_eyeZ,0)
-            #calcul de la rotation du vecteur vertical autours de l axe X (pareil que la camera ci-dessus)
-            new_upY = self.upY*math.cos(angle) - self.upZ*math.sin(angle)
-            new_upZ = self.upY*math.sin(angle) + self.upZ*math.cos(angle)
-            self.upY = new_upY
-            self.upZ = new_upZ
-            #assignation a la vue des valeur calculees
-            gluLookAt(
-            self.eyeX, self.eyeY, self.eyeZ,  
-            self.lookatX, self.lookatY, self.lookatZ,
-            self.upX, self.upY, self.upZ)
-
-            
+        
         elif symbol == key.P:
             self.clear()
             i = 0

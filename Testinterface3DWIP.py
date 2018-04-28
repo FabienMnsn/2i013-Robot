@@ -15,12 +15,6 @@ mur = Creation_Mur()
 robot = Creation_Robot()
 newwindow.addcube(mur)
 newwindow.addcube(robot)
-
-i = 0
-while(i < 10):
-        #print(robot.safficher())
-        #print(newwindow.listcube)
-        i += 1
         
 #pyglet.clock.schedule_interval(10,newwindow.frame_rate)
 pyglet.app.run()
