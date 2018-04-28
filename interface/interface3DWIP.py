@@ -377,7 +377,7 @@ class Window(pyglet.window.Window):
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-    xRotation = yRotation = zRotation = 5
+    xRotation = yRotation = zRotation = 45
 
     # methodes pour le rafraichissement de l affichage du robot
     #def update(self, dt):
@@ -420,21 +420,21 @@ class Window(pyglet.window.Window):
         # premier argument gere le rapprochement du cube de la camera
 
         # repositionnement de la camera par rapport au robot
-        eyex, eyey, eyez = 0, 70, 70
-        visex, visey, visez = 0, 0, 0
-        for o in self.listcube:
-            if isinstance(o, Robot):
+        #eyex, eyey, eyez = 0, 70, 70
+        #visex, visey, visez = 0, 0, 0
+        #for o in self.listcube:
+            #if isinstance(o, Robot):
                 # glTranslatef(o.px, o.py, o.pz-(o.cp/2))
-                eyex, eyey, eyez = o.px, o.py, o.pz - (o.cp / 2)
-                visex, visey, visez = o.px, o.py, o.pz - o.cl
+                #eyex, eyey, eyez = o.px, o.py, o.pz - (o.cp / 2)
+                #visex, visey, visez = o.px, o.py, o.pz - o.cl
         """gluLookAt(
             eyex, eyey, eyez,  # eye
             visex, visey, visez,  # lookAt
             0.0, 1.0, 0.0)  # up
         """
         #vue temporaire pour voir larene des le debut
-        eyeX, eyeY, eyeZ = 0, 100, 400
-        lookatX, lookaty, lookatZ = 0, 0, 0
+        #eyeX, eyeY, eyeZ = 0, 100, 400
+        #lookatX, lookaty, lookatZ = 0, 0, 0
         
         gluLookAt(
             self.eyeX, self.eyeY, self.eyeZ,  # eye
@@ -445,11 +445,15 @@ class Window(pyglet.window.Window):
         glLoadIdentity()
 
     def on_key_press(self, symbol, modifiers):
-                
+        
         if symbol == key.LEFT:
-            glRotatef(self.yRotation, 0, self.INDROT, 0)
+            glMatrixMode(GL_MODELVIEW)
+            glPushMatrix()
+            glRotatef(self.yRotation, 0, 1, 0)
+            glPopMatrix()
+            
         elif symbol == key.RIGHT:
-            glRotatef(self.yRotation, 0, -self.INDROT, 0)
+            glRotatef(-self.yRotation, 0, 1, 0)
 
         elif symbol ==key.SPACE:
             print(self.eyeX, self.eyeY, self.eyeZ, "|", self.upX, self.upY, self.upZ)
