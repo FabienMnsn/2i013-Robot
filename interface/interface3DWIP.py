@@ -8,8 +8,12 @@ from pyglet.window import FPSDisplay
 from robot_sim.robot2 import *
 from basiques.cube import *
 
-#code
+from robot_sim.vuecube import *
+from robot_sim.vuerobot import *
+from robot_sim.vuebalise import *
 
+#code
+"""
 class Cube:
     def __init__(self, objet):
     #def __init__(self, sx, sy, sz, l, h, p, setcolor):
@@ -130,7 +134,7 @@ class Cube:
         elif isinstance(objet, Mur):
             print("creation mur")
             # initialisation des coordonnees de l objet
-            """self.px = sx
+            self.px = sx
             self.py = sy
             self.pz = sz
             # initialisation des dimensions de l objet
@@ -183,7 +187,7 @@ class Cube:
                 colorf1 = colorf2 = colorf3 = colorf4 = colorf5 = colorf6 = ('c3f', (0.9, 0, 0,) * 4)
             if (setcolor == 7):  # jaune ~> bleu
                 colorf1 = colorf2 = colorf3 = colorf4 = colorf5 = colorf6 = ('c3f', (0, 0, 0.9,) * 4)
-            """
+            
             colorf1 = ('c3f', (0.7, 0.7, 0.7,) * 4)
             colorf2 = ('c3f', (0.65, 0.65, 0.65,) * 4)
             colorf3 = ('c3f', (0.6, 0.6, 0.6,) * 4)
@@ -388,7 +392,7 @@ class Balise:
         self.face = orientation
         
 
-        """    
+            
             while i <= 7:
                 if i == 4:
                     self.cubesbalisel.append(Cube(bpx, bpy + (size / 4), bpz - (size / 4), 2, size / 2, size / 2, i))
@@ -410,12 +414,10 @@ class Balise:
                 elif i == 7:
                     self.cubesbalisel.append(Cube(bpx + (size / 4), bpy - (size / 4), bpz, size / 2, size / 2, 2, i))
                 i += 1
-        """
-        
 
+"""
 
-
-# creation d'une fenetre
+# Class fenetre
 class Window(pyglet.window.Window):
     def __init__(self, *args, **kwargs):
         super(Window, self).__init__(*args, **kwargs)
@@ -428,9 +430,9 @@ class Window(pyglet.window.Window):
 
         # methodes et variables propres
 
-        self.listcube = list()
-        self.balise = None
-        self.obj_robot = None
+        #self.listcube = list()
+        #self.balise = None
+        #self.obj_robot = None
         
         # self.listrobot = list()
         #self.w = args[0]
@@ -452,7 +454,7 @@ class Window(pyglet.window.Window):
         self.upZ = 0
         
         # methodes et variables de champ fenetre
-        glClearColor(0.7, 0.2, 0.5, 1)
+        glClearColor(0.09, 0.6, 0.8, 1)
 
         glEnable(GL_DEPTH_TEST)
 

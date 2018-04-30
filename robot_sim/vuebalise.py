@@ -12,8 +12,8 @@ class VueBalise:
 
             self.batch = pyglet.graphics.Batch()
             
-            h=objet.l
-            l=objet.l * 1.5
+            h=balise.haut
+            l=balise.haut * 1.5
 
             # jaune
             yellow = ('c3f', (0.9, 0.9, 0,) * 4)
@@ -26,61 +26,61 @@ class VueBalise:
 
             #carre jaune
             self.batch.add(4, GL_QUADS, None, (
-                'v3f', (objet.x - l/2,
-                        objet.y + h/2,
-                        objet.z,
-                        objet.x,
-                        objet.y + h/2,
-                        objet.z,
-                        objet.x,
-                        objet.y,
-                        objet.z,
-                        objet.x - l/2,
-                        objet.y,
-                        objet.z)),
+                'v3f', (balise.x - l/2,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x,
+                        balise.y,
+                        balise.z,
+                        balise.x - l/2,
+                        balise.y,
+                        balise.z)),
                            yellow)
             #carre vert
             self.batch.add(4, GL_QUADS, None, (
-                'v3f', (objet.x,
-                        objet.y + h/2,
-                        objet.z,
-                        objet.x + l/2,
-                        objet.y + h/2,
-                        objet.z,
-                        objet.x + l/2,
-                        objet.y,
-                        objet.z,
-                        objet.x,
-                        objet.y,
-                        objet.z)),
+                'v3f', (balise.x,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y,
+                        balise.z,
+                        balise.x,
+                        balise.y,
+                        balise.z)),
                            green)
             #carre bleu
             self.batch.add(4, GL_QUADS, None, (
-                'v3f', (objet.x,
-                        objet.y,
-                        objet.z,
-                        objet.x + l/2,
-                        objet.y,
-                        objet.z,
-                        objet.x + l/2,
-                        objet.y - h/2,
-                        objet.z,
-                        objet.x,
-                        objet.y - h/2,
-                        objet.z)),
+                'v3f', (balise.x,
+                        balise.y,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z,
+                        balise.x,
+                        balise.y - h/2,
+                        balise.z)),
                            blue)
             #carre rouge
             self.batch.add(4, GL_QUADS, None, (
-                'v3f', (objet.x - l/2,
-                        objet.y,
-                        objet.z,
-                        objet.x,
-                        objet.y,
-                        objet.z,
-                        objet.x,
-                        objet.y - h/2,
-                        objet.z,
-                        objet.x - l/2,
-                        objet.y - h/2,
-                        objet.z)),
+                'v3f', (balise.x - l/2,
+                        balise.y,
+                        balise.z,
+                        balise.x,
+                        balise.y,
+                        balise.z,
+                        balise.x,
+                        balise.y - h/2,
+                        balise.z,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z)),
                            red)
