@@ -1,4 +1,4 @@
-from composants.robot import Robot as rien
+from robots.robot import Robot as rien
 from robots.rconverter import RConverter as Robot
 
 #from strategie.strat70 import Strat70 as Strat

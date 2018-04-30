@@ -15,6 +15,47 @@ class Arene :
         self.liste_cube = liste_cube
         self.robot = robot
 
+    def generationA(self):
+
+        if (len(self.liste_cube) == 0):
+            s1 = Creation_Sol(self)
+            self.addCube(s1)
+            
+            taille = self.lx  # taille de l'arene
+            haut = self.lz - 1
+            larg_mur = 300  # largeur des murs de contour
+
+            m1 = Mur(0, 0, 0, taille - 1, larg_mur, haut)
+            m2 = Mur(0, 0, 0, larg_mur, taille - 1, haut)
+            m3 = Mur(0, taille - larg_mur - 1, 0, taille - 1, larg_mur, haut)
+            m4 = Mur(taille - larg_mur - 1, 0, 0, larg_mur, taille - 1, haut)
+
+            self.addCube(m1)
+            self.addCube(m2)
+            self.addCube(m3)
+            self.addCube(m4)
+
+            #generation de cubes aleatoires
+            nb_obstacles = 5
+            i = 0
+            long_min = 500
+            long_max = 3000
+            larg_min = 500
+            larg_max = 3000
+            haut_min = 500
+            haut_max = int((self.lz - 1)/2)
+            while i < nb_obstacles:
+                lx = random.randint(long_min, long_max)
+                ly = random.randint(larg_min, larg_max)
+                lz = random.randint(haut_min, haut_max)
+                x = random.randint(larg_mur, taille - lx - 1)
+                y = random.randint(larg_mur, taille - ly - 1)
+
+                if ((x-lx/2>self.lx+Robot.DIMENSIONS[0])/2 or x+lx/2<(self.lx-Robot.DIMENSIONS[0])/2) and (y-ly/2>(self.ly+Robot.DIMENSIONS[1])/2 or y+ly/2<(self.ly-Robot.DIMENSIONS[1])/2):
+                    c = Cube(x, y, 1, lx, ly, lz)
+                    self.addCube(c)
+                    i = i + 1
+
     def addCube(self,cube) :
         bx = 0<=cube.x and cube.x <= self.lx
         by = 0<=cube.y and cube.y <= self.ly
@@ -29,55 +70,6 @@ class Arene :
             return True
         return False
 
-    def generationA(self):
-
-        if (len(self.liste_cube) == 0):
-            s1 = Creation_Sol(self)
-            self.addCube(s1)
-            
-            taille = self.lx  # taille de l'arene
-            larg_mur = 30  # largeur des murs de contour
-
-            m1 = Mur(0, 0, 0, taille - 1, larg_mur, larg_mur)
-            m2 = Mur(0, 0, 0, larg_mur, taille - 1, 30)
-            m3 = Mur(0, taille - larg_mur - 1, 0, taille - 1, larg_mur, larg_mur)
-            m4 = Mur(taille - larg_mur - 1, 0, 0, larg_mur, taille - 1, larg_mur)
-
-            self.addCube(m1)
-            self.addCube(m2)
-            self.addCube(m3)
-            self.addCube(m4)
-
-            #generation de cubes aleatoires
-            nb_obstacles = 5
-            i = 0
-            long_max = 90
-            larg_max = 90
-            while i < nb_obstacles:
-                x = random.randint(larg_mur, taille - larg_mur - 1)
-                y = random.randint(larg_mur, taille - larg_mur - 1)
-                ly = random.randint(0, long_max)
-                larg = random.randint(0, larg_max)
-
-                c = Cube(x, y, 0, ly, larg, 40)
-                self.addCube(c)
-
-                i = i + 1
-    
-    def toString(self):
-        s="Arene: Dim [{0},{1},{2}]\n".format(self.lx,self.ly,self.lz)
-        s+="Composants [\n"
-        for i in self.liste_cube:
-            s+=i.toString()
-        s+="]\n"
-        s+="Robot [\n"
-        if(self.robot!=None):
-            s+=self.robot.toString()
-        s+="]\n"
-        s+="}\n"
-        return s
-        
-
     def delCube(self,x,y,z) :
         i = 0
         while i<len(self.liste_cube) :
@@ -90,14 +82,13 @@ class Arene :
         return False
 
     def addRobot(self,robot) :
-        x,y,z = robot.pos
+        x,y,z = robot.getPos()
         lx,ly,lz = robot.DIMENSIONS
         
         c1 = 0<x-lx/2 and x+lx/2 < self.lx
         c2 = 0<y-ly/2 and y+ly/2 < self.ly
         c3 = 0<z and z+lz < self.lz
         
-        print(c1,c2,c3)
         if c1 and c2 and c3:
             self.robot=robot
             return True
@@ -112,6 +103,19 @@ class Arene :
                 if isinstance(i, Sol):
                     return True
             return False
+
+    def toString(self):
+        s="Arene: Dim [{0},{1},{2}]\n".format(self.lx,self.ly,self.lz)
+        s+="Composants [\n"
+        for i in self.liste_cube:
+            s+=i.toString()
+        s+="]\n"
+        s+="Robot [\n"
+        if(self.robot!=None):
+            s+=self.robot.toString()
+        s+="]\n"
+        s+="}\n"
+        return s
     
 def Creation_Arene() :
     """ Test d'une creation d'Arene vide"""

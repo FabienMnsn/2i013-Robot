@@ -21,8 +21,8 @@ def Creation_Cube(arene):
     y = random.randint(0,arene.ly)
     z = random.randint(0,arene.lz)
     
-    lx = random.randint(50,70)
-    ly = random.randint(50,70)
-    lz = random.randint(50,70)
+    lx = random.randint(5000,3000)
+    ly = random.randint(5000,3000)
+    lz = random.randint(5000,1500)
     
     return Cube(x, y, z, lx, ly, lz)
