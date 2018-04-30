@@ -428,19 +428,11 @@ class Window(pyglet.window.Window):
 
         self.set_minimum_size(100, 100)  # securite
 
-        # methodes et variables propres
-
-        #self.listcube = list()
-        #self.balise = None
-        #self.obj_robot = None
+        # variables
+        self.attributVueRobot = None
+        self.listVueCube = []
+        self.listVueBalise = []
         
-        # self.listrobot = list()
-        #self.w = args[0]
-        #self.h = args[1]
-        #self.INDROT = 2
-        #self.INDTRSLT = 20
-
-        #variables de gestion de la vue (glulookat)
         self.eyeX = 0
         self.eyeY = 0
         self.eyeZ = 400
@@ -468,17 +460,14 @@ class Window(pyglet.window.Window):
         #for e in self.listcube:
             #e.update_object()
 
-    def addcube(self, objet):
-        self.listcube.append(Cube(objet))
-        self.on_draw()
+    def addVueCube(self, objet):
+        self.listVueCube.append(VueCube(objet))
     
-    def addbalise(self, balise):
-        self.balise = Cube(balise)
-        #self.listcube = self.listcube + balise.cubesbalisel
+    def addVueBalise(self, objet):
+        self.listVueBalise.append(VueBalise(objet))
 
-    def addrobot(self, objetR):
-        #maj du robot
-        self.obj_robot = Cube(objetR)
+    def addVueRobot(self, objet):
+        self.VueRobot = VueRobot(objet)
         
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
@@ -487,12 +476,11 @@ class Window(pyglet.window.Window):
         glPushMatrix()
         
         self.clear()
-        self.balise.draw()
-        #self.obj_robot.draw()
-        i = 0
-        while i < len(self.listcube):
-            self.listcube[i].draw()
-            i += 1
+
+        for i in self.listVueCube:
+            i.batch.draw()
+            
+        self.attributVueRobot.batch.draw()
 
         # Pop Matrix off stack
         glPopMatrix()
@@ -505,27 +493,8 @@ class Window(pyglet.window.Window):
         # using Projection mode
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-
         aspectRatio = w / h
         gluPerspective(50, aspectRatio, 1, 4000)
-        # premier argument gere le rapprochement du cube de la camera
-
-        # repositionnement de la camera par rapport au robot
-        #eyex, eyey, eyez = 0, 70, 70
-        #visex, visey, visez = 0, 0, 0
-        #for o in self.listcube:
-            #if isinstance(o, Robot):
-                # glTranslatef(o.px, o.py, o.pz-(o.cp/2))
-                #eyex, eyey, eyez = o.px, o.py, o.pz - (o.cp / 2)
-                #visex, visey, visez = o.px, o.py, o.pz - o.cl
-        """gluLookAt(
-            eyex, eyey, eyez,  # eye
-            visex, visey, visez,  # lookAt
-            0.0, 1.0, 0.0)  # up
-        """
-        #vue temporaire pour voir larene des le debut
-        #eyeX, eyeY, eyeZ = 0, 100, 400
-        #lookatX, lookaty, lookatZ = 0, 0, 0
         
         gluLookAt(
             self.eyeX, self.eyeY, self.eyeZ,  # eye
@@ -543,7 +512,7 @@ class Window(pyglet.window.Window):
         elif symbol == key.RIGHT:
             glRotatef(-self.yRotation, 0, 1, 0)
 
-        elif symbol ==key.SPACE:
+        elif symbol == key.SPACE:
             print(self.eyeX, self.eyeY, self.eyeZ, "|", self.upX, self.upY, self.upZ)
         
         elif symbol == key.P:
