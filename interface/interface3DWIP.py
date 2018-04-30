@@ -5,9 +5,9 @@ import math
 from pyglet.gl import *
 from pyglet.window import key
 from pyglet.window import FPSDisplay
-from robot_sim.robot2 import *
 from basiques.cube import *
 
+from robot_sim.robot2 import *
 from robot_sim.vuecube import *
 from robot_sim.vuerobot import *
 from robot_sim.vuebalise import *
@@ -461,13 +461,13 @@ class Window(pyglet.window.Window):
             #e.update_object()
 
     def addVueCube(self, objet):
-        self.listVueCube.append(VueCube(objet))
+        self.listVueCube.append(objet)
     
     def addVueBalise(self, objet):
-        self.listVueBalise.append(VueBalise(objet))
+        self.listVueBalise.append(objet)
 
     def addVueRobot(self, objet):
-        self.VueRobot = VueRobot(objet)
+        self.attributVueRobot = VueRobot(objet)
         
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
@@ -479,8 +479,11 @@ class Window(pyglet.window.Window):
 
         for i in self.listVueCube:
             i.batch.draw()
+
+        for j in self.listVueBalise:
+            j.batch.draw()
             
-        self.attributVueRobot.batch.draw()
+        print(self.attributVueRobot.batch)
 
         # Pop Matrix off stack
         glPopMatrix()

@@ -23,13 +23,13 @@ class Balise:
         """
         return "Balise(x=%.2f,y=%.2f,z=%.2f, haut=%.2f)"%(self.x, self.y, self.z, self.haut)
 
-    def Creation_Balise():
-        """creation d'une balise de coords et taille aleatoire"""
+def Creation_Balise():
+    """creation d'une balise de coords et taille aleatoire"""
 
-        x = random.randint(25, 75)
-        y = random.randint(25, 75)
-        z = random.randint(25, 75)
+    x = random.randint(25, 75)
+    y = random.randint(25, 75)
+    z = random.randint(25, 75)
 
-        larg = random.randint(50, 80)
+    haut = random.randint(50, 80)
 
-        return Balise(x, y, z, haut)
+    return Balise(x, y, z, haut)
