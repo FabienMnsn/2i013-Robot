@@ -428,15 +428,15 @@ class Window(pyglet.window.Window):
 
         # methodes et variables propres
 
-        self.obj_robot = None
         self.listcube = list()
         self.balise = None
+        self.obj_robot = None
         
         # self.listrobot = list()
-        self.w = args[0]
-        self.h = args[1]
-        self.INDROT = 2
-        self.INDTRSLT = 20
+        #self.w = args[0]
+        #self.h = args[1]
+        #self.INDROT = 2
+        #self.INDTRSLT = 20
 
         #variables de gestion de la vue (glulookat)
         self.eyeX = 0
@@ -474,9 +474,9 @@ class Window(pyglet.window.Window):
         self.balise = Cube(balise)
         #self.listcube = self.listcube + balise.cubesbalisel
 
-    def addrobot(self, robot):
+    def addrobot(self, objetR):
         #maj du robot
-        self.obj_robot = Cube(robot)
+        self.obj_robot = Cube(objetR)
         
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
@@ -485,8 +485,8 @@ class Window(pyglet.window.Window):
         glPushMatrix()
         
         self.clear()
-        #self.balise.draw()
-        self.obj_robot.draw()
+        self.balise.draw()
+        #self.obj_robot.draw()
         i = 0
         while i < len(self.listcube):
             self.listcube[i].draw()
