@@ -16,7 +16,7 @@ class Cube:
         self.batch = pyglet.graphics.Batch()
 
         if isinstance(objet, Robot):
-            print("je suis un robot")
+            print("creation robot")
             colorf1 = ('c3f', (1., 1., 1.,) * 4)
             colorf2 = ('c3f', (0.95, 0.95, 0.95,) * 4)
             colorf3 = ('c3f', (0.90, 0.90, 0.90,) * 4)
@@ -128,7 +128,7 @@ class Cube:
             # face cote gauche
             
         elif isinstance(objet, Mur):
-            print("je suis un cube")
+            print("creation mur")
             # initialisation des coordonnees de l objet
             """self.px = sx
             self.py = sy
@@ -293,8 +293,83 @@ class Cube:
                         objet.z - objet.haut/2)),
                            colorf6)
             # face cote gauche
+        elif isinstance(objet, Balise):
+            print("creation balise")
+            h=objet.l
+            l=objet.l * 1.5
+
+            # jaune
+            yellow = ('c3f', (0.9, 0.9, 0,) * 4)
+            # vert
+            green = ('c3f', (0, 0.9, 0,) * 4)
+            # rouge
+            red = ('c3f', (0.9, 0, 0,) * 4)
+            # bleu
+            blue = ('c3f', (0, 0, 0.9,) * 4)
+
+            
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (objet.x - l/2,
+                        objet.y + h/2,
+                        objet.z,
+                        objet.x,
+                        objet.y + h/2,
+                        objet.z,
+                        objet.x,
+                        objet.y,
+                        objet.z,
+                        objet.x - l/2,
+                        objet.y,
+                        objet.z)),
+                           yellow)
+            
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (objet.x,
+                        objet.y + h/2,
+                        objet.z,
+                        objet.x + l/2,
+                        objet.y + h/2,
+                        objet.z,
+                        objet.x + l/2,
+                        objet.y,
+                        objet.z,
+                        objet.x,
+                        objet.y,
+                        objet.z)),
+                           green)
+
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (objet.x,
+                        objet.y,
+                        objet.z,
+                        objet.x + l/2,
+                        objet.y,
+                        objet.z,
+                        objet.x + l/2,
+                        objet.y - h/2,
+                        objet.z,
+                        objet.x,
+                        objet.y - h/2,
+                        objet.z)),
+                           blue)
+
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (objet.x - l/2,
+                        objet.y,
+                        objet.z,
+                        objet.x,
+                        objet.y,
+                        objet.z,
+                        objet.x,
+                        objet.y - h/2,
+                        objet.z,
+                        objet.x - l/2,
+                        objet.y - h/2,
+                        objet.z)),
+                           red)
         else:
             print("Erreur : objet de type inconnu")
+    
             
     def draw(self):
         self.batch.draw()
@@ -305,15 +380,15 @@ class Cube:
 
 
 class Balise:
-    def __init__(self, cx, cy, cz, size, orientation):
-        bpx = cx
-        bpy = cy
-        bpz = cz
-        self.cubesbalisel = list()
+    def __init__(self, x, y, z, sizeL, orientation):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.l = sizeL
+        self.face = orientation
+        
 
-        i = 4
-        if (orientation == 'c'):
-
+        """    
             while i <= 7:
                 if i == 4:
                     self.cubesbalisel.append(Cube(bpx, bpy + (size / 4), bpz - (size / 4), 2, size / 2, size / 2, i))
@@ -335,6 +410,9 @@ class Balise:
                 elif i == 7:
                     self.cubesbalisel.append(Cube(bpx + (size / 4), bpy - (size / 4), bpz, size / 2, size / 2, 2, i))
                 i += 1
+        """
+        
+
 
 
 # creation d'une fenetre
@@ -349,7 +427,11 @@ class Window(pyglet.window.Window):
         self.set_minimum_size(100, 100)  # securite
 
         # methodes et variables propres
+
+        self.obj_robot = None
         self.listcube = list()
+        self.balise = None
+        
         # self.listrobot = list()
         self.w = args[0]
         self.h = args[1]
@@ -377,7 +459,7 @@ class Window(pyglet.window.Window):
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-    xRotation = yRotation = zRotation = 45
+    xRotation = yRotation = zRotation = 22.5
 
     # methodes pour le rafraichissement de l affichage du robot
     #def update(self, dt):
@@ -387,17 +469,24 @@ class Window(pyglet.window.Window):
     def addcube(self, objet):
         self.listcube.append(Cube(objet))
         self.on_draw()
+    
+    def addbalise(self, balise):
+        self.balise = Cube(balise)
+        #self.listcube = self.listcube + balise.cubesbalisel
 
-    def addbalise(self, x, y, z, size, orientation):
-        self.listcube = self.listcube + Balise(x, y, z, size, orientation).cubesbalisel
-
+    def addrobot(self, robot):
+        #maj du robot
+        self.obj_robot = Cube(robot)
+        
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
         # type: () -> object
         # Push Matrix onto stack
         glPushMatrix()
-
+        
         self.clear()
+        #self.balise.draw()
+        self.obj_robot.draw()
         i = 0
         while i < len(self.listcube):
             self.listcube[i].draw()
@@ -447,10 +536,7 @@ class Window(pyglet.window.Window):
     def on_key_press(self, symbol, modifiers):
         
         if symbol == key.LEFT:
-            glMatrixMode(GL_MODELVIEW)
-            glPushMatrix()
             glRotatef(self.yRotation, 0, 1, 0)
-            glPopMatrix()
             
         elif symbol == key.RIGHT:
             glRotatef(-self.yRotation, 0, 1, 0)
