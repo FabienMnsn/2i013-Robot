@@ -33,9 +33,14 @@ main.addVueSol(s)
 main.addVueCube(c)
 main.addVueCube(Cube(100,0,150,80,40,30))
 
-#for i in range(0, 30):
-    #r.set_motor_dps(2,-5)
+
+for i in range(0, 30):
+    
+    r.set_motor_dps(1,-50)
+    r.set_motor_dps(2,50)
+    main.addVueRobot(r)
+    main.on_draw()
     #print(r.safficher())
-    #main.addVueRobot(r)
+    
 
 pyglet.app.run()
