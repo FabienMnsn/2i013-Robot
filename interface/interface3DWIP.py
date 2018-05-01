@@ -13,6 +13,7 @@ from robot_sim.robot2 import *
 from robot_sim.vuecube import *
 from robot_sim.vuerobot import *
 from robot_sim.vuebalise import *
+from robot_sim.vuesol import *
 
 #code class fenetre
 
@@ -27,6 +28,7 @@ class Window(pyglet.window.Window):
         self.set_minimum_size(100, 100)  # securite
 
         # variables
+        self.attributVueSol = None
         self.attributVueRobot = None
         self.listVueCube = []
         self.listVueBalise = []
@@ -61,13 +63,15 @@ class Window(pyglet.window.Window):
 
     def addVueRobot(self, objet):
         self.attributVueRobot = VueRobot(objet)
-        
+
+    def addVueSol(self, objet):
+        self.attributVueSol = VueSol(objet)
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
         # type: () -> object
         # Push Matrix onto stack
+        glEnable(GL_TEXTURE_2D) 
         glPushMatrix()
-        
         self.clear()
 
         for i in self.listVueCube:
@@ -75,9 +79,12 @@ class Window(pyglet.window.Window):
 
         for j in self.listVueBalise:
             j.batch.draw()
+            
         if (self.attributVueRobot != None):
-            self.attributVueRobot.batch.draw()   
-        #print(self.attributVueRobot.batch)
+            self.attributVueRobot.batch.draw()
+            
+            if (self.attributVueSol != None):
+                self.attributVueSol.batch.draw()
 
         # Pop Matrix off stack
         glPopMatrix()

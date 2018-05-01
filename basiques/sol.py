@@ -7,7 +7,7 @@ class Sol(Cube):
         -sa largueur
         -sa longueur"""
 
-    def __init__(self, x, y, z, larg, long,haut=1):
+    def __init__(self, x, y, z, larg, long,haut=0):
         """Constructeur de la classe Cube"""
         Cube.__init__(self,x,y,z,larg,long,haut)
 
@@ -17,14 +17,14 @@ class Sol(Cube):
         """
         print("Sol(x=%.2f,y=%.2f,z=%.2f, larg=%.2f,long=%.2f,haut=%.2f)"%(self.x, self.y, self.z, self.larg, self.long, self.haut))
 
-def Creation_Sol(arene): #parametre obligatoire pour pouvoir recupérer les dimensions de l'arene
+def Creation_Sol(): #parametre obligatoire pour pouvoir recupérer les dimensions de l'arene
     """Création d'un sol avec une hauteur = 1 et une taille (larg, long) par les limites de l'Arene"""
-    x = 1
-    y = 1
+    x = 0
+    y = 0
     z = 0
 
-    larg = arene.lx-1
-    long = arene.ly-1
+    larg = 8000
+    long = 8000
 
     return Sol(x, y, z, larg, long)
 

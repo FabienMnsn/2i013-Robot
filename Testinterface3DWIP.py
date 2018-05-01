@@ -24,9 +24,12 @@ r = Creation_Robot()
 c = Cube(-120,0,-50,40,60,40)
 #print(c.safficher())
 
+s = Sol(0,0,0,4000,4000)
+#print(s.safficher())
+
 main.addVueBalise(b)
 main.addVueRobot(r)
-
+main.addVueSol(s)
 main.addVueCube(c)
 main.addVueCube(Cube(100,30,150,120,30,40))
 
