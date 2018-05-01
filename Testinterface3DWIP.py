@@ -21,7 +21,7 @@ b = Creation_Balise()
 r = Creation_Robot()
 #print(r.getDimension())
 
-c = Cube(40,-10,-100,20,20,20)
+c = Cube(40,70,-100,20,20,20)
 #print(c.safficher())
 
 
@@ -34,7 +34,7 @@ main.addVueBalise(b)
 main.addVueRobot(r)
 
 main.addVueCube(c)
-main.addVueCube(Cube(100,25,150,50,50,50))
+main.addVueCube(Cube(100,60,150,50,50,50))
 
 for i in range(0, 30):
     #r.set_motor_dps(2,-5)
