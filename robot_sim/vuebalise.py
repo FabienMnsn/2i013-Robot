@@ -23,6 +23,8 @@ class VueBalise:
             red = ('c3f', (0.9, 0, 0,) * 4)
             # bleu
             blue = ('c3f', (0, 0, 0.9,) * 4)
+            # noir
+            white = ('c3f', (1, 1, 1,) * 4)
 
             #carre jaune
             self.batch.add(4, GL_QUADS, None, (
@@ -84,3 +86,19 @@ class VueBalise:
                         balise.y - h/2,
                         balise.z)),
                            red)
+
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (balise.x - l/2,
+                        balise.y + h/2,
+                        balise.z - 0.05,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z - 0.05,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z - 0.05,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z - 0.05)),
+                           white)
+                        

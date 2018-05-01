@@ -21,36 +21,24 @@ b = Creation_Balise()
 r = Creation_Robot()
 #print(r.getDimension())
 
-c = Creation_Cube()
+c = Cube(40,-10,-100,20,20,20)
 #print(c.safficher())
 
 
-vb = vueB(b)
-vr = vueR(r)
-vc = vueC(c)
+#vb = vueB(b)
+#vr = vueR(r)
+#vc = vueC(c)
 #print(vc.batch)
 
-main.addVueBalise(vb)
-main.addVueRobot(vr)
-main.addVueCube(vc)
+main.addVueBalise(b)
+main.addVueRobot(r)
+
+main.addVueCube(c)
+main.addVueCube(Cube(100,25,150,50,50,50))
+
+for i in range(0, 30):
+    #r.set_motor_dps(2,-5)
+    #print(r.safficher())
+    main.addVueRobot(r)
 
 pyglet.app.run()
-"""
-mur = Creation_Mur()
-balise = Balise(0, 0, -50, 25, "f")
-newwindow.addbalise(balise)
-robot1 = Creation_Robot()
-newwindow.addcube(mur)
-newwindow.addrobot(robot1)
-
-print(type(newwindow.balise))
-print(type(newwindow.obj_robot))
-
-#for i in range(0,20):
-    #robot1.set_motor_dps(2,1)
-    #newwindow.on_draw()
-    #print(robot1.safficher())
-    #
-#pyglet.clock.schedule_interval(10,newwindow.frame_rate)
-pyglet.app.run()
-"""

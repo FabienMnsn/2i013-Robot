@@ -72,7 +72,7 @@ class Robot:
         x, y, z = self.position
         xdir, ydir = self.direction
         #larg, long, haut = self.dimension
-        (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
+        (x0,z0), (x1,z1), (x2,z2), (x3,z3) = self.coords
             
         vitesse = dps/360 * self.WHEEL_CIRCUMFERENCE
         #print("vitesse", vitesse)
@@ -101,20 +101,20 @@ class Robot:
             return -1
         
         x += v0
-        y += v1
+        z += v1
             
 
         x0 += v0
-        y0 += v1
+        z0 += v1
         x1 += v0
-        y1 += v1
+        z1 += v1
         x2 += v0
-        y2 += v1
+        z2 += v1
         x3 += v0
-        y3 += v1
+        z3 += v1
         
         self.setPosition((x, y, z))
-        self.setCoords(((x0,y0),(x1,y1),(x2,y2),(x3,y3)))
+        self.setCoords(((x0,z0),(x1,z1),(x2,z2),(x3,z3)))
         #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
 
     def get_motor_position(self):

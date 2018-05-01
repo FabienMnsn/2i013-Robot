@@ -9,13 +9,13 @@ from robot_sim.robot2 import *
 class VueRobot:
     def __init__(self, robot_att):
 
-        robot = robot_att
-        position = robot.getPosition() + robot.getDimension()
+        self.robot = robot_att
+        position = self.robot.getPosition() + self.robot.getDimension()
         dimension = (position[3], position[4], position[5])
         
         self.batch = pyglet.graphics.Batch()
-
-        print("pos:", position,"dim:",dimension)
+        
+        #print("pos:", position,"dim:",dimension)
         
         colorf1 = ('c3f', (1., 1., 1.,) * 4)
         colorf2 = ('c3f', (0.95, 0.95, 0.95,) * 4)
