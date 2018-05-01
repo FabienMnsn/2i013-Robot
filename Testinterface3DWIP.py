@@ -15,7 +15,7 @@ from robot_sim.vuebalise import VueBalise as vueB
 
 main = Window(1000, 400, "Arena", resizable=True)
 
-b = Balise(160,40,-80,80)
+b = Balise(160,0,-80,80)
 #print(b.safficher())
 
 r = Creation_Robot()
@@ -31,7 +31,7 @@ main.addVueBalise(b)
 main.addVueRobot(r)
 main.addVueSol(s)
 main.addVueCube(c)
-main.addVueCube(Cube(100,30,150,120,30,40))
+main.addVueCube(Cube(100,0,150,80,40,30))
 
 #for i in range(0, 30):
     #r.set_motor_dps(2,-5)

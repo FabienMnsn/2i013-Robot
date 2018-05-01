@@ -27,16 +27,16 @@ class VueRobot:
         # f1
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2)),
                        colorf1)
 
@@ -44,80 +44,80 @@ class VueRobot:
         #print(type(robot))
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2)),
                        colorf2)
 
         # f3
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2)),
                        colorf3)
 
         # f4
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2)),
                        colorf4)
 
         # f5
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2,
                     position[0] + dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2)),
                        colorf5)
 
         # f6
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] - dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] - dimension[1]/2,
+                    position[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] + dimension[2]/2,
                     position[0] - dimension[0]/2,
-                    position[1] + dimension[1]/2,
+                    position[1] + dimension[1],
                     position[2] - dimension[2]/2)),
                        colorf6)
     
