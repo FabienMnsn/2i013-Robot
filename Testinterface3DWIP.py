@@ -13,32 +13,26 @@ from robot_sim.vuebalise import VueBalise as vueB
 
 #code
 
-main = Window(800, 800, "Arena", resizable=False)
+main = Window(1000, 400, "Arena", resizable=True)
 
-b = Creation_Balise()
+b = Balise(160,40,-80,80)
 #print(b.safficher())
 
 r = Creation_Robot()
 #print(r.getDimension())
 
-c = Cube(40,70,-100,20,20,20)
+c = Cube(-120,0,-50,40,60,40)
 #print(c.safficher())
-
-
-#vb = vueB(b)
-#vr = vueR(r)
-#vc = vueC(c)
-#print(vc.batch)
 
 main.addVueBalise(b)
 main.addVueRobot(r)
 
 main.addVueCube(c)
-main.addVueCube(Cube(100,60,150,50,50,50))
+main.addVueCube(Cube(100,30,150,120,30,40))
 
-for i in range(0, 30):
+#for i in range(0, 30):
     #r.set_motor_dps(2,-5)
     #print(r.safficher())
-    main.addVueRobot(r)
+    #main.addVueRobot(r)
 
 pyglet.app.run()

@@ -32,7 +32,7 @@ class Window(pyglet.window.Window):
         self.listVueBalise = []
         
         self.eyeX = 0
-        self.eyeY = 0
+        self.eyeY = 80
         self.eyeZ = 400
 
         self.lookatX = 0
@@ -75,8 +75,8 @@ class Window(pyglet.window.Window):
 
         for j in self.listVueBalise:
             j.batch.draw()
-
-        self.attributVueRobot.batch.draw()   
+        if (self.attributVueRobot != None):
+            self.attributVueRobot.batch.draw()   
         #print(self.attributVueRobot.batch)
 
         # Pop Matrix off stack

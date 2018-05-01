@@ -11,6 +11,13 @@ class VueBalise:
         if isinstance(balise, Balise):
 
             self.batch = pyglet.graphics.Batch()
+
+            texture_file = "robot_sim/textures/metal_larme.png"
+            tex = pyglet.image.load(texture_file).texture
+            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR)
+            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
+            view = pyglet.graphics.TextureGroup(tex)
+            view_coords = ('t2f',(0,0.6, 0.8,0.6, 0.8,0, 0,0,))
             
             h=balise.haut
             l=balise.haut * 1.5
@@ -25,7 +32,10 @@ class VueBalise:
             blue = ('c3f', (0, 0, 0.9,) * 4)
             # noir
             white = ('c3f', (1, 1, 1,) * 4)
-
+            # gris
+            grey = ('c3f', (0.6, 0.6, 0.6,) * 4)
+            dark_grey = ('c3f', (0.5, 0.5, 0.5,) * 4)
+            
             #carre jaune
             self.batch.add(4, GL_QUADS, None, (
                 'v3f', (balise.x - l/2,
@@ -86,19 +96,81 @@ class VueBalise:
                         balise.y - h/2,
                         balise.z)),
                            red)
-
+            
+            #tranches de balise (cote R & J)
             self.batch.add(4, GL_QUADS, None, (
                 'v3f', (balise.x - l/2,
                         balise.y + h/2,
-                        balise.z - 0.05,
-                        balise.x + l/2,
+                        balise.z,
+                        balise.x - l/2,
                         balise.y + h/2,
-                        balise.z - 0.05,
-                        balise.x + l/2,
-                        balise.y - h/2,
-                        balise.z - 0.05,
+                        balise.z - 3,
                         balise.x - l/2,
                         balise.y - h/2,
-                        balise.z - 0.05)),
-                           white)
-                        
+                        balise.z - 3,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z)),
+                           dark_grey)
+            #tranches de balise (cote J & V)
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (balise.x - l/2,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x - l/2,
+                        balise.y + h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z)),
+                           grey)
+            #tranches de balise (cote V & B)
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z)),
+                           dark_grey)
+            #tranches de balise (cote R & B)
+            self.batch.add(4, GL_QUADS, None, (
+                'v3f', (balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z - 3,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z - 3,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z)),
+                           grey)
+            
+            #arriere de la balise
+            self.batch.add(4, GL_QUADS, view, (
+                'v3f', (balise.x - l/2,
+                        balise.y + h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y + h/2,
+                        balise.z - 3,
+                        balise.x + l/2,
+                        balise.y - h/2,
+                        balise.z - 3,
+                        balise.x - l/2,
+                        balise.y - h/2,
+                        balise.z - 3)),
+                           view_coords)
+            
