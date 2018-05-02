@@ -322,14 +322,14 @@ def calcul_coords(x,y,z, larg,long,haut, direX,direY):
         et de direction(direX,direY)"""
     
     #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
-    coords = (-larg/2, 0, +long/2, # base
-              +larg/2, 0, +long/2, # base
-              +larg/2, 0, -long/2, # base
-              -larg/2, 0, -long/2, # base
-              -larg/2, long, +long/2, # haut
-              +larg/2, long, +long/2, # haut
-              +larg/2, long, -long/2, # haut
-              -larg/2, long, -long/2,)# haut
+    coords = (-larg/2, 0, +haut/2, # base
+              +larg/2, 0, +haut/2, # base
+              +larg/2, 0, -haut/2, # base
+              -larg/2, 0, -haut/2, # base
+              -larg/2, long, +haut/2, # haut
+              +larg/2, long, +haut/2, # haut
+              +larg/2, long, -haut/2, # haut
+              -larg/2, long, -haut/2,)# haut
     #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
     #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
     angle = calcul_angle2D( (direX,direY), (0,1) ) #(0, 1) = le nord arbitraire
@@ -355,7 +355,7 @@ def calcul_coords(x,y,z, larg,long,haut, direX,direY):
                    (s4[0]+x, long, s4[1]+z),
                    (s5[0]+x, long, s5[1]+z),
                    (s6[0]+x, long, s6[1]+z),
-                   (s7[0]+x, long, s7[1]+z),)
+                   (s7[0]+x, long, s7[1]+z))
     return new_coords
 
 def Creation_Robot():
@@ -370,23 +370,34 @@ def Creation_Robot():
     haut = 60
     
     vitesse = 1
+         
+    newdir = (1,1)
 
-    """
-    dirxy1 = (x, y)
-    dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
-    newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1])
-    """           
-    newdir = (0,1)
-
-    #arene = Arene(500,500,0,[],[]).generateur_arene()
     a=Creation_Arene()
     
-    coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
+    #coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
 
-    coords = calcul_coords(x,y,z, larg,long,haut, newdir[0],newdir[1])
+    #coords = calcul_coords(x,y,z, larg,long,haut, newdir[0],newdir[1])
     print(coords)
     return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, a)
+
+
+def Creation_Robot(x,z, dirX,dirZ):
+    """creation d'un Robot avec une direction et une position definie"""
+
+    y = 0 #un robot est posé sur le sol
+
+    larg = 30
+    long = 20
+    haut = 40
     
+    vitesse = 1
+    
+    a=Creation_Arene()
+    
+    coords = calcul_coords(x,y,z, larg,long,haut, dirX,dirZ)
+    #print(coords)
+    return Robot((x,y,z), coords, (dirX,dirZ), (larg,long,haut), vitesse, a)
 
         
 

@@ -73,7 +73,14 @@ def rotation2D(u, theta):
         return -1
 
 
-
+def milieu_segment(A,B):
+    """calcul et retourne le milieu du segment defini par deux points A et B (x,y,z)"""
+    if len(A) and len(B) == 3:
+        return (A[0]+B[0]/2.0, A[1]+B[1]/2.0, A[2]+B[2]/2.0)
+    if len(A) and len(B) == 2:
+        return (A[0]+B[0]/2.0, A[1]+B[1]/2.0)
+    else:
+        return -1
 
 
 

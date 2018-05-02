@@ -18,10 +18,8 @@ main = Window(1000, 400, "Arena", resizable=True)
 b = Balise(160,0,-80,80)
 #print(b.safficher())
 
-r = Creation_Robot()
+r = Creation_Robot(0,0,-1,1)
 #print(r.getDimension())
-print(r.safficher())
-r.setAndNormaliseDirection((25,400))
 print(r.safficher())
 
 c = Cube(-120,0,-50,40,60,40)
@@ -30,11 +28,15 @@ c = Cube(-120,0,-50,40,60,40)
 s = Sol(0,0,0,4000,4000)
 #print(s.safficher())
 
-#main.addVueBalise(b)
+
+main.eye = (0,10,200)
+main.lookat = (0,40,0)
+
 main.addVueRobot(r)
 main.addVueSol(s)
-#main.addVueCube(c)
-#main.addVueCube(Cube(0,0,0,20,20,20))
+main.addVueBalise(b)
+main.addVueCube(c)
+main.addVueCube(Cube(0,0,0,20,20,20))
 
 
 #for i in range(0, 30):
