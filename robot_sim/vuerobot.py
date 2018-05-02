@@ -23,8 +23,10 @@ class VueRobot:
         colorf4 = ('c3f', (0.85, 0.85, 0.85,) * 4)
         colorf5 = ('c3f', (0.80, 0.80, 0.80,) * 4)
         colorf6 = ('c3f', (0.75, 0.75, 0.75,) * 4)
+        
+        """
         # faces
-        # f1
+        # f1 arriere
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
                     position[1],
@@ -40,7 +42,7 @@ class VueRobot:
                     position[2] + dimension[2]/2)),
                        colorf1)
 
-        # f2
+        # f2 dessous
         #print(type(robot))
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
@@ -57,7 +59,7 @@ class VueRobot:
                     position[2] - dimension[2]/2)),
                        colorf2)
 
-        # f3
+        # f3 avant
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
                     position[1],
@@ -73,7 +75,7 @@ class VueRobot:
                     position[2] - dimension[2]/2)),
                        colorf3)
 
-        # f4
+        # f4 dessus
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
                     position[1] + dimension[1],
@@ -89,7 +91,7 @@ class VueRobot:
                     position[2] - dimension[2]/2)),
                        colorf4)
 
-        # f5
+        # f5 cote droit
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] + dimension[0]/2,
                     position[1],
@@ -105,7 +107,7 @@ class VueRobot:
                     position[2] - dimension[2]/2)),
                        colorf5)
 
-        # f6
+        # f6 cote gauche
         self.batch.add(4, GL_QUADS, None, (
             'v3f', (position[0] - dimension[0]/2,
                     position[1],
@@ -119,5 +121,55 @@ class VueRobot:
                     position[0] - dimension[0]/2,
                     position[1] + dimension[1],
                     position[2] - dimension[2]/2)),
+                       colorf6)
+        """
+        # faces
+        # f1 arriere
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[3][0], self.robot.coords[3][1], self.robot.coords[3][2],
+                    self.robot.coords[2][0], self.robot.coords[2][1], self.robot.coords[2][2],
+                    self.robot.coords[6][0], self.robot.coords[6][1], self.robot.coords[6][2],
+                    self.robot.coords[7][0], self.robot.coords[7][1], self.robot.coords[7][2])),
+                       colorf1)
+
+        # f2 dessous
+        #print(type(robot))
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[0][0], self.robot.coords[0][1], self.robot.coords[0][2],
+                    self.robot.coords[1][0], self.robot.coords[1][1], self.robot.coords[1][2],
+                    self.robot.coords[2][0], self.robot.coords[2][1], self.robot.coords[2][2],
+                    self.robot.coords[3][0], self.robot.coords[3][1], self.robot.coords[3][2])),
+                       colorf2)
+
+        # f3 avant
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[4][0], self.robot.coords[4][1], self.robot.coords[4][2],
+                    self.robot.coords[5][0], self.robot.coords[5][1], self.robot.coords[5][2],
+                    self.robot.coords[1][0], self.robot.coords[1][1], self.robot.coords[1][2],
+                    self.robot.coords[0][0], self.robot.coords[0][1], self.robot.coords[0][2])),
+                       colorf3)
+
+        # f4 dessus
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[5][0], self.robot.coords[5][1], self.robot.coords[5][2],
+                    self.robot.coords[4][0], self.robot.coords[4][1], self.robot.coords[4][2],
+                    self.robot.coords[7][0], self.robot.coords[7][1], self.robot.coords[7][2],
+                    self.robot.coords[6][0], self.robot.coords[6][1], self.robot.coords[6][2])),
+                       colorf4)
+
+        # f5 cote droit
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[1][0], self.robot.coords[1][1], self.robot.coords[1][2],
+                    self.robot.coords[5][0], self.robot.coords[5][1], self.robot.coords[5][2],
+                    self.robot.coords[6][0], self.robot.coords[6][1], self.robot.coords[6][2],
+                    self.robot.coords[2][0], self.robot.coords[2][1], self.robot.coords[2][2])),
+                       colorf5)
+
+        # f6 cote gauche
+        self.batch.add(4, GL_QUADS, None, (
+            'v3f', (self.robot.coords[4][0], self.robot.coords[4][1], self.robot.coords[4][2],
+                    self.robot.coords[0][0], self.robot.coords[0][1], self.robot.coords[0][2],
+                    self.robot.coords[3][0], self.robot.coords[3][1], self.robot.coords[3][2],
+                    self.robot.coords[7][0], self.robot.coords[7][1], self.robot.coords[7][2])),
                        colorf6)
     

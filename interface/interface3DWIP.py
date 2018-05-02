@@ -70,7 +70,7 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         # type: () -> object
         # Push Matrix onto stack
-        glEnable(GL_TEXTURE_2D) 
+        #glEnable(GL_TEXTURE_2D) 
         glPushMatrix()
         self.clear()
 
@@ -83,8 +83,8 @@ class Window(pyglet.window.Window):
         if (self.attributVueRobot != None):
             self.attributVueRobot.batch.draw()
             
-            if (self.attributVueSol != None):
-                self.attributVueSol.batch.draw()
+        if (self.attributVueSol != None):
+            self.attributVueSol.batch.draw()
 
         # Pop Matrix off stack
         glPopMatrix()

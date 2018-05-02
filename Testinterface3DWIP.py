@@ -20,6 +20,9 @@ b = Balise(160,0,-80,80)
 
 r = Creation_Robot()
 #print(r.getDimension())
+print(r.safficher())
+r.setAndNormaliseDirection((25,400))
+print(r.safficher())
 
 c = Cube(-120,0,-50,40,60,40)
 #print(c.safficher())
@@ -27,19 +30,19 @@ c = Cube(-120,0,-50,40,60,40)
 s = Sol(0,0,0,4000,4000)
 #print(s.safficher())
 
-main.addVueBalise(b)
+#main.addVueBalise(b)
 main.addVueRobot(r)
 main.addVueSol(s)
-main.addVueCube(c)
-main.addVueCube(Cube(100,0,150,80,40,30))
+#main.addVueCube(c)
+#main.addVueCube(Cube(0,0,0,20,20,20))
 
 
-for i in range(0, 30):
+#for i in range(0, 30):
     
-    r.set_motor_dps(1,-50)
-    r.set_motor_dps(2,50)
-    main.addVueRobot(r)
-    main.on_draw()
+    #r.set_motor_dps(1,-50)
+    #r.set_motor_dps(2,50)
+    #main.addVueRobot(r)
+    #main.on_draw()
     #print(r.safficher())
     
 

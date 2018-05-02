@@ -4,6 +4,7 @@ import random
 import math
 from robot_sim.teterobot import *
 from robot_sim.capteur import *
+from robot_sim.utilitaires_geometrie import *
 from basiques.arene import *
 
 #code
@@ -28,7 +29,7 @@ class Robot:
     
     def __init__(self, position, coords, direction, dimension, vitesse, arene):
         self.position = position
-        self.coords = coords
+        self.coords = coords # liste des 8 sommets du pave representant le robot pour l'instant il n'y en a que 4 => 2D 
         self.direction = direction
         self.dimension = dimension
         self.vitesse = vitesse
@@ -44,6 +45,7 @@ class Robot:
 
     def set_motor_limits(self,port,dps):
         self.max = dps
+
         
     def offset_motor_encoder(self, port, offset):
         """
@@ -117,8 +119,10 @@ class Robot:
         self.setCoords(((x0,z0),(x1,z1),(x2,z2),(x3,z3)))
         #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
 
+
     def get_motor_position(self):
         return self.roue_gauche,self.roue_droite
+
         
     def get_distance(self):
         capteur = Capteur(self.arene,self)
@@ -127,9 +131,19 @@ class Robot:
         if dist > 8000 :
             return 8190
         return dist
+
+
+    def moyenne_dist(self):
+	#retourne la moyenne des distances obtenues par le capteur de distance en mm
+        somme=0 
+        for i in range(0,5):
+            somme+=self.get_distance()
+        return somme/5
+
     
     def stop(self):
         self.set_motor_dps(3,0)
+
 
     def set_motor_position(self,port,position):
         if port == 1:
@@ -142,6 +156,7 @@ class Robot:
         else:
             print('Erreur : port > 3')
             return -1
+
         
     def retourne_angle(self,x,y,xx,yy) :
         """ retourne un angle teta en radian selon une direction initale d'un
@@ -196,19 +211,59 @@ class Robot:
         dirxy2 = ( ((x0 + x1)/2), ((y0+y1)/2) )
         newdir = ( (dirxy2[0]-dirxy1[0]), (dirxy2[1]-dirxy1[1]) )
         self.__setAndNormaliseDirection(newdir)
-                
-    def moyenne_dist(self):
-	#retourne la moyenne des distances obtenues par le capteur de distance en mm
-        somme=0 
-        for i in range(0,5):
-            somme+=self.get_distance()
-        return somme/5
-    
+
+        
+    def set_calcul_coords(self):
+        """cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D"""
+        
+        #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
+        coords = (-self.larg/2, 0, +self.long/2, # base
+                  +self.larg/2, 0, +self.long/2, # base
+                  +self.larg/2, 0, -self.long/2, # base
+                  -self.larg/2, 0, -self.long/2, # base
+                  -self.larg/2, self.long, +self.long/2, # haut
+                  +self.larg/2, self.long, +self.long/2, # haut
+                  +self.larg/2, self.long, -self.long/2, # haut
+                  -self.larg/2, self.long, -self.long/2,)# haut
+        #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
+        #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
+        angle = calcul_angle2D( (self.direction), (0,1) ) #(0, 1) = le nord arbitraire
+
+        #calcul des rotation de 'angle' degres sur chaque coordonnees
+        s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
+        s1 = rotation2D( (coords[3], coords[5]), angle)
+        s2 = rotation2D( (coords[6], coords[8]), angle)
+        s3 = rotation2D( (coords[9], coords[11]), angle)
+        s4 = rotation2D( (coords[12], coords[14]), angle)
+        s5 = rotation2D( (coords[15], coords[17]), angle)
+        s6 = rotation2D( (coords[18], coords[20]), angle)
+        s7 = rotation2D( (coords[21], coords[23]), angle)
+
+        #tous les (s0,s1,...,s7) sont des tuples de type (x,z)
+        #on remplace chaque valeur de x et z (sans toucher a y qui est la hauteur du robot et qui ne change pas)
+        #par sa valeur apres rotation contenue dans les (s0,s1,...,s7)
+        #on profite de cette assignation pour redeplacer le robot a sa position initiale
+        new_coords = ( (s0[0]+self.position[0], 0, s0[1]+self.position[2]),
+                       (s1[0]+self.position[0], 0, s1[1]+self.position[2]),
+                       (s2[0]+self.position[0], 0, s2[1]+self.position[2]),
+                       (s3[0]+self.position[0], 0, s3[1]+self.position[2]),
+                       (s4[0]+self.position[0], self.long, s4[1]+self.position[2]),
+                       (s5[0]+self.position[0], self.long, s5[1]+self.position[2]),
+                       (s6[0]+self.position[0], self.long, s6[1]+self.position[2]),
+                       (s7[0]+self.position[0], self.long, s7[1]+self.position[2]),)
+        
+        #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
+        self.coords = new_coords
+
+
     def servo_rotate(self, position):
+        """tourne la tete du robot a la position 'position'"""
         self.tete.rotation(position)
+
 
     def toString(self):
         return "ROBOT[Corps]|position: {0}, direction: {1}, dimension{2}, vitesse: {3}".format(self.getPosition(),self.getDirection(),self.getDimension(),self.getVitesse())+"\n"+self.tete.toString()
+
 
     def safficher(self):
                 """Methode d'affichage d'un robot au format :
@@ -234,6 +289,7 @@ class Robot:
     def setPosition(self, position):
         self.position = position
 
+
     def setAndNormaliseDirection(self, direction):
         norme_direction = math.sqrt(math.pow(direction[0], 2) + math.pow(direction[1], 2))
         if (norme_direction != 0):
@@ -242,12 +298,13 @@ class Robot:
         else:
             self.direction = direction
 
+
     def setVitesse(self, vitesse):
         self.vitesse = vitesse
 
+
     def setCoords(self, coords):
         self.coords = coords
-        
         
     
     """-----------------------SAVER-------------------------"""
@@ -256,32 +313,80 @@ class Robot:
         f.write('Robot;' + str(self.position) + ';' +  str(self.direction) + ';' + str(self.dimension) + ';' + str(self.vitesse) + ';\n')
 
 
+
+
+def calcul_coords(x,y,z, larg,long,haut, direX,direY):
+    """cette fonction calcul les coordonnees des 8 sommet du pave droit
+        de centre (x,y,z)
+        de dimension (larg,long,haut)
+        et de direction(direX,direY)"""
+    
+    #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
+    coords = (-larg/2, 0, +long/2, # base
+              +larg/2, 0, +long/2, # base
+              +larg/2, 0, -long/2, # base
+              -larg/2, 0, -long/2, # base
+              -larg/2, long, +long/2, # haut
+              +larg/2, long, +long/2, # haut
+              +larg/2, long, -long/2, # haut
+              -larg/2, long, -long/2,)# haut
+    #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
+    #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
+    angle = calcul_angle2D( (direX,direY), (0,1) ) #(0, 1) = le nord arbitraire
+
+    #calcul des rotation de 'angle' degres sur chaque coordonnees
+    s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
+    s1 = rotation2D( (coords[3], coords[5]), angle)
+    s2 = rotation2D( (coords[6], coords[8]), angle)
+    s3 = rotation2D( (coords[9], coords[11]), angle)
+    s4 = rotation2D( (coords[12], coords[14]), angle)
+    s5 = rotation2D( (coords[15], coords[17]), angle)
+    s6 = rotation2D( (coords[18], coords[20]), angle)
+    s7 = rotation2D( (coords[21], coords[23]), angle)
+
+    #tous les (s0,s1,...,s7) sont des tuples de type (x,z)
+    #on remplace chaque valeur de x et z (sans toucher a y qui est la hauteur du robot et qui ne change pas)
+    #par sa valeur apres rotation contenue dans les (s0,s1,...,s7)
+    #on profite de cette assignation pour redeplacer le robot a sa position initiale
+    new_coords = ( (s0[0]+x, 0, s0[1]+z),
+                   (s1[0]+x, 0, s1[1]+z),
+                   (s2[0]+x, 0, s2[1]+z),
+                   (s3[0]+x, 0, s3[1]+z),
+                   (s4[0]+x, long, s4[1]+z),
+                   (s5[0]+x, long, s5[1]+z),
+                   (s6[0]+x, long, s6[1]+z),
+                   (s7[0]+x, long, s7[1]+z),)
+    return new_coords
+
 def Creation_Robot():
-        """creation d'un Robot avec une position aleatoire"""
+    """creation d'un Robot avec une position aleatoire"""
 
-        x = 0
-        y = 0
-        z = 0 #un robot est posé sur le sol
+    x = 0
+    y = 0
+    z = 0 #un robot est posé sur le sol
 
-        larg = 25
-        long = 20
-        haut = 40
-        
-        vitesse = 1
+    larg = 25
+    long = 20
+    haut = 60
+    
+    vitesse = 1
 
-        """
-        dirxy1 = (x, y)
-        dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
-        newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1])
-        """           
-        newdir = (0,1)
+    """
+    dirxy1 = (x, y)
+    dirxy2 = (((x-larg/2)+(x+larg/2))/2, ((y+long/2)+(y+long/2))/2 )
+    newdir = ( round(dirxy2[0]-dirxy1[0]), round(dirxy2[1]-dirxy1[1])
+    """           
+    newdir = (0,1)
 
-        #arene = Arene(500,500,0,[],[]).generateur_arene()
-        a=Creation_Arene()
-        
-        coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
-        return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, a)
-        
+    #arene = Arene(500,500,0,[],[]).generateur_arene()
+    a=Creation_Arene()
+    
+    coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
+
+    coords = calcul_coords(x,y,z, larg,long,haut, newdir[0],newdir[1])
+    print(coords)
+    return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, a)
+    
 
         
 
