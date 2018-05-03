@@ -12,7 +12,7 @@ class VueBalise:
 
             self.batch = pyglet.graphics.Batch()
 
-            texture_file = "robot_sim/textures/metal_larme.png"
+            texture_file = "robot_sim/textures/paper.png"
             tex = pyglet.image.load(texture_file).texture
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR)
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
