@@ -13,7 +13,7 @@ from robot_sim.vuebalise import VueBalise as vueB
 
 #code
 
-main = Window(720, 480, "Arena", resizable=True)
+main = Window(1000, 400, "Arena", resizable=True)
 
 b = Balise(160,0,-80,80)
 #print(b.safficher())
@@ -36,7 +36,7 @@ main.addVueRobot(r)
 main.addVueSol(s)
 main.addVueBalise(b)
 main.addVueCube(c)
-main.addVueCube(Cube(120,0,120,20,20,20))
+main.addVueCube(Cube(0,0,0,20,20,20))
 
 
 #for i in range(0, 30):

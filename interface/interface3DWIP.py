@@ -14,7 +14,7 @@ from robot_sim.vuecube import *
 from robot_sim.vuerobot import *
 from robot_sim.vuebalise import *
 from robot_sim.vuesol import *
-
+from robot_sim.utilitaires_geometrie import *
 #code class fenetre
 
 class Window(pyglet.window.Window):
@@ -44,6 +44,10 @@ class Window(pyglet.window.Window):
         self.upX = 0
         self.upY = 1
         self.upZ = 0
+        
+        self.eye = (0,80,400)
+        self.lookat = (0,0,0)
+        self.up = (0,1,0)
         
         # methodes et variables de champ fenetre
         glClearColor(0.09, 0.6, 0.8, 1)
@@ -101,9 +105,9 @@ class Window(pyglet.window.Window):
         gluPerspective(50, aspectRatio, 1, 4000)
         
         gluLookAt(
-            self.eyeX, self.eyeY, self.eyeZ,  # eye
-            self.lookatX, self.lookatY, self.lookatZ,  # lookAt
-            self.upX, self.upY, self.upZ)  # up
+            self.eye[0], self.eye[1], self.eye[2],  # eye
+            self.lookat[0], self.lookat[1], self.lookat[2],  # lookAt
+            self.up[0], self.up[1], self.up[2])  # up
         
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
@@ -117,7 +121,8 @@ class Window(pyglet.window.Window):
             glRotatef(-self.yRotation, 0, 1, 0)
 
         elif symbol == key.SPACE:
-            print(self.eyeX, self.eyeY, self.eyeZ, "|", self.upX, self.upY, self.upZ)
+            print("Nothing to see here...")
+            print(self.eye, self.lookat, self.up)
         
         elif symbol == key.P:
             self.clear()
@@ -133,6 +138,9 @@ class Window(pyglet.window.Window):
                 glTranslatef(0, 0, -self.INDTRSLT)
                 self.listcube[i].pz -= self.INDTRSLT
                 i += 1
+                
+        elif symbol == key.ESCAPE:
+            self.close()
 
         elif symbol == key.R:
             if (self.attributVueRobot != None):

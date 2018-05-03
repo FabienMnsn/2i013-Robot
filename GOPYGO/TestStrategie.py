@@ -1,13 +1,14 @@
 #imports strategies
-from strategies.simulation import *
-from strategies.strategieToutDroit70 import *
-from strategies.strategieRot90 import *
-from strategies.strategieCarre import *
-from strategies.strategieRotServo import *
+from simulation import *
+from strategieToutDroit70 import *
+from strategieRot90 import *
+from strategieCarre import *
+from strategieRotServo import *
+from strategieSuivieBalise import *
 
 #imports robots
 #from robot_sim.robot2 import *
-from robot_gopy.robot2I013 import *
+from robot2I013 import *
 
 #code
 
@@ -15,14 +16,14 @@ from robot_gopy.robot2I013 import *
 #________________VARIABLES DE SELECTION___________________
 
 
-STRAT = 0
+STRAT = 4
 
 ###____numero de la strategie____####
 # 0 = strategietoutdroit70          #
 # 1 = strategieRot90                #
 # 2 = strategieRotServo             #
 # 3 = strategieCarre                #
-# 4 = NON ASSIGNEE                  #
+# 4 = strategieSuivieBalise         #
 #####################################
 
 ROBOT = 1           #(0=simulation, 1=gopigo)
@@ -64,7 +65,11 @@ elif(STRAT == 3):
 #____________________________________________________
 elif(STRAT == 4):
     ##autre strat a venir...
-    print("strat",STRAT," non definie !")
+    if(ROBOT == 1):
+        #robot physique
+        strategie = strategieSuivieBalise(rob_phy)
+    else:
+        strategie = strategieSuivieBalise(rob_sim)
     
 #____________________________________________________
 else:
