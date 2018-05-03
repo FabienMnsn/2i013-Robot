@@ -35,7 +35,7 @@ class RConverter:
         return self.r.getDim()
 
     def getVitesse(self):
-        return self.r.vitesse
+        return self.r.getVitesse()
 
     """-----------------------SETTER-------------------------"""
     

@@ -8,6 +8,8 @@ from robots.robot import *
 
 class Arene :
 
+    LARGMUR = 300
+    
     def __init__(self, lx, ly, lz, liste_cube=[], robot=None) :
         self.lx = lx
         self.ly = ly
@@ -16,45 +18,49 @@ class Arene :
         self.robot = robot
 
     def generationA(self):
-
         if (len(self.liste_cube) == 0):
             s1 = Creation_Sol(self)
             self.addCube(s1)
             
             taille = self.lx  # taille de l'arene
             haut = self.lz - 1
-            larg_mur = 300  # largeur des murs de contour
+            self.LARGMUR  # largeur des murs de contour
 
-            m1 = Mur(0, 0, 0, taille - 1, larg_mur, haut)
-            m2 = Mur(0, 0, 0, larg_mur, taille - 1, haut)
-            m3 = Mur(0, taille - larg_mur - 1, 0, taille - 1, larg_mur, haut)
-            m4 = Mur(taille - larg_mur - 1, 0, 0, larg_mur, taille - 1, haut)
+            m1 = Mur(0, 0, 0, taille - 1, self.LARGMUR, haut)
+            m2 = Mur(0, 0, 0, self.LARGMUR, taille - 1, haut)
+            m3 = Mur(0, taille - self.LARGMUR - 1, 0, taille - 1, self.LARGMUR, haut)
+            m4 = Mur(taille - self.LARGMUR - 1, 0, 0, self.LARGMUR, taille - 1, haut)
 
             self.addCube(m1)
             self.addCube(m2)
             self.addCube(m3)
             self.addCube(m4)
-
+            
             #generation de cubes aleatoires
-            nb_obstacles = 5
+            nb_obstacles = 3
+            xmilieu = self.lx/2
+            ymilieu = self.ly/2
             i = 0
-            long_min = 500
+            k = 0
+            long_min = 300
             long_max = 3000
-            larg_min = 500
+            larg_min = 300
             larg_max = 3000
-            haut_min = 500
+            haut_min = 300
             haut_max = int((self.lz - 1)/2)
-            while i < nb_obstacles:
+            while i < nb_obstacles and k < 100:
                 lx = random.randint(long_min, long_max)
                 ly = random.randint(larg_min, larg_max)
                 lz = random.randint(haut_min, haut_max)
-                x = random.randint(larg_mur, taille - lx - 1)
-                y = random.randint(larg_mur, taille - ly - 1)
+                x = random.randint(self.LARGMUR, taille - lx - 1)
+                y = random.randint(self.LARGMUR, taille - ly - 1)
 
-                if ((x-lx/2>self.lx+Robot.DIMENSIONS[0])/2 or x+lx/2<(self.lx-Robot.DIMENSIONS[0])/2) and (y-ly/2>(self.ly+Robot.DIMENSIONS[1])/2 or y+ly/2<(self.ly-Robot.DIMENSIONS[1])/2):
+                if not (x+lx/2 > xmilieu and x-lx/2 < xmilieu and y+ly/2 > ymilieu and y-ly/2 < ymilieu):
                     c = Cube(x, y, 1, lx, ly, lz)
                     self.addCube(c)
                     i = i + 1
+                else:
+                    k = k + 1
 
     def addCube(self,cube) :
         bx = 0<=cube.x and cube.x <= self.lx
