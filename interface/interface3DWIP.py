@@ -34,11 +34,11 @@ class Window(pyglet.window.Window):
         self.listVueBalise = []
         
         self.eyeX = 0
-        self.eyeY = 80
+        self.eyeY = 10
         self.eyeZ = 400
 
         self.lookatX = 0
-        self.lookatY = 0
+        self.lookatY = 80
         self.lookatZ = 0
 
         self.upX = 0
@@ -134,11 +134,47 @@ class Window(pyglet.window.Window):
                 self.listcube[i].pz -= self.INDTRSLT
                 i += 1
 
+        elif symbol == key.R:
+            if (self.attributVueRobot != None):
+                self.eyeX = self.attributVueRobot.robot.position[0]#+self.attributVueRobot.robot.dimension[0]/2
+                self.eyeY = self.attributVueRobot.robot.dimension[1]
+                self.eyeZ = self.attributVueRobot.robot.position[0]#+self.attributVueRobot.robot.dimension[2]/2
+
+                self.lookatX = self.attributVueRobot.robot.direction[0]+40
+                self.lookatY = self.attributVueRobot.robot.dimension[1]
+                self.lookatZ = self.attributVueRobot.robot.direction[1]+40
+
+                print(self.eyeX,self.eyeY,self.eyeZ, self.lookatX,self.lookatY,self.lookatZ, self.upXself.upY,self.upZ)
+                gluLookAt(
+                    self.eyeX, self.eyeY, self.eyeZ,  # eye
+                    self.lookatX, self.lookatY, self.lookatZ,  # lookAt
+                    self.upX, self.upY, self.upZ)  # up
+
+        elif symbol == key.T:
+            self.eyeX = 0
+            self.eyeY = 10
+            self.eyeZ = 400
+
+            self.lookatX = 0
+            self.lookatY = 80
+            self.lookatZ = 0
+
+            self.upX = 0
+            self.upY = 1
+            self.upZ = 0
+
+            gluLookAt(
+                    self.eyeX, self.eyeY, self.eyeZ,  # eye
+                    self.lookatX, self.lookatY, self.lookatZ,  # lookAt
+                    self.upX, self.upY, self.upZ)  # up
+            
         # action screenshot
         elif symbol == key.V:
 
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.png')
-
+            
+        elif symbol == key.ESCAPE:
+            self.close()
             
 if __name__ == "__main__":
     newwindow = Window(720, 480, "Arene Virtuelle", resizable=False)
