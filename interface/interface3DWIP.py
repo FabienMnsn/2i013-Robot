@@ -14,6 +14,7 @@ from robot_sim.vuecube import *
 from robot_sim.vuerobot import *
 from robot_sim.vuebalise import *
 from robot_sim.vuesol import *
+from robot_sim.vuemur import *
 from robot_sim.utilitaires_geometrie import *
 #code class fenetre
 
@@ -70,6 +71,10 @@ class Window(pyglet.window.Window):
 
     def addVueSol(self, objet):
         self.attributVueSol = VueSol(objet)
+
+    def addVueMur(self, objet):
+        self.listVueCube.append(VueMur(objet))
+        
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
         # type: () -> object

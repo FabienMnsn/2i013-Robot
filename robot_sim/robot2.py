@@ -74,7 +74,7 @@ class Robot:
         x, y, z = self.position
         xdir, ydir = self.direction
         #larg, long, haut = self.dimension
-        (x0,z0), (x1,z1), (x2,z2), (x3,z3) = self.coords
+        (x0,y0,z0),(x1,y1,z1),(x2,y2,z2),(x3,y3,z3), (x4,y4,z4),(x5,y5,z5),(x6,y6,z6),(x7,y7,z7)= self.coords
             
         vitesse = dps/360 * self.WHEEL_CIRCUMFERENCE
         #print("vitesse", vitesse)
@@ -114,9 +114,18 @@ class Robot:
         z2 += v1
         x3 += v0
         z3 += v1
+
+        x4 += v0
+        z4 += v1
+        x5 += v0
+        z5 += v1
+        x6 += v0
+        z6 += v1
+        x7 += v0
+        z7 += v1
         
         self.setPosition((x, y, z))
-        self.setCoords(((x0,z0),(x1,z1),(x2,z2),(x3,z3)))
+        self.setCoords(((x0,y0,z0),(x1,y1,z1),(x2,y2,z2),(x3,y3,z3), (x4,y4,z4),(x5,y5,z5),(x6,y6,z6),(x7,y7,z7)))
         #print("dir=",self.direction,"    centre=",self.position,"    coords=",self.coords)
 
 

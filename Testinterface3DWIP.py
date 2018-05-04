@@ -5,47 +5,44 @@ from interface.interface3DWIP import *
 from basiques.cube import *
 from basiques.mur import *
 from basiques.balise import *
+from basiques.sol import *
 
 from robot_sim.robot2 import *
-from robot_sim.vuerobot import VueRobot as vueR
-from robot_sim.vuecube import VueCube as vueC
-from robot_sim.vuebalise import VueBalise as vueB
 
 #code
 
 main = Window(1000, 400, "Arena", resizable=True)
 
-b = Balise(160,0,-80,80)
-#print(b.safficher())
 
-r = Creation_Robot(0,0,-1,1)
-#print(r.getDimension())
+b = Balise(160,0,-80,50)
+
+r = Creation_Robot(0,0,0,1)
 print(r.safficher())
 
-c = Cube(-1200,0,-500,400,400,400)
-#print(c.safficher())
+c = Cube(40,0,-50,50,50,50)
 
 s = Sol(0,0,0,4000,4000)
-#print(s.safficher())
 
+m = Mur(0,0,-150,3000,200,20)
 
 main.eye = (0,80,400)
 main.lookat = (0,0,0)
+main.up = (0,0,-1)
 
+main.addVueMur(m)
 main.addVueRobot(r)
 main.addVueSol(s)
 main.addVueBalise(b)
 main.addVueCube(c)
-main.addVueCube(Cube(0,40,0,20,20,20))
 
 
 #for i in range(0, 30):
     
-    #r.set_motor_dps(1,-50)
-    #r.set_motor_dps(2,50)
-    #main.addVueRobot(r)
-    #main.on_draw()
-    #print(r.safficher())
+r.set_motor_dps(3,50)
+#r.set_motor_dps(2,50)
+#main.addVueRobot(r)
+#main.on_draw()
+print(r.safficher())
     
 
 pyglet.app.run()
