@@ -23,15 +23,15 @@ class Arene :
     def ajouter_cube(self,cube) :
         """Si c'est possible on ajoute un cube dans l'arene
             et on return True, et False sinon"""
-        bx = 0<=cube.x and cube.x <= self.lx
-        by = 0<=cube.y and cube.y <= self.ly
-        bz = 0<=cube.z and cube.z <= self.lz
+        bx = -self.lx/2<=cube.x and cube.x <= self.lx/2
+        by = -self.ly/2<=cube.y and cube.y <= self.ly/2
+        bz = -self.lz/2<=cube.z and cube.z <= self.lz/2
 
         L = 0<=cube.x + cube.larg and cube.x + cube.larg <= self.lx
         l = 0<=cube.y + cube.long and cube.y + cube.long <= self.ly
         h = 0<=cube.z + cube.haut and cube.z + cube.haut <= self.lx
         
-        if bx and by and bz and L and l and h:
+        if bx and by and bz :#and L and l and h:
             self.liste_cube.append(cube)
             return True
         return False
@@ -52,26 +52,24 @@ class Arene :
             m3 = Mur(0,0,taillez/2, taillex+larg_mur,hauteur_max,larg_mur)
             m4 = Mur(-taillex/2,0,0, larg_mur,hauteur_max,taillez+larg_mur)
 
-            #self.ajouter_cube(m1)
-            #self.ajouter_cube(m2)
-            #self.ajouter_cube(m3)
-            #self.ajouter_cube(m4)
-            self.liste_cube.append(m1)
-            self.liste_cube.append(m2)
-            self.liste_cube.append(m3)
-            self.liste_cube.append(m4)
+            self.ajouter_cube(m1)
+            self.ajouter_cube(m2)
+            self.ajouter_cube(m3)
+            self.ajouter_cube(m4)
+            #self.liste_cube.append(m1)
+            #self.liste_cube.append(m2)
+            #self.liste_cube.append(m3)
+            #self.liste_cube.append(m4)
             #generation de cubes aleatoires
-            nb_obstacles = 4
+            """nb_obstacles = 5
             i = 0
             long_max = 90
-            larg_max = 90
-            """while i < nb_obstacles:
-                x = random.randint(-taille+long_max, taille-long_max)
-                z = random.randint(-taille+long_max, taille-long_max)
-                long = random.randint(0, long_max)
-                haut = random.randint(0, larg_max)
+            while i < nb_obstacles:
+                x = random.randint(-taillex+long_max, taillex-long_max)
+                z = random.randint(-taillez+long_max, taillez-long_max)
+                long = random.randint(int(taillex/8), int(taillex/4))
 
-                m = Cube(x, 0, z, long, 40, haut)
+                m = Cube(x, 0, z, long, self.ly/2, long)
                 #self.ajouter_cube(m)
                 self.liste_cube.append(m)
                 i = i + 1
