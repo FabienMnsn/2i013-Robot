@@ -11,7 +11,7 @@ class VueSol:
         if isinstance(sol, Sol):
 
             self.batch = pyglet.graphics.Batch()
-            nb_texture = 100
+            nb_texture = 10
             texture_file = "robot_sim/textures/pierre.png"
             tex = pyglet.image.load(texture_file).texture
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR)#GL_REPEAT
@@ -28,16 +28,16 @@ class VueSol:
             
             #sol
             self.batch.add(4, GL_QUADS, view, (
-                'v3f', (sol.x - sol.larg,
+                'v3f', (sol.x - sol.larg/2,
                         sol.y,
-                        sol.z - sol.long,
-                        sol.x - sol.larg,
+                        sol.z - sol.haut/2,
+                        sol.x - sol.larg/2,
                         sol.y,
-                        sol.z + sol.long,
-                        sol.x + sol.larg,
+                        sol.z + sol.haut/2,
+                        sol.x + sol.larg/2,
                         sol.y,
-                        sol.z + sol.long,
-                        sol.x + sol.larg,
+                        sol.z + sol.haut/2,
+                        sol.x + sol.larg/2,
                         sol.y,
-                        sol.z - sol.long)),
+                        sol.z - sol.haut/2)),
                            view_coords)

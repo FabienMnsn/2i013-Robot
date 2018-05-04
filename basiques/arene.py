@@ -13,7 +13,7 @@ class Arene :
     - liste_cube : une liste contenant des "cubes"(sol,mur,obstacle) avec leurs coordonnées dans l'arene
     """
 
-    def __init__(self,lx,ly,lz,liste_cube,liste_strat) :
+    def __init__(self,lx,ly,lz,liste_cube,liste_strat):
         self.lx = lx
         self.ly = ly
         self.lz = lz
@@ -39,39 +39,44 @@ class Arene :
     def generateur_arene(self):
 
         if (len(self.liste_cube) == 0):
-            s1 = Creation_Sol(self)
-            self.ajouter_cube(s1)
-            
-            taille = self.lx  # taille de l'arene
-            larg_mur = 30  # largeur des murs de contour
+            s1 = Sol(0,0,0, self.lx, 0, self.lz)
+            #self.ajouter_cube(s1)
+            self.liste_cube.append(s1)
+            taillex = self.lx  # taille de l'arene
+            taillez = self.lz  # taille de l'arene
+            larg_mur = 20  # largeur des murs de contour
+            hauteur_max = self.ly # hauteur du mur (CST)
 
-            m1 = Mur(0, 0, 0, taille - 1, larg_mur, larg_mur)
-            m2 = Mur(0, 0, 0, larg_mur, taille - 1, 30)
-            m3 = Mur(0, taille - larg_mur - 1, 0, taille - 1, larg_mur, larg_mur)
-            m4 = Mur(taille - larg_mur - 1, 0, 0, larg_mur, taille - 1, larg_mur)
+            m1 = Mur(0,0,-taillez/2, taillex+larg_mur,hauteur_max,larg_mur)
+            m2 = Mur(taillex/2,0,0, larg_mur,hauteur_max,taillez+larg_mur)
+            m3 = Mur(0,0,taillez/2, taillex+larg_mur,hauteur_max,larg_mur)
+            m4 = Mur(-taillex/2,0,0, larg_mur,hauteur_max,taillez+larg_mur)
 
-            self.ajouter_cube(m1)
-            self.ajouter_cube(m2)
-            self.ajouter_cube(m3)
-            self.ajouter_cube(m4)
-
+            #self.ajouter_cube(m1)
+            #self.ajouter_cube(m2)
+            #self.ajouter_cube(m3)
+            #self.ajouter_cube(m4)
+            self.liste_cube.append(m1)
+            self.liste_cube.append(m2)
+            self.liste_cube.append(m3)
+            self.liste_cube.append(m4)
             #generation de cubes aleatoires
-            nb_obstacles = 2
+            nb_obstacles = 4
             i = 0
             long_max = 90
             larg_max = 90
-            while i < nb_obstacles:
-                x = random.randint(larg_mur, taille - larg_mur - 1)
-                y = random.randint(larg_mur, taille - larg_mur - 1)
+            """while i < nb_obstacles:
+                x = random.randint(-taille+long_max, taille-long_max)
+                z = random.randint(-taille+long_max, taille-long_max)
                 long = random.randint(0, long_max)
-                larg = random.randint(0, larg_max)
+                haut = random.randint(0, larg_max)
 
-                m = Mur(x, y, 0, long, larg, 40)
-                self.ajouter_cube(m)
-
+                m = Cube(x, 0, z, long, 40, haut)
+                #self.ajouter_cube(m)
+                self.liste_cube.append(m)
                 i = i + 1
-    
-    def afficher(self):
+            """
+    def safficher(self):
 
         """Methode d'affichage d'une arene au format :
         Arene(limiteX= , limiteY= , limiteZ= )

@@ -17,10 +17,12 @@ class VueMur:
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR)
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
             view = pyglet.graphics.TextureGroup(tex)
-            view_coords = ('t2f',(0,0, 20,0, 20,1, 0,1, ))
+            view_coords = ('t2f',(0,0, 7,0, 7,1, 0,1, ))
 
+            colorf3 = ('c3f', (0.5, 0, 0,) * 4)
+            
             # faces
-            # f1
+            # f1 arriere
             self.batch.add(4, GL_QUADS, view, (
                 'v3f', (mur.x + mur.larg/2,
                         mur.y,
@@ -35,7 +37,7 @@ class VueMur:
                         mur.y + mur.long,
                         mur.z + mur.haut/2)),
                            view_coords)
-            # f2
+            # f2 dessous
             self.batch.add(4, GL_QUADS, view, (
                 'v3f', (mur.x + mur.larg/2,
                         mur.y,
@@ -50,7 +52,7 @@ class VueMur:
                         mur.y,
                         mur.z - mur.haut/2)),
                            view_coords)
-            # f3
+            # f3 devant
             self.batch.add(4, GL_QUADS, view, (
                 'v3f', (mur.x + mur.larg/2,
                         mur.y,
@@ -65,8 +67,8 @@ class VueMur:
                         mur.y + mur.long,
                         mur.z - mur.haut/2)),
                            view_coords)
-            # f4
-            self.batch.add(4, GL_QUADS, view, (
+            # f4 dessus
+            self.batch.add(4, GL_QUADS, None, (
                 'v3f', (mur.x + mur.larg/2,
                         mur.y + mur.long,
                         mur.z + mur.haut/2,
@@ -79,7 +81,7 @@ class VueMur:
                         mur.x + mur.larg/2,
                         mur.y + mur.long,
                         mur.z - mur.haut/2)),
-                           view_coords)
+                           colorf3)
             # f5
             self.batch.add(4, GL_QUADS, view, (
                 'v3f', (mur.x + mur.larg/2,

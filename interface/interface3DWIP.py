@@ -74,7 +74,16 @@ class Window(pyglet.window.Window):
 
     def addVueMur(self, objet):
         self.listVueCube.append(VueMur(objet))
-        
+
+    def addVueArene(self, arene):
+        if isinstance(arene, Arene):
+            for i in arene.liste_cube:
+                if isinstance(i, Mur):
+                    self.addVueMur(i)
+                elif isinstance(i, Sol):
+                    self.addVueSol(i)
+                elif isinstance(i, Cube):
+                    self.addVueCube(i)
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
         # type: () -> object
