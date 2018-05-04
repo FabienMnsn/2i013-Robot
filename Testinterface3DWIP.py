@@ -34,8 +34,8 @@ a.ajouter_cube(c1)
 
 #m = Mur(-150,0,0,30,200,20)
 
-main.eye = (0,100,300)
-main.lookat = (0,0,0)
+main.eye = (0,200,400)
+main.lookat = (0,40,0)
 main.up = (0,0,-1)
 
 main.addVueArene(a)
