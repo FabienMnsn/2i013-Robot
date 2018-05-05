@@ -346,8 +346,10 @@ def calcul_coords(x,y,z, larg,long,haut, direX,direY):
     #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
     #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
     angle = calcul_angle2D( (direX,direY), (0,1) ) #(0, 1) = le nord arbitraire
-
+    angle_verif = calcul_angle2D( (direX,direY), (1,0) )#angle de verificatioon
     #calcul des rotation de 'angle' degres sur chaque coordonnees
+    if angle == 90 and angle_verif == 0:
+        angle = -angle
     s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
     s1 = rotation2D( (coords[3], coords[5]), angle)
     s2 = rotation2D( (coords[6], coords[8]), angle)

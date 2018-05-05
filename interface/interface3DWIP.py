@@ -107,6 +107,8 @@ class Window(pyglet.window.Window):
         self.time += dt
         #print(self.time)
         if (self.attributVueRobot != None and self.strat != None):
+            #print("perimetre roue (mm)",self.attributVueRobot.robot.WHEEL_CIRCUMFERENCE)
+            #print("cercle rotation (mm)",self.attributVueRobot.robot.WHEEL_BASE_CIRCUMFERENCE)
             self.strat.update()
             self.addVueRobot(self.strat.robot)
             #mise a jour de la camera
@@ -185,7 +187,7 @@ class Window(pyglet.window.Window):
     
     def on_key_press(self, symbol, modifiers):
         
-        vitesse = 1000
+        vitesse = 30
         if symbol == key.Z:
             robot = self.attributVueRobot.robot
             #print(robot.position)
