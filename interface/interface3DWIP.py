@@ -107,13 +107,38 @@ class Window(pyglet.window.Window):
         #print(self.time)
         if (self.attributVueRobot != None and self.strat != None):
             self.strat.update()
-            #print(self.strat.robot.safficher())
             self.addVueRobot(self.strat.robot)
+            #mise a jour de la camera
+            self.eye = (self.attributVueRobot.robot.position[0],
+                        self.attributVueRobot.robot.dimension[1],
+                        self.attributVueRobot.robot.position[2])
 
-            #robot = self.attributVueRobot.robot
-            #robot.set_motor_dps(3,20)
-            #self.addVueRobot(robot)
+            self.lookat = ( (self.attributVueRobot.robot.coords[4][0]+self.attributVueRobot.robot.coords[5][0])/2,
+                           self.attributVueRobot.robot.dimension[1],
+                            (self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2)
+
+            self.up = (0,1,0)
+
+            #DEBUT DE LA PARTIE MAGIQUE
+            # set the Viewport
+            w,h = self.get_size()
+            glViewport(0, 0, w, h)
+            # width gere "l'applatissement" horizontale du cube, height le vertical
+            # using Projection mode
+            glMatrixMode(GL_PROJECTION)
+            glLoadIdentity()
+            aspectRatio = w / h
+            gluPerspective(50, aspectRatio, 1, 100000)
             
+            gluLookAt(
+                self.eye[0], self.eye[1]+40, self.eye[2],  # eye
+                self.lookat[0], self.lookat[1], self.lookat[2],  # lookAt
+                self.up[0], self.up[1], self.up[2])  # up
+            
+            glMatrixMode(GL_MODELVIEW)
+            glLoadIdentity()
+            #FIN DE LA PARTIE MAGIQUE xD
+        
 
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
@@ -137,7 +162,7 @@ class Window(pyglet.window.Window):
 
         # Pop Matrix off stack
         glPopMatrix()
-
+    
     def on_resize(self, w, h):
 
         # set the Viewport
@@ -150,13 +175,13 @@ class Window(pyglet.window.Window):
         gluPerspective(50, aspectRatio, 1, 100000)
         
         gluLookAt(
-            self.eye[0], self.eye[1], self.eye[2],  # eye
+            self.eye[0], self.eye[1]+40, self.eye[2],  # eye
             self.lookat[0], self.lookat[1], self.lookat[2],  # lookAt
             self.up[0], self.up[1], self.up[2])  # up
         
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-
+    
     def on_key_press(self, symbol, modifiers):
         
 
