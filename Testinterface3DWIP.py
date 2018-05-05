@@ -7,7 +7,6 @@ from basiques.mur import *
 from basiques.balise import *
 from basiques.sol import *
 from basiques.arene import *
-
 from robot_sim.robot2 import *
 
 from strategies.simulation import *

@@ -184,12 +184,12 @@ class Window(pyglet.window.Window):
     
     def on_key_press(self, symbol, modifiers):
         
-
+        vitesse = 1500
         if symbol == key.Z:
             robot = self.attributVueRobot.robot
             #print(robot.position)
             robot.direction = (0,1)
-            robot.set_motor_dps(3,60)
+            robot.set_motor_dps(3,vitesse)
             (x,y,z) = robot.position
             #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
@@ -200,7 +200,7 @@ class Window(pyglet.window.Window):
             robot = self.attributVueRobot.robot
             #print(robot.direction)
             robot.direction = (0,-1)
-            robot.set_motor_dps(3,60)
+            robot.set_motor_dps(3,vitesse)
             (x,y,z) = robot.position
             #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
@@ -210,7 +210,7 @@ class Window(pyglet.window.Window):
             robot = self.attributVueRobot.robot
             #print(robot.direction)
             robot.direction = (-1,0)
-            robot.set_motor_dps(3,60)
+            robot.set_motor_dps(3,vitesse)
             (x,y,z) = robot.position
             #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
@@ -220,7 +220,7 @@ class Window(pyglet.window.Window):
             robot = self.attributVueRobot.robot
             #print(robot.direction)
             robot.direction = (1,0)
-            robot.set_motor_dps(3,60)
+            robot.set_motor_dps(3,vitesse)
             (x,y,z) = robot.position
             #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
