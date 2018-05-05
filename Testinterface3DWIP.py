@@ -14,8 +14,8 @@ from robot_sim.robot2 import *
 
 main = Window(720, 480, "Arena", resizable=True)
 
-
-a = Arene(800,80,800,[],[]) # en changeant les 3 premeires valeur on modifie la taille de l'arene
+#setup environnement (arene et ses composants)
+a = Arene(800,80,800,[],[]) # en changeant les 3 premieres valeurs on modifie la taille de l'arene
 a.safficher()
 a.generateur_arene()
 a.safficher()
@@ -30,21 +30,14 @@ c1 = Cube(200,0,250,150,150,150)
 a.ajouter_cube(c0)
 a.ajouter_cube(c1)
 
-main.eye = (0,300,700)
-main.lookat = (0,100,0)
-main.up = (0,0,-1)
-
 main.addVueArene(a)
 main.addVueRobot(r)
 main.addVueBalise(b)
 
-#for i in range(0, 30):
-    
-#r.set_motor_dps(3,50)
-#r.set_motor_dps(2,50)
-#main.addVueRobot(r)
-#main.on_draw()
-#print(r.safficher())
+#setup position camera
+main.eye = (0,300,700)
+main.lookat = (0,100,0)
+main.up = (0,0,-1)
     
 
 pyglet.app.run()

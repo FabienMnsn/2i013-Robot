@@ -19,13 +19,22 @@ from robot_sim.utilitaires_geometrie import *
 #code class fenetre
 
 class Window(pyglet.window.Window):
+
+    def on_update(self):
+        glPushMatrix()
+        if (self.attributVueRobot != None):
+            self.attributVueRobot.batch.draw()
+        glPopMatrix()
+
     def __init__(self, *args, **kwargs):
         super(Window, self).__init__(*args, **kwargs)
         # attributs qui serviront pour la simu
         self.frame_rate = 1 / 600.0
-        fps_display = FPSDisplay(self)
-        fps_display.label.font_size = 20
+        #fps_display = FPSDisplay(self)
+        #fps_display.label.font_size = 20
 
+        pyglet.clock.schedule_interval(on_update(), 1)
+        
         self.set_minimum_size(100, 100)  # securite
 
         # variables
@@ -84,6 +93,7 @@ class Window(pyglet.window.Window):
                     self.addVueSol(i)
                 elif isinstance(i, Cube):
                     self.addVueCube(i)
+
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):
         # type: () -> object
@@ -189,7 +199,7 @@ class Window(pyglet.window.Window):
                     self.eyeX, self.eyeY, self.eyeZ,  # eye
                     self.lookatX, self.lookatY, self.lookatZ,  # lookAt
                     self.upX, self.upY, self.upZ)  # up
-            
+        
         # action screenshot
         elif symbol == key.V:
 
@@ -197,6 +207,20 @@ class Window(pyglet.window.Window):
             
         elif symbol == key.ESCAPE:
             self.close()
+
+        elif symbol == key.UP:
+            if self.attributVueRobot != None:
+                #print("_________________maj robot")
+                #print(self.attributVueRobot.robot.safficher())
+                self.attributVueRobot.robot.set_motor_dps(3,10)
+                print(self.attributVueRobot.robot.coords)
+
+        elif symbol == key.DOWN:
+            if self.attributVueRobot != None:
+                #print("_________________maj robot")
+                #print(self.attributVueRobot.robot.safficher())
+                self.attributVueRobot.robot.set_motor_dps(3,10)
+                print(self.attributVueRobot.robot.coords)
             
 if __name__ == "__main__":
     newwindow = Window(720, 480, "Arene Virtuelle", resizable=False)
