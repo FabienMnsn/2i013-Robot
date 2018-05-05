@@ -11,14 +11,18 @@ class strategieRot90():
         self.stop = False
         self.robot = robot
         self.dir_robot = robot.direction
+        self.dir_depart = robot.direction
         self.dir_arrivee = rotation2D(self.dir_robot,90)
 
     def update(self):
         if self.stop == False :
-            if calcul_angle2D(self.dir_robot,self.dir_arrivee) == 0 :
+            if calcul_angle2D(self.dir_robot,self.dir_depart) == 0 :
                 self.stop = True
-    
-            new_dir = rotation2D(self.dir_robot,5) # 5 degres a chaque tour
+
+            print('direction depart :',self.dir_depart)
+            angle = calcul_angle2D(self.dir_robot,self.dir_depart)
+            print('angle entre le robot et l arrivee',angle)
+            new_dir = rotation2D(self.dir_robot,1) # 1 degres a chaque tour
             self.robot.direction = new_dir
             print(self.robot.direction)
             
