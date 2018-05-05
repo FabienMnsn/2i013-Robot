@@ -6,8 +6,30 @@ from robot_sim.robot2 import *
 #code
 
 class strategieRot90():
-    
+
     def __init__(self,robot):
+        self.stop = False
+        self.robot = robot
+        self.dir_robot = robot.direction
+        self.dir_arrivee = rotation2D(self.dir_robot,90)
+
+    def update(self):
+        if self.stop == False :
+            if calcul_angle2D(self.dir_robot,self.dir_arrivee) == 0 :
+                self.stop = True
+    
+            new_dir = rotation2D(self.dir_robot,5) # 5 degres a chaque tour
+            self.robot.direction = new_dir
+            print(self.robot.direction)
+            
+
+            
+            
+            
+        
+        
+        
+    """def __init__(self,robot):
         self.rot = 0
         self.stop = False
         self.robot = robot
@@ -28,4 +50,4 @@ class strategieRot90():
             self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,0)
         if self.rot >= 75:
             self.vitessed = -30
-            self.vitesseg = 30
+            self.vitesseg = 30"""

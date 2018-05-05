@@ -10,6 +10,7 @@ from pyglet.window import FPSDisplay
 from basiques.cube import *
 
 from strategies.strategieToutDroit70 import *
+from strategies.strategieRot90 import *
 #from strategies.simulation import *
 
 from robot_sim.robot2 import *
@@ -263,6 +264,11 @@ class Window(pyglet.window.Window):
                     self.eyeX, self.eyeY, self.eyeZ,  # eye
                     self.lookatX, self.lookatY, self.lookatZ,  # lookAt
                     self.upX, self.upY, self.upZ)  # up
+
+        elif symbol == key.H:
+            robot = self.attributVueRobot.robot
+            strat90 = strategieRot90(robot)
+            self.addStrat(strat90)
         
         # action screenshot
         elif symbol == key.V:

@@ -12,6 +12,7 @@ from robot_sim.robot2 import *
 
 from strategies.simulation import *
 from strategies.strategieToutDroit70 import *
+from strategies.strategieRot90 import *
 
 #code
 
@@ -30,9 +31,6 @@ c1 = Cube(2000,0,2500,400,400,400)
 a.ajouter_cube(c0)
 a.ajouter_cube(c1)
 
-#setup de strategie et simulation
-#strat70 = strategieToutDroit70(r)
-#simulation = Simulation(strat70)
 
 # setup des vue 3D
 main.addVueArene(a)
