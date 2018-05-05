@@ -42,35 +42,54 @@ def traitement_image(image):
     cptB = 0
     cptY = 0
     l = []
-    for x in range(img.size[0]):
-        for y in range(img.size[1]):
-            r,g,b = img.getpixel((x,y))
-            liste_couleur = [("r",r),("g",g),("b",b)]
-            #print("list:",liste_couleur)
+    taille_carre = 10
+    for x in range(img.size[0]-taille_carre):
+        for y in range(img.size[1]-taille_carre):
+            r,g,b = img.getpixel((x+taille_carre,y)) # Vert
+            r2,g2,b2 = img.getpixel((x+taille_carre,y+taille_carre)) # Bleu
+            r3,g3,b3 = img.getpixel((x,y+taille_carre)) # Rouge
+            r4,g4,b4 = img.getpixel((x,y)) # Jaune
+            
+            liste_couleur = [("r",r),("g",g),("b",b)] # Vert
+            liste_couleur2 = [("r",r2),("g",g2),("b",b2)] # Bleu
+            liste_couleur3 = [("r",r3),("g",g3),("b",b3)] # Rouge
+            liste_couleur4 = [("r",r4),("g",g4),("b",b4)] # Jaune
+            
             liste_couleur.sort(key=operator.itemgetter(1), reverse=True)#tri de la liste
-            #print("trié:",liste_couleur)
-            #time.sleep(2)
-            #print()
-            #if(liste_couleur[0][1] > liste_couleur[1][1] + MARGE_CONVERTED):
-            if(liste_couleur[0][0] == "r" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED):
+            liste_couleur2.sort(key=operator.itemgetter(1), reverse=True)#tri de la liste
+            liste_couleur3.sort(key=operator.itemgetter(1), reverse=True)#tri de la liste
+            liste_couleur4.sort(key=operator.itemgetter(1), reverse=True)#tri de la liste
+
+            test_rouge = liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED
+            test_vert = liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED
+            test_bleu = liste_couleur2[0][0] == "b" and liste_couleur2[0][1] > liste_couleur2[1][1] + TAUX_CONVERTED
+            test_jaune = liste_couleur4[0][1] > 210 and (liste_couleur4[0][0] == "r" or liste_couleur4[0][0] == "g") and liste_couleur4[0][1] - liste_couleur4[1][1] < TAUX_CONVERTED and liste_couleur4[1][1] > liste_couleur4[2][1] + TAUX_CONVERTED
+
+            if ( test_rouge and test_vert and test_bleu and test_jaune):
+                print('Balise trouvee')
+                img.putpixel((x+(taille_carre//2),y+(taille_carre//2)),(255,0,255)) # pixel violet pour reperer le centre 
+                img.show() 
+                return ((x+(taille_carre//2),y+(taille_carre//2))) # coordonnées du centre 
+
+            """if(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Rouge
                 #print("dominante rouge")
                 img.putpixel((x,y),(255,0,0))
                 cptR += 1
-            elif(liste_couleur[0][0] == "g" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED / 7):
+            elif(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Vert
                 #print("dominante vert")
                 img.putpixel((x,y),(0,255,0))
                 cptG += 1
-            elif(liste_couleur[0][0] == "b" and liste_couleur[0][1] > liste_couleur[1][1] + TAUX_CONVERTED):
+            elif(liste_couleur2[0][0] == "b" and liste_couleur2[0][1] > liste_couleur2[1][1] + TAUX_CONVERTED): # Bleu
                 #print("dominante bleu")
                 img.putpixel((x,y),(0,0,255))
                 cptB += 1
-            elif(liste_couleur[0][1] > 210 and
-                 (liste_couleur[0][0] == "r" or
-                  liste_couleur[0][0] == "g")and
-                 liste_couleur[0][1] - liste_couleur[1][1] < TAUX_CONVERTED and
-                 liste_couleur[1][1] > liste_couleur[2][1] + TAUX_CONVERTED):
+            elif(liste_couleur4[0][1] > 210 and # Jaune
+                 (liste_couleur4[0][0] == "r" or
+                  liste_couleur4[0][0] == "g")and
+                 liste_couleur4[0][1] - liste_couleur4[1][1] < TAUX_CONVERTED and
+                 liste_couleur4[1][1] > liste_couleur4[2][1] + TAUX_CONVERTED):
                 img.putpixel((x,y),(255,255,0))
-                cptY += 1
+                cptY += 1 
                 
     #affichage nb pxl R, V, B, J            
     #print("rouge:",cptR,"vert:",cptG,"bleu:",cptB,"jaune:",cptY)
@@ -94,7 +113,7 @@ def traitement_image(image):
                             img.show()
                             img.close()
                             return (x+TAILLE-3,y+TAILLE-3)
-    return (-1, -1) #return (-1,-1) si l'ago ne trouve pas de balise                    
+    return (-1, -1) #return (-1,-1) si l'ago ne trouve pas de balise     """               
 
 
 #liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
@@ -112,9 +131,9 @@ liste_fic = [
 	"ImageCopie"]
 
 #test du traitement image:
-"""	
+
 for picture in liste_fic:
     t = traitement_image(picture)
     print(t)
 #lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
-"""
+
