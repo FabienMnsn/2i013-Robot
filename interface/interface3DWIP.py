@@ -302,7 +302,7 @@ class Window(pyglet.window.Window):
         # action screenshot
         elif symbol == key.V:
 
-            pyglet.image.get_buffer_manager().get_color_buffer().save('screen.png')
+            pyglet.image.get_buffer_manager().get_color_buffer().save('images/screen.jpg')
             
         elif symbol == key.ESCAPE:
             self.close()
@@ -318,6 +318,6 @@ class Window(pyglet.window.Window):
             if self.attributVueRobot != None:
                 #print("_________________maj robot")
                 #print(self.attributVueRobot.robot.safficher())
-                self.attributVueRobot.robot.set_motor_dps(3,10)
+                self.attributVueRobot.robot.set_motor_dps(3,-10)
                 print(self.attributVueRobot.robot.coords)
             

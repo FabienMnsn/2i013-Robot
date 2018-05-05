@@ -7,7 +7,7 @@ import random
 #code
 #resultats des test (jugement a l oeil nu)
 
-
+"""
 def detection_carre(img,x,y,couleur,zone):
     for i in range(x,x+zone):
         for j in range(y,y+zone):
@@ -17,13 +17,13 @@ def detection_carre(img,x,y,couleur,zone):
                 return True
     return False
 
-"""
+
 test 4 couleurs minimum~> (7/11 images detectees)
 test 3 couleusr minimum ~>(11/11 images detectees)
 test detection des 4 zones de couleur entiere ou presque ~> (6/11 detectees)
-"""
-fic0 = "ImageCopie.jpg"
 
+fic0 = "ImageCopie.jpg"
+"""
 
 def traitement_image(image):
     """traite une image et cherche une balise
@@ -45,10 +45,10 @@ def traitement_image(image):
     taille_carre = 10
     for x in range(img.size[0]-taille_carre):
         for y in range(img.size[1]-taille_carre):
-            r,g,b = img.getpixel((x+taille_carre,y)) # Vert
-            r2,g2,b2 = img.getpixel((x+taille_carre,y+taille_carre)) # Bleu
-            r3,g3,b3 = img.getpixel((x,y+taille_carre)) # Rouge
-            r4,g4,b4 = img.getpixel((x,y)) # Jaune
+            r,g,b,c = img.getpixel((x+taille_carre,y)) # Vert
+            r2,g2,b2,c2 = img.getpixel((x+taille_carre,y+taille_carre)) # Bleu
+            r3,g3,b3,c3 = img.getpixel((x,y+taille_carre)) # Rouge
+            r4,g4,b4,c4 = img.getpixel((x,y)) # Jaune
             
             liste_couleur = [("r",r),("g",g),("b",b)] # Vert
             liste_couleur2 = [("r",r2),("g",g2),("b",b2)] # Bleu
@@ -66,11 +66,13 @@ def traitement_image(image):
             test_jaune = liste_couleur4[0][1] > 210 and (liste_couleur4[0][0] == "r" or liste_couleur4[0][0] == "g") and liste_couleur4[0][1] - liste_couleur4[1][1] < TAUX_CONVERTED and liste_couleur4[1][1] > liste_couleur4[2][1] + TAUX_CONVERTED
 
             if ( test_rouge and test_vert and test_bleu and test_jaune):
-                print('Balise trouvee')
-                img.putpixel((x+(taille_carre//2),y+(taille_carre//2)),(255,0,255)) # pixel violet pour reperer le centre 
-                img.show() 
-                return ((x+(taille_carre//2),y+(taille_carre//2))) # coordonnées du centre 
+                #print('Balise trouvee')
+                #img.putpixel((x+(taille_carre//2),y+(taille_carre//2)),(255,0,255)) # pixel violet pour reperer le centre 
+                #img.show() 
+                return ((x+(taille_carre//2),y+(taille_carre//2))) # coordonnées du centre
 
+
+            #ceci est une ancienne version bcp trop longue (en temps de calcul)
             """if(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Rouge
                 #print("dominante rouge")
                 img.putpixel((x,y),(255,0,0))
@@ -116,24 +118,28 @@ def traitement_image(image):
     return (-1, -1) #return (-1,-1) si l'ago ne trouve pas de balise     """               
 
 
-#liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
-liste_fic = [
-	"2018-03-06 02_51_06.486124",
-	"2018-03-06 02_51_13.082451",
-	"2018-03-06 02_51_18.273973",
-	"2018-03-06 02_51_23.256724",
-	"2018-03-06 02_51_28.118059",
-	"2018-03-06 02_51_43.625168",
-	"2018-03-06 02_51_48.413961",
-	"2018-03-06 02_51_54.161908",
-	"2018-03-06 02_52_18.483662",
-	"Image",
-	"ImageCopie"]
 
-#test du traitement image:
+if __name__ == '__main__':
+    
+    print(traitement_image('screen'))
+    
+    #liste des differentes images pour tester plusieur detetction de couleurs (temporaire)
+    """liste_fic = [
+            "2018-03-06 02_51_06.486124",
+            "2018-03-06 02_51_13.082451",
+            "2018-03-06 02_51_18.273973",
+            "2018-03-06 02_51_23.256724",
+            "2018-03-06 02_51_28.118059",
+            "2018-03-06 02_51_43.625168",
+            "2018-03-06 02_51_48.413961",
+            "2018-03-06 02_51_54.161908",
+            "2018-03-06 02_52_18.483662",
+            "Image",
+            "ImageCopie"]
 
-for picture in liste_fic:
-    t = traitement_image(picture)
-    print(t)
-#lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
+    #test du traitement image:
+    for picture in liste_fic:
+        t = traitement_image(picture)
+        print(t)"""
+    #lien utile pour les valeurs RGB des pixels de l'image : https://www.imagecolorpicker.com/
 
