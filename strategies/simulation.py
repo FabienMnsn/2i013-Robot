@@ -13,16 +13,16 @@ class Simulation:
         cpt=0
         
         ######
-        view = Interface()
+        #view = Interface()
         ######
         
         while self.strategie.stop==False:
             self.strategie.update()
 
             ######
-            test = self.strategie.robot
+            #test = self.strategie.robot
             #print(self.strategie.robot.safficher())
-            view.rafraichir(test)
+            #view.rafraichir(test)
             ######
             
             cpt+=1

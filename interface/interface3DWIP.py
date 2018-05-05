@@ -16,16 +16,12 @@ from robot_sim.vuebalise import *
 from robot_sim.vuesol import *
 from robot_sim.vuemur import *
 from robot_sim.utilitaires_geometrie import *
+
+from strategies.simulation import *
+
 #code class fenetre
 
 class Window(pyglet.window.Window):
-
-    def on_update(self):
-        glPushMatrix()
-        if (self.attributVueRobot != None):
-            self.attributVueRobot.batch.draw()
-        glPopMatrix()
-
     def __init__(self, *args, **kwargs):
         super(Window, self).__init__(*args, **kwargs)
         # attributs qui serviront pour la simu
@@ -33,16 +29,20 @@ class Window(pyglet.window.Window):
         #fps_display = FPSDisplay(self)
         #fps_display.label.font_size = 20
 
-        pyglet.clock.schedule_interval(on_update(), 1)
-        
+        pyglet.clock.schedule_interval(self.on_update, 0.1)
+        self.time = 0
         self.set_minimum_size(100, 100)  # securite
 
-        # variables
+        # variables d'objet
         self.attributVueSol = None
         self.attributVueRobot = None
         self.listVueCube = []
         self.listVueBalise = []
         
+        #variables de strategie/simulation
+        self.sim = None
+        
+        #variables de camera
         self.eyeX = 0
         self.eyeY = 10
         self.eyeZ = 400
@@ -68,7 +68,7 @@ class Window(pyglet.window.Window):
         glLoadIdentity()
 
     xRotation = yRotation = zRotation = 22.5
-
+    #Setter de vue
     def addVueCube(self, objet):
         self.listVueCube.append(VueCube(objet))
     
@@ -93,6 +93,24 @@ class Window(pyglet.window.Window):
                     self.addVueSol(i)
                 elif isinstance(i, Cube):
                     self.addVueCube(i)
+
+    #Setter de simulation
+    def addSim(self, simulation):
+        if isinstance(simulation, Simulation):
+            self.sim = simulation
+
+    
+    def on_update(self, dt):
+        self.time += dt
+        #print(self.time)
+        if (self.attributVueRobot != None and self.sim != None):
+            self.sim.run()
+            self.addVueRobot(self.sim.strategie.robot)
+
+            #robot = self.attributVueRobot.robot
+            #robot.set_motor_dps(3,20)
+            #self.addVueRobot(robot)
+            
 
     # definition de la methode de dessin des vues sur la fenetre
     def on_draw(self):

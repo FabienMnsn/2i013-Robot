@@ -1,6 +1,6 @@
 #from robot_gopy.robot2I013 import *
 from robot_sim.robot2 import *
-
+import time
 #code
 
 import math
@@ -25,4 +25,6 @@ class strategieToutDroit70:
         #print("distance",dist)
         if dist > 700:
             self.stop = True
+
+        time.sleep(0.5)
             
