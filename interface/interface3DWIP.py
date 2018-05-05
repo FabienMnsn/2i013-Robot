@@ -9,6 +9,9 @@ from pyglet.window import FPSDisplay
 
 from basiques.cube import *
 
+from strategies.strategieToutDroit70 import *
+from strategies.simulation import *
+
 from robot_sim.robot2 import *
 from robot_sim.vuecube import *
 from robot_sim.vuerobot import *
@@ -98,7 +101,6 @@ class Window(pyglet.window.Window):
     def addStrat(self, strategie):
             self.strat = strategie
 
-    
     def on_update(self, dt):
         self.time += dt
         #print(self.time)
@@ -156,9 +158,51 @@ class Window(pyglet.window.Window):
 
     def on_key_press(self, symbol, modifiers):
         
-        if symbol == key.LEFT:
-            glRotatef(self.yRotation, 0, 1, 0)
+
+        if symbol == key.Z:
+            robot = self.attributVueRobot.robot
+            print(robot.position)
+            robot.direction = (0,1)
+            robot.set_motor_dps(3,60)
+            (x,y,z) = robot.position
+            print(robot.position)
+            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
+            robot.setCoords(newcoords)
+            self.addVueRobot(robot)
             
+        elif symbol == key.S:
+            robot = self.attributVueRobot.robot
+            print(robot.position)
+            robot.direction = (0,-1)
+            robot.set_motor_dps(3,60)
+            (x,y,z) = robot.position
+            print(robot.position)
+            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
+            robot.setCoords(newcoords)
+            self.addVueRobot(robot)
+
+        elif symbol == key.Q:
+            robot = self.attributVueRobot.robot
+            print(robot.position)
+            robot.direction = (-1,0)
+            robot.set_motor_dps(3,60)
+            (x,y,z) = robot.position
+            print(robot.position)
+            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
+            robot.setCoords(newcoords)
+            self.addVueRobot(robot)
+        
+        elif symbol == key.D:
+            robot = self.attributVueRobot.robot
+            print(robot.position)
+            robot.direction = (1,0)
+            robot.set_motor_dps(3,60)
+            (x,y,z) = robot.position
+            print(robot.position)
+            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
+            robot.setCoords(newcoords)
+            self.addVueRobot(robot)
+
         elif symbol == key.RIGHT:
             glRotatef(-self.yRotation, 0, 1, 0)
 
@@ -200,6 +244,11 @@ class Window(pyglet.window.Window):
                     self.lookatX, self.lookatY, self.lookatZ,  # lookAt
                     self.upX, self.upY, self.upZ)  # up
 
+        elif symbol == key.G :
+            robot = self.attributVueRobot.robot
+            strat70 = strategieToutDroit70(robot)
+            self.addStrat(strat70)
+
         elif symbol == key.T:
             self.eyeX = 0
             self.eyeY = 10
@@ -240,21 +289,3 @@ class Window(pyglet.window.Window):
                 self.attributVueRobot.robot.set_motor_dps(3,10)
                 print(self.attributVueRobot.robot.coords)
             
-if __name__ == "__main__":
-    newwindow = Window(720, 480, "Arene Virtuelle", resizable=False)
-    #la taille de la fenetre est importante pour le screenshot et le traitement d'image potentiels bugs...
-    #C = Cube(0,0,0,400,300,20,1)
-
-    newwindow.addcube(0, 0, 0, 10000, 0, 20000,3) #SOL
-    #newwindow.addcube(0, 0, 0, 400, 300, 20,1)
-    #newwindow.addcube(200, 0, 200, 20, 300, 400,4)
-    #newwindow.addcube(200, 0, 600, 20, 300, 400,1)
-    newwindow.addcube(0, 25, 50, 50, 50, 50, 2) #robot
-    newwindow.addbalise(0, 50, 0, 100, "f")  # pour les mur de face en z
-    newwindow.addbalise(-100, 50, 200, 100, "c")
-    
-    pyglet.clock.schedule_interval(newwindow.update, newwindow.frame_rate)
-    pyglet.app.run()
-
-# ps: lien utile: http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/programming_guide/graphics.html
-
