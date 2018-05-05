@@ -71,10 +71,11 @@ def traitement_image(image):
                 #img.show() 
                 return ((x+(taille_carre//2),y+(taille_carre//2))) # coordonnées du centre
 
+    return -1 # valeur qui indique qu'aucune balise n'a ete trouvee
 
             #ceci est une ancienne version bcp trop longue (en temps de calcul)
-            """if(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Rouge
-                #print("dominante rouge")
+    """if(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Rouge
+            #print("dominante rouge")
                 img.putpixel((x,y),(255,0,0))
                 cptR += 1
             elif(liste_couleur3[0][0] == "r" and liste_couleur3[0][1] > liste_couleur3[1][1] + TAUX_CONVERTED): # Vert
