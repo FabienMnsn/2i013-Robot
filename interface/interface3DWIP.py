@@ -166,43 +166,46 @@ class Window(pyglet.window.Window):
             robot.direction = (0,1)
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
-            #print(robot.position)
+            #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             #print(robot.coords)
             self.addVueRobot(robot)
             
         elif symbol == key.S:
             robot = self.attributVueRobot.robot
-            print(robot.position)
+            #print(robot.direction)
             robot.direction = (0,-1)
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
-            print(robot.position)
+            #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
 
         elif symbol == key.Q:
             robot = self.attributVueRobot.robot
-            print(robot.position)
+            #print(robot.direction)
             robot.direction = (-1,0)
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
-            print(robot.position)
+            #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
         
         elif symbol == key.D:
             robot = self.attributVueRobot.robot
-            print(robot.position)
+            #print(robot.direction)
             robot.direction = (1,0)
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
-            print(robot.position)
+            #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
 
         elif symbol == key.RIGHT:
             glRotatef(-self.yRotation, 0, 1, 0)
+
+        elif symbol == key.LEFT:
+            glRotatef(self.yRotation, 0, 1, 0)
 
         elif symbol == key.SPACE:
             print("Nothing to see here...")
@@ -215,6 +218,7 @@ class Window(pyglet.window.Window):
                 glTranslatef(0, 0, self.INDTRSLT)
                 self.listcube[i].pz += self.INDTRSLT
                 i += 1
+                
         elif symbol == key.M:
             self.clear()
             i = 0

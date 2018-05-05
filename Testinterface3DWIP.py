@@ -24,7 +24,7 @@ a.generateur_arene()
 
 b = Balise(160,0,-80,500)
 
-r = Creation_Robot(0,0,-0.4,1)
+r = Creation_Robot(0,0,1,0)
 
 c0 = Cube(400,0,-1000,500,500,500)
 c1 = Cube(2000,0,2500,400,400,400)
