@@ -15,7 +15,7 @@ from robot_sim.robot2 import *
 main = Window(720, 480, "Arena", resizable=True)
 
 
-a = Arene(1000,200,1000,[],[]) # en changeant les 3 premeires valeur on modifie la taille de l'arene
+a = Arene(800,80,800,[],[]) # en changeant les 3 premeires valeur on modifie la taille de l'arene
 a.safficher()
 a.generateur_arene()
 a.safficher()
@@ -27,21 +27,15 @@ print(r.safficher())
 
 c0 = Cube(40,0,-100,80,80,80)
 c1 = Cube(200,0,250,150,150,150)
-
 a.ajouter_cube(c0)
 a.ajouter_cube(c1)
-#s = Sol(0,0,0,4000,4000)
 
-#m = Mur(-150,0,0,30,200,20)
-
-main.eye = (0,200,400)
-main.lookat = (0,40,0)
+main.eye = (0,300,700)
+main.lookat = (0,100,0)
 main.up = (0,0,-1)
 
 main.addVueArene(a)
-#main.addVueMur(m)
 main.addVueRobot(r)
-#main.addVueSol(s)
 main.addVueBalise(b)
 
 #for i in range(0, 30):
