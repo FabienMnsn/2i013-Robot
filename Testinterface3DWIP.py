@@ -18,16 +18,15 @@ from strategies.strategieToutDroit70 import *
 main = Window(720, 480, "Arena", resizable=True)
 
 #setup environnement (arene et ses composants)
-a = Arene(800,80,800,[],[]) # en changeant les 3 premieres valeurs on modifie la taille de l'arene
-a.safficher()
+a = Arene(8000,800,8000,[],[]) # en changeant les 3 premieres valeurs on modifie la taille de l'arene
 a.generateur_arene()
 
-b = Balise(160,0,-80,50)
+b = Balise(160,0,-80,500)
 
 r = Creation_Robot(0,0,-0.4,1)
 
-c0 = Cube(40,0,-100,80,80,80)
-c1 = Cube(200,0,250,150,150,150)
+c0 = Cube(400,0,-1000,500,500,500)
+c1 = Cube(2000,0,2500,400,400,400)
 a.ajouter_cube(c0)
 a.ajouter_cube(c1)
 
@@ -42,7 +41,7 @@ main.addVueBalise(b)
 main.addStrat(strat70)
 
 #setup position camera
-main.eye = (0,300,700)
+main.eye = (0,8000,8000)
 main.lookat = (0,100,0)
 main.up = (0,0,-1)
 

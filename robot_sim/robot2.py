@@ -396,9 +396,9 @@ def Creation_Robot(x,z, dirX,dirZ):
 
     y = 0 #un robot est posé sur le sol
 
-    larg = 30
-    long = 20
-    haut = 40
+    larg = 120
+    long = 140
+    haut = 250
     
     vitesse = 1
     

@@ -104,6 +104,7 @@ class Window(pyglet.window.Window):
         #print(self.time)
         if (self.attributVueRobot != None and self.strat != None):
             self.strat.update()
+            #print(self.strat.robot.safficher())
             self.addVueRobot(self.strat.robot)
 
             #robot = self.attributVueRobot.robot
@@ -143,7 +144,7 @@ class Window(pyglet.window.Window):
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
         aspectRatio = w / h
-        gluPerspective(50, aspectRatio, 1, 4000)
+        gluPerspective(50, aspectRatio, 1, 100000)
         
         gluLookAt(
             self.eye[0], self.eye[1], self.eye[2],  # eye
