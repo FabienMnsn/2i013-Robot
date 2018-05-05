@@ -21,7 +21,7 @@ class VueBalise:
             
             h=balise.haut
             l=balise.haut * 1.5
-
+            epaisseur = 30
             # jaune
             yellow = ('c3f', (0.9, 0.9, 0,) * 4)
             # vert
@@ -104,10 +104,10 @@ class VueBalise:
                         balise.z,
                         balise.x - l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x - l/2,
                         balise.y,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x - l/2,
                         balise.y,
                         balise.z)),
@@ -119,10 +119,10 @@ class VueBalise:
                         balise.z,
                         balise.x - l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y + h,
                         balise.z)),
@@ -134,10 +134,10 @@ class VueBalise:
                         balise.z,
                         balise.x + l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y,
                         balise.z)),
@@ -149,10 +149,10 @@ class VueBalise:
                         balise.z,
                         balise.x + l/2,
                         balise.y,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x - l/2,
                         balise.y,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x - l/2,
                         balise.y,
                         balise.z)),
@@ -162,15 +162,15 @@ class VueBalise:
             self.batch.add(4, GL_QUADS, view, (
                 'v3f', (balise.x - l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y + h,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x + l/2,
                         balise.y,
-                        balise.z - 3,
+                        balise.z - epaisseur,
                         balise.x - l/2,
                         balise.y,
-                        balise.z - 3)),
+                        balise.z - epaisseur)),
                            view_coords)
             
