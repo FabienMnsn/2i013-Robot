@@ -109,13 +109,13 @@ class Window(pyglet.window.Window):
             self.strat.update()
             self.addVueRobot(self.strat.robot)
             #mise a jour de la camera
-            self.eye = (self.attributVueRobot.robot.position[0],
-                        self.attributVueRobot.robot.dimension[1],
-                        self.attributVueRobot.robot.position[2])
+            self.eye = ( self.attributVueRobot.robot.position[0],
+                         self.attributVueRobot.robot.dimension[1],
+                         self.attributVueRobot.robot.position[2])
 
-            self.lookat = ( (self.attributVueRobot.robot.coords[4][0]+self.attributVueRobot.robot.coords[5][0])/2,
-                           self.attributVueRobot.robot.dimension[1],
-                            (self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2)
+            self.lookat = ( ((self.attributVueRobot.robot.coords[4][0]+self.attributVueRobot.robot.coords[5][0])/2),
+                           self.attributVueRobot.robot.dimension[1]+50,
+                            ((self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2))
 
             self.up = (0,1,0)
 
