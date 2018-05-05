@@ -222,18 +222,18 @@ class Robot:
         self.__setAndNormaliseDirection(newdir)
 
         
-    def set_calcul_coords(self):
+    def calcul_coords(self):
         """cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D"""
         
         #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
-        coords = (-self.larg/2, 0, +self.long/2, # base
-                  +self.larg/2, 0, +self.long/2, # base
-                  +self.larg/2, 0, -self.long/2, # base
-                  -self.larg/2, 0, -self.long/2, # base
-                  -self.larg/2, self.long, +self.long/2, # haut
-                  +self.larg/2, self.long, +self.long/2, # haut
-                  +self.larg/2, self.long, -self.long/2, # haut
-                  -self.larg/2, self.long, -self.long/2,)# haut
+        coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
+                  +self.dimension[0]/2, 0, +self.dimension[2]/2, # base
+                  +self.dimension[0]/2, 0, -self.dimension[2]/2, # base
+                  -self.dimension[0]/2, 0, -self.dimension[2]/2, # base
+                  -self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
+                  +self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
+                  +self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2, # haut
+                  -self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2,)# haut
         #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
         #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
         angle = calcul_angle2D( (self.direction), (0,1) ) #(0, 1) = le nord arbitraire
@@ -256,10 +256,10 @@ class Robot:
                        (s1[0]+self.position[0], 0, s1[1]+self.position[2]),
                        (s2[0]+self.position[0], 0, s2[1]+self.position[2]),
                        (s3[0]+self.position[0], 0, s3[1]+self.position[2]),
-                       (s4[0]+self.position[0], self.long, s4[1]+self.position[2]),
-                       (s5[0]+self.position[0], self.long, s5[1]+self.position[2]),
-                       (s6[0]+self.position[0], self.long, s6[1]+self.position[2]),
-                       (s7[0]+self.position[0], self.long, s7[1]+self.position[2]),)
+                       (s4[0]+self.position[0], self.dimension[1], s4[1]+self.position[2]),
+                       (s5[0]+self.position[0], self.dimension[1], s5[1]+self.position[2]),
+                       (s6[0]+self.position[0], self.dimension[1], s6[1]+self.position[2]),
+                       (s7[0]+self.position[0], self.dimension[1], s7[1]+self.position[2]),)
         
         #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
         self.coords = new_coords

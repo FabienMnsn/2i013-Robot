@@ -10,7 +10,7 @@ from pyglet.window import FPSDisplay
 from basiques.cube import *
 
 from strategies.strategieToutDroit70 import *
-from strategies.simulation import *
+#from strategies.simulation import *
 
 from robot_sim.robot2 import *
 from robot_sim.vuecube import *
@@ -161,13 +161,13 @@ class Window(pyglet.window.Window):
 
         if symbol == key.Z:
             robot = self.attributVueRobot.robot
-            print(robot.position)
+            #print(robot.position)
             robot.direction = (0,1)
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
-            print(robot.position)
-            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
-            robot.setCoords(newcoords)
+            #print(robot.position)
+            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
+            #print(robot.coords)
             self.addVueRobot(robot)
             
         elif symbol == key.S:
@@ -177,8 +177,7 @@ class Window(pyglet.window.Window):
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
             print(robot.position)
-            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
-            robot.setCoords(newcoords)
+            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
 
         elif symbol == key.Q:
@@ -188,8 +187,7 @@ class Window(pyglet.window.Window):
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
             print(robot.position)
-            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
-            robot.setCoords(newcoords)
+            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
         
         elif symbol == key.D:
@@ -199,8 +197,7 @@ class Window(pyglet.window.Window):
             robot.set_motor_dps(3,60)
             (x,y,z) = robot.position
             print(robot.position)
-            newcoords = calcul_coords(x,y,z,30,20,40,robot.direction[0],robot.direction[1])
-            robot.setCoords(newcoords)
+            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
 
         elif symbol == key.RIGHT:
