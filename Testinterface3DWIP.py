@@ -33,13 +33,13 @@ a.ajouter_cube(c1)
 
 #setup de strategie et simulation
 strat70 = strategieToutDroit70(r)
-simulation = Simulation(strat70)
+#simulation = Simulation(strat70)
 
 # setup des vue 3D
 main.addVueArene(a)
 main.addVueRobot(r)
 main.addVueBalise(b)
-main.addSim(simulation)
+main.addStrat(strat70)
 
 #setup position camera
 main.eye = (0,300,700)

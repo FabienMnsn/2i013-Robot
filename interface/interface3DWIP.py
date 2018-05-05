@@ -40,7 +40,7 @@ class Window(pyglet.window.Window):
         self.listVueBalise = []
         
         #variables de strategie/simulation
-        self.sim = None
+        self.strat = None
         
         #variables de camera
         self.eyeX = 0
@@ -95,17 +95,16 @@ class Window(pyglet.window.Window):
                     self.addVueCube(i)
 
     #Setter de simulation
-    def addSim(self, simulation):
-        if isinstance(simulation, Simulation):
-            self.sim = simulation
+    def addStrat(self, strategie):
+            self.strat = strategie
 
     
     def on_update(self, dt):
         self.time += dt
         #print(self.time)
-        if (self.attributVueRobot != None and self.sim != None):
-            self.sim.run()
-            self.addVueRobot(self.sim.strategie.robot)
+        if (self.attributVueRobot != None and self.strat != None):
+            self.strat.update()
+            self.addVueRobot(self.strat.robot)
 
             #robot = self.attributVueRobot.robot
             #robot.set_motor_dps(3,20)
