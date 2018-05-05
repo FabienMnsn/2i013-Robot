@@ -15,13 +15,21 @@ class VueRobot:
         
         self.batch = pyglet.graphics.Batch()
 
-        texture_file = "robot_sim/textures/right.png"
-        tex = pyglet.image.load(texture_file).texture
+        texture_fileR = "robot_sim/textures/right.png"
+        texture_fileF = "robot_sim/textures/front.png"
+        
+        tex1 = pyglet.image.load(texture_fileR).texture
+        tex2 = pyglet.image.load(texture_fileF).texture
+        
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR)
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
-        view = pyglet.graphics.TextureGroup(tex)
+        
+        view1 = pyglet.graphics.TextureGroup(tex1)
+        view2 = pyglet.graphics.TextureGroup(tex2)
+        
         view_coordsR = ('t2f',(0,0, 1,0, 1,0.92, 0,0.92, ))
         view_coordsL = ('t2f',(1,0, 0,0, 0,0.92, 1,0.92, ))
+        view_coordsF = ('t2f',(0,1, 1,1, 1,0, 0,0, ))
         
         #print("pos:", position,"dim:",dimension)
         
@@ -51,12 +59,12 @@ class VueRobot:
                        colorf2)
 
         # f3 avant
-        self.batch.add(4, GL_QUADS, None, (
+        self.batch.add(4, GL_QUADS, view2, (
             'v3f', (self.robot.coords[4][0], self.robot.coords[4][1], self.robot.coords[4][2],
                     self.robot.coords[5][0], self.robot.coords[5][1], self.robot.coords[5][2],
                     self.robot.coords[1][0], self.robot.coords[1][1], self.robot.coords[1][2],
                     self.robot.coords[0][0], self.robot.coords[0][1], self.robot.coords[0][2])),
-                       colorf3)
+                       view_coordsF)
 
         # f4 dessus
         self.batch.add(4, GL_QUADS, None, (
@@ -67,7 +75,7 @@ class VueRobot:
                        colorf4)
 
         # f5 cote droit
-        self.batch.add(4, GL_QUADS, view, (
+        self.batch.add(4, GL_QUADS, view1, (
             'v3f', (self.robot.coords[1][0], self.robot.coords[1][1], self.robot.coords[1][2],
                     self.robot.coords[5][0], self.robot.coords[5][1], self.robot.coords[5][2],
                     self.robot.coords[6][0], self.robot.coords[6][1], self.robot.coords[6][2],
@@ -75,7 +83,7 @@ class VueRobot:
                        view_coordsR)
 
         # f6 cote gauche
-        self.batch.add(4, GL_QUADS, view, (
+        self.batch.add(4, GL_QUADS, view1, (
             'v3f', (self.robot.coords[4][0], self.robot.coords[4][1], self.robot.coords[4][2],
                     self.robot.coords[0][0], self.robot.coords[0][1], self.robot.coords[0][2],
                     self.robot.coords[3][0], self.robot.coords[3][1], self.robot.coords[3][2],
