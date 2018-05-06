@@ -236,13 +236,13 @@ class Robot:
                   -self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2,)# haut
         #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
         #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
-        angle = calcul_angle2D( (self.direction), (0,1) ) #(0, 1) = le nord arbitraire
-        angle1 = calcul_angle2D( (self.direction), (1,0) )
-        #print("angles:[",angle,"][",angle1,"]")
+        angle = calcul_angle2D( (self.direction), (0,-1) ) #(0,-1) = le nord arbitraire
+        #angle1 = calcul_angle2D( (self.direction), (-1,0) )
+        print("angles:[",angle,"]")#[,angle1,"]")
         #calcul des rotation de 'angle' degres sur chaque coordonnees
         #print(angle)
-        #if (angle < 0 ):
-            #angle = -angle
+        if (angle < 0 ):
+            angle = -angle
             #print(angle)
             #print("angles:[",angle,"][",angle1,"]")
         s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres

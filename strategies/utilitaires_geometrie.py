@@ -43,10 +43,11 @@ def calcul_angle2D(u,v):
     """calcul l'angle entre deux vecteur U et V en 2D (x,y)"""
     if (len(u) and len(v) == 2):
         det = (u[0]*v[1]-u[1]*v[0])
+        angle = round(-math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
         if det < 0:
-            return round(-math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
+            return 360-angle
         elif det > 0:
-            return round(math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
+            return angle
                 
     else:
         return -1
@@ -69,8 +70,8 @@ def normalise3D(u):
 
 def rotation2D(u, theta):
     """calcul la rotation du vecteur u=(x,y) de theta degres
-    si theta > 0 alors rotation dans sens anti-horaire (sens trigo)
-    sinon si theta < 0 rotation dans sens horaire"""
+    si theta < 0 alors rotation dans sens anti-horaire (sens trigo)
+    sinon si theta > 0 rotation dans sens horaire"""
     if (len(u) == 2):
         return ( u[0]*math.cos(math.radians(theta)) - u[1]*math.sin(math.radians(theta)),
                  u[0]*math.sin(math.radians(theta)) + u[1]*math.cos(math.radians(theta)) )

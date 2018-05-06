@@ -21,7 +21,7 @@ class strategieRot90():
             new_dir = rotation2D(self.robot.direction,5)
             self.robot.direction = new_dir
             #self.robot.calcul_coords()
-            #print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[1]))
+            print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[1]))
         elif angle < -1:
             new_dir = rotation2D(self.robot.direction,5)
             self.robot.direction = new_dir
