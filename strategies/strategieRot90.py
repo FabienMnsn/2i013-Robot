@@ -13,7 +13,7 @@ class strategieRot90():
         self.dir_robot = robot.direction
         #self.dir_depart = robot.direction
         self.dir_arrivee = rotation2D(self.dir_robot,90)
-
+        self.angle = 0
     """def update(self):
         angle = calcul_angle2D(self.robot.direction,self.dir_arrivee)
         #print("1)",angle)
@@ -33,10 +33,17 @@ class strategieRot90():
 
 
     def update(self):
-        new_dir = rotation2D(self.robot.direction,90)
+        """nord = (0,-1)
+        angle1 = calcul_angle2D(self.robot.direction, nord)
+        print(angle1)
+        angle = 10
+        new_dir = rotation2D(self.robot.direction,angle)
         self.robot.direction = new_dir
-        print("%.0f, %.0f"%(self.robot.direction[0], self.robot.direction[1]))
-        self.robot.calcul_coords()
+        #print("%.0f, %.0f"%(self.robot.direction[0], self.robot.direction[1]))"""
+        if self.angle < 90:
+            self.angle += 11.25
+            self.robot.calcul_coords_angle(self.angle)
+            print(self.angle)
 
 
 

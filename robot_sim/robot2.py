@@ -271,6 +271,44 @@ class Robot:
         self.coords = new_coords
 
 
+    def calcul_coords_angle(self, angle):
+        """cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D"""
+        
+        #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
+        coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
+                  +self.dimension[0]/2, 0, +self.dimension[2]/2, # base
+                  +self.dimension[0]/2, 0, -self.dimension[2]/2, # base
+                  -self.dimension[0]/2, 0, -self.dimension[2]/2, # base
+                  -self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
+                  +self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
+                  +self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2, # haut
+                  -self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2,)# haut
+        
+        s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
+        s1 = rotation2D( (coords[3], coords[5]), angle)
+        s2 = rotation2D( (coords[6], coords[8]), angle)
+        s3 = rotation2D( (coords[9], coords[11]), angle)
+        s4 = rotation2D( (coords[12], coords[14]), angle)
+        s5 = rotation2D( (coords[15], coords[17]), angle)
+        s6 = rotation2D( (coords[18], coords[20]), angle)
+        s7 = rotation2D( (coords[21], coords[23]), angle)
+
+        #tous les (s0,s1,...,s7) sont des tuples de type (x,z)
+        #on remplace chaque valeur de x et z (sans toucher a y qui est la hauteur du robot et qui ne change pas)
+        #par sa valeur apres rotation contenue dans les (s0,s1,...,s7)
+        #on profite de cette assignation pour redeplacer le robot a sa position initiale
+        new_coords = ( (s0[0]+self.position[0], 0, s0[1]+self.position[2]),
+                       (s1[0]+self.position[0], 0, s1[1]+self.position[2]),
+                       (s2[0]+self.position[0], 0, s2[1]+self.position[2]),
+                       (s3[0]+self.position[0], 0, s3[1]+self.position[2]),
+                       (s4[0]+self.position[0], self.dimension[1], s4[1]+self.position[2]),
+                       (s5[0]+self.position[0], self.dimension[1], s5[1]+self.position[2]),
+                       (s6[0]+self.position[0], self.dimension[1], s6[1]+self.position[2]),
+                       (s7[0]+self.position[0], self.dimension[1], s7[1]+self.position[2]),)
+        
+        #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
+        self.coords = new_coords
+
     def servo_rotate(self, position):
         """tourne la tete du robot a la position 'position'"""
         self.tete.rotation(position)
