@@ -42,7 +42,12 @@ def norme_vecteur3D(u):
 def calcul_angle2D(u,v):
     """calcul l'angle entre deux vecteur U et V en 2D (x,y)"""
     if (len(u) and len(v) == 2):
-        return round(math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
+        det = (u[0]*v[1]-u[1]*v[0])
+        if det < 0:
+            return round(-math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
+        elif det > 0:
+            return round(math.degrees(math.acos( produit_scalaire2D(u,v) / (norme_vecteur2D(u) * norme_vecteur2D(v)) )), 1)
+                
     else:
         return -1
                                 
