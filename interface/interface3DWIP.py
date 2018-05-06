@@ -107,13 +107,39 @@ class Window(pyglet.window.Window):
     def on_update(self, dt):
         self.time += dt
         #print(self.time)
-        if (self.attributVueRobot != None and self.strat != None):
+        if (self.attributVueRobot != None and self.strat != None and self.strat.stop == False):
             #print("perimetre roue (mm)",self.attributVueRobot.robot.WHEEL_CIRCUMFERENCE)
             #print("cercle rotation (mm)",self.attributVueRobot.robot.WHEEL_BASE_CIRCUMFERENCE)
             self.strat.update()
             self.addVueRobot(self.strat.robot)
+            """print("(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f)"
+                  %(self.attributVueRobot.robot.coords[0][0],
+                    self.attributVueRobot.robot.coords[0][1],
+                    self.attributVueRobot.robot.coords[0][2],
+                    self.attributVueRobot.robot.coords[1][0],
+                    self.attributVueRobot.robot.coords[1][1],
+                    self.attributVueRobot.robot.coords[1][2],
+                    self.attributVueRobot.robot.coords[2][0],
+                    self.attributVueRobot.robot.coords[2][1],
+                    self.attributVueRobot.robot.coords[2][2],
+                    self.attributVueRobot.robot.coords[3][0],
+                    self.attributVueRobot.robot.coords[3][1],
+                    self.attributVueRobot.robot.coords[3][2],
+                    self.attributVueRobot.robot.coords[4][0],
+                    self.attributVueRobot.robot.coords[4][1],
+                    self.attributVueRobot.robot.coords[4][2],
+                    self.attributVueRobot.robot.coords[5][0],
+                    self.attributVueRobot.robot.coords[5][1],
+                    self.attributVueRobot.robot.coords[5][2],
+                    self.attributVueRobot.robot.coords[6][0],
+                    self.attributVueRobot.robot.coords[6][1],
+                    self.attributVueRobot.robot.coords[6][2],
+                    self.attributVueRobot.robot.coords[7][0],
+                    self.attributVueRobot.robot.coords[7][1],
+                    self.attributVueRobot.robot.coords[7][2]))
+            print(self.attributVueRobot.robot.direction)"""
             #mise a jour de la camera
-            self.eye = ( self.attributVueRobot.robot.position[0],
+            """self.eye = ( self.attributVueRobot.robot.position[0],
                          self.attributVueRobot.robot.dimension[1],
                          self.attributVueRobot.robot.position[2])
 
@@ -121,7 +147,7 @@ class Window(pyglet.window.Window):
                            self.attributVueRobot.robot.dimension[1]+50,
                             ((self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2))
 
-            self.up = (0,1,0)
+            self.up = (0,1,0)"""
 
             #DEBUT DE LA PARTIE MAGIQUE
             # set the Viewport
@@ -285,7 +311,7 @@ class Window(pyglet.window.Window):
                     self.lookatX, self.lookatY, self.lookatZ,  # lookAt
                     self.upX, self.upY, self.upZ)  # up
 
-        elif symbol == key.H: # ne fonctionne pas 
+        elif symbol == key.H: # ne fonctionne pas completement
             robot = self.attributVueRobot.robot
             strat90 = strategieRot90(robot)
             self.addStrat(strat90)
