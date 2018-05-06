@@ -13,6 +13,7 @@ from strategies.strategieToutDroit70 import *
 from strategies.strategieRot90 import *
 #from strategies.simulation import *
 from strategies.stop_robot_simul import *
+from strategies.strategieCarre_simul import *
 
 from images.traitementimage import *
 from robot_sim.robot2 import *
@@ -139,7 +140,7 @@ class Window(pyglet.window.Window):
                     self.attributVueRobot.robot.coords[7][2]))
             print(self.attributVueRobot.robot.direction)"""
             #mise a jour de la camera
-            """self.eye = ( self.attributVueRobot.robot.position[0],
+            self.eye = ( self.attributVueRobot.robot.position[0],
                          self.attributVueRobot.robot.dimension[1],
                          self.attributVueRobot.robot.position[2])
 
@@ -147,7 +148,7 @@ class Window(pyglet.window.Window):
                            self.attributVueRobot.robot.dimension[1]+50,
                             ((self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2))
 
-            self.up = (0,1,0)"""
+            self.up = (0,1,0)
 
             #DEBUT DE LA PARTIE MAGIQUE
             # set the Viewport
@@ -316,6 +317,11 @@ class Window(pyglet.window.Window):
             strat90 = strategieRot90(robot)
             self.addStrat(strat90)
 
+        elif symbol == key.C:
+            robot = self.attributVueRobot.robot
+            stratCarre = strategieCarre(robot)
+            self.addStrat(stratCarre)
+
         elif symbol == key.X: # detecte si il y'a une balise ou non dans le champ de vision du robot
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.jpg')
             balise = traitement_image('screen')
@@ -329,6 +335,23 @@ class Window(pyglet.window.Window):
                 (x,y,z) = robot.position
                 robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
                 self.addVueRobot(robot)
+                
+        elif symbol == key.P:
+            self.eye = ( self.attributVueRobot.robot.position[0],
+                         self.attributVueRobot.robot.dimension[1],
+                         self.attributVueRobot.robot.position[2])
+
+            self.lookat = ( ((self.attributVueRobot.robot.coords[4][0]+self.attributVueRobot.robot.coords[5][0])/2),
+                           self.attributVueRobot.robot.dimension[1]+50,
+                            ((self.attributVueRobot.robot.coords[4][2]+self.attributVueRobot.robot.coords[5][2])/2))
+
+            self.up = (0,1,0)
+
+        elif symbol == key.M :
+            self.eye = (0,2000,2000)
+            self.lookat = (0,100,0)
+            self.up = (0,0,-1)
+
         # action screenshot
         elif symbol == key.V:
             pyglet.image.get_buffer_manager().get_color_buffer().save('images/screen.jpg')
