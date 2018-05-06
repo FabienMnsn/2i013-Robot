@@ -240,8 +240,10 @@ class Robot:
         angle1 = calcul_angle2D( (self.direction), (1,0) )
         #print("angles:[",angle,"][",angle1,"]")
         #calcul des rotation de 'angle' degres sur chaque coordonnees
-        if (angle == 90 and angle1 == 0):
-            angle = -angle
+        #print(angle)
+        #if (angle < 0 ):
+            #angle = -angle
+            #print(angle)
             #print("angles:[",angle,"][",angle1,"]")
         s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
         s1 = rotation2D( (coords[3], coords[5]), angle)
