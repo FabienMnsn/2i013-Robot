@@ -2,7 +2,7 @@
 
 #from robot_gopy.robot2I013 import *
 from robot_sim.robot2 import *
-
+from robot_sim.utilitaires_geometrie import *
 #code
 
 class strategieRot90():
@@ -18,14 +18,28 @@ class strategieRot90():
         angle = calcul_angle2D(self.robot.direction,self.dir_arrivee)
         #print("1)",angle, self.stop)
         if angle > 1:
-            new_dir = rotation2D((self.robot.direction[0],self.robot.direction[1]),5)
+            new_dir = rotation2D(self.robot.direction,5)
             self.robot.direction = new_dir
             #self.robot.calcul_coords()
-            print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[0]))
+            #print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[1]))
+        elif angle < -1:
+            new_dir = rotation2D(self.robot.direction,5)
+            self.robot.direction = new_dir
+            
         elif angle > -1 and angle < 1:
             #print("2)",angle, self.stop)
             self.stop = True
         self.robot.calcul_coords()
+
+
+        """def update(self):
+        new_dir = rotation2D(self.robot.direction,10)
+        self.robot.direction = new_dir
+        print("%.0f, %.0f"%(self.robot.direction[0], self.robot.direction[1]))
+        self.robot.calcul_coords()"""
+
+
+
         """   
         if self.stop == False :
             angle = calcul_angle2D(self.dir_robot,self.dir_arrivee)
