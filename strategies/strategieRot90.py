@@ -14,14 +14,14 @@ class strategieRot90():
         #self.dir_depart = robot.direction
         self.dir_arrivee = rotation2D(self.dir_robot,90)
 
-    def update(self):
+    """def update(self):
         angle = calcul_angle2D(self.robot.direction,self.dir_arrivee)
-        #print("1)",angle, self.stop)
+        #print("1)",angle)
         if angle > 1:
             new_dir = rotation2D(self.robot.direction,5)
             self.robot.direction = new_dir
             #self.robot.calcul_coords()
-            print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[1]))
+            #print("%.2f, %.2f"%(self.robot.direction[0], self.robot.direction[1]))
         elif angle < -1:
             new_dir = rotation2D(self.robot.direction,5)
             self.robot.direction = new_dir
@@ -29,14 +29,14 @@ class strategieRot90():
         elif angle > -1 and angle < 1:
             #print("2)",angle, self.stop)
             self.stop = True
-        self.robot.calcul_coords()
+        self.robot.calcul_coords()"""
 
 
-        """def update(self):
-        new_dir = rotation2D(self.robot.direction,10)
+    def update(self):
+        new_dir = rotation2D(self.robot.direction,90)
         self.robot.direction = new_dir
         print("%.0f, %.0f"%(self.robot.direction[0], self.robot.direction[1]))
-        self.robot.calcul_coords()"""
+        self.robot.calcul_coords()
 
 
 

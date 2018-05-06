@@ -42,6 +42,6 @@ main.addVueBalise(b)
 main.eye = (0,2000,2000)
 main.lookat = (0,100,0)
 main.up = (0,0,-1)
-
+main.delta_update = 3
 #RUN GENERAL
 pyglet.app.run()

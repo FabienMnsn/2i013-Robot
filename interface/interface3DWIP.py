@@ -12,7 +12,6 @@ from basiques.cube import *
 from strategies.strategieToutDroit70 import *
 from strategies.strategieRot90 import *
 #from strategies.simulation import *
-from strategies.stop_robot_simul import *
 
 from images.traitementimage import *
 from robot_sim.robot2 import *
@@ -34,8 +33,11 @@ class Window(pyglet.window.Window):
         self.frame_rate = 1 / 600.0
         #fps_display = FPSDisplay(self)
         #fps_display.label.font_size = 20
+        
+        #variable de temps
+        self.delta_update = 0.1
 
-        pyglet.clock.schedule_interval(self.on_update, 0.1)
+        pyglet.clock.schedule_interval(self.on_update, self.delta_update)
         self.time = 0
         self.set_minimum_size(100, 100)  # securite
 
@@ -44,7 +46,7 @@ class Window(pyglet.window.Window):
         self.attributVueRobot = None
         self.listVueCube = []
         self.listVueBalise = []
-        
+
         #variables de strategie/simulation
         self.strat = None
         
@@ -214,19 +216,8 @@ class Window(pyglet.window.Window):
     
     def on_key_press(self, symbol, modifiers):
         
-        vitesse = 60
+        vitesse = 30
         if symbol == key.Z:
-            robot = self.attributVueRobot.robot
-            #print(robot.direction)
-            robot.direction = (0,-1)
-            robot.set_motor_dps(3,vitesse)
-            (x,y,z) = robot.position
-            #print(robot.direction)
-            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
-            self.addVueRobot(robot)
-            
-            
-        elif symbol == key.S:
             robot = self.attributVueRobot.robot
             #print(robot.position)
             robot.direction = (0,1)
@@ -235,6 +226,16 @@ class Window(pyglet.window.Window):
             #print(robot.direction)
             robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             #print(robot.coords)
+            self.addVueRobot(robot)
+            
+        elif symbol == key.S:
+            robot = self.attributVueRobot.robot
+            #print(robot.direction)
+            robot.direction = (0,-1)
+            robot.set_motor_dps(3,vitesse)
+            (x,y,z) = robot.position
+            #print(robot.direction)
+            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
             self.addVueRobot(robot)
 
         elif symbol == key.Q:
@@ -263,11 +264,10 @@ class Window(pyglet.window.Window):
         elif symbol == key.LEFT:
             glRotatef(self.yRotation, 0, 1, 0)
 
-        elif symbol == key.SPACE: # Pertmet d'arreter le robot
-            robot = self.attributVueRobot.robot
-            stop_robot = stop(robot)
-            self.addStrat(stop_robot)
-        
+        elif symbol == key.SPACE: # Pertmet d'arreter le robot 
+            robot = self.attributVueRobot.robot 
+            stop_robot = stop(robot) 
+            self.addStrat(stop_robot) 
                       
         elif symbol == key.ESCAPE:
             self.close()
@@ -332,9 +332,6 @@ class Window(pyglet.window.Window):
         # action screenshot
         elif symbol == key.V:
             pyglet.image.get_buffer_manager().get_color_buffer().save('images/screen.jpg')
-            
-        elif symbol == key.ESCAPE:
-            self.close()
 
         elif symbol == key.UP:
             if self.attributVueRobot != None:
