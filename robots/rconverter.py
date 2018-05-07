@@ -19,7 +19,11 @@ class RConverter:
         self.LW=vitesse
         self.RM=0
         self.LM=0
-        self.strat=None
+
+    def move(self):
+        self.r.move()
+        self.RM+=self.RW
+        self.LM+=self.LW
         
     """=======================VIRTUEL========================="""
           
@@ -50,27 +54,8 @@ class RConverter:
         
     def setVitesse(self, vitesse):
         self.r.setVitesse(vitesse)
-        self.RM=vitesse
-        self.RM=vitesse
-        
-    def setStrat(self, strat):
-        self.r.strat = strat
-        self.strat = strat
-        
-    def move(self):
-        self.r.move()
-        self.RM+=self.RW
-        self.LM+=self.LW
-        
-    def runStrat(self):
-        RWinit=self.RW
-        LWinit=self.LW
-        self.RW=self.RW/100
-        self.LW=self.LW/100
-        self.r.runStrat()
-        self.RW=RWinit
-        self.LW=LWinit
-        self.strat=self.r.strat
+        self.RW=vitesse
+        self.LW=vitesse
 	   
     def rotate(self,teta):
         self.r.rotate(teta)

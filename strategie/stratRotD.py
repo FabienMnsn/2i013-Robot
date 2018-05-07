@@ -1,10 +1,10 @@
-import API.robot2I013
+from robots.rconverter import RConverter
 
-class StratRotD90():
+class StratRotD():
     
-    def __init__(self,robot):
+    def __init__(self,robot,opt):
         self.rot=0
-        self.opt=60
+        self.opt=opt
         self.stp=False
         self.robot=robot
         self.vitesseR=-50
