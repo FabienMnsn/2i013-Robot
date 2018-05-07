@@ -28,9 +28,12 @@ class RConverter:
     def getPos(self):
         return self.r.getPos()
 
-    def getDir(self):
-        return self.r.getDir()
+    def getDirValue(self):
+        return self.r.getDirValue()
 
+    def getDirVect(self):
+        return self.r.getDirVect()
+    
     def getDim(self):
         return self.r.getDim()
 

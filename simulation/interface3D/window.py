@@ -40,12 +40,24 @@ class Window(pyglet.window.Window):
             if self.simul != None:
                 self.simul.arene.robot.setVitesse(self.simul.arene.robot.getVitesse()+10)
                 print(self.simul.arene.robot.toString())
+                #self.simul.update(1)
         elif KEY == key.M:
             if self.simul != None:
                 self.simul.arene.robot.setVitesse(self.simul.arene.robot.getVitesse()-10)
                 print(self.simul.arene.robot.toString())
+                #self.simul.update(1)
+        elif KEY == key.W:
+            if self.simul != None:
+                self.simul.arene.robot.setDir(self.simul.arene.robot.getDirValue()-10)
+                print(self.simul.arene.robot.toString())
+                #self.simul.update(1)
+        elif KEY == key.C:
+            if self.simul != None:
+                self.simul.arene.robot.setDir(self.simul.arene.robot.getDirValue()+10)
+                print(self.simul.arene.robot.toString())
+                #self.simul.update(1)
         elif KEY == key.ENTER:
-            if self.simul != None: 
+            if self.simul != None : 
                 self.simul.run()
         elif KEY == key.NUM_1:
             if self.simul != None: 

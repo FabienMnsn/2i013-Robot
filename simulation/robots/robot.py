@@ -28,7 +28,7 @@ class Robot():
 
     def getDirValue(self):
         return self.dir
-     
+
     def getDirVect(self):
         return self.dx,self.dy
 
