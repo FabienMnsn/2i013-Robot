@@ -56,7 +56,7 @@ class Camera():
             self.dx = dx
             self.dy = dy
 
-    def __init__(self, window, position=(0, 0, 0), key_map=DEFAULT_KEY_MAP, movement_speed=DEFAULT_MOVEMENT_SPEED, mouse_sensitivity=DEFAULT_MOUSE_SENSITIVITY, y_inv=True):
+    def __init__(self, window, position=(0, 0, 200), key_map=DEFAULT_KEY_MAP, movement_speed=DEFAULT_MOVEMENT_SPEED, mouse_sensitivity=DEFAULT_MOUSE_SENSITIVITY, y_inv=True):
         """Create camera object
         Arguments:
             window -- pyglet window which camera attach

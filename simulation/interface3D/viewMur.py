@@ -17,7 +17,7 @@ class ViewMur:
         
         if texture_file != None:
             view = get_tex(texture_file)
-            view_coords = ('t2f',(0,0, 7,0, 7,2, 0,2, ))
+            view_coords = ('t2f',(0,0, 3,0, 3,1, 0,1, ))
         else:
             view_coords= ('c3f',color*4)
 

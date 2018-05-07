@@ -14,10 +14,10 @@ class ViewSol:
 
     def __init__(self, batch, cube,texture_file="interface3D/img/floor.png",color=(1,1,1,)):
         view=None
-        
+        """
         if texture_file != None:
             view = get_tex(texture_file)
-            view_coords = ('t2f',(0,0, 10,0, 10,10, 0,10, ))
+            view_coords = ('t2f',(0,0, 15,0, 15,15, 0,15, ))
         else:
             view_coords= ('c3f',color*4)
 
@@ -32,3 +32,4 @@ class ViewSol:
         
         batch.add(4,GL_QUADS,view,('v3f',(x,y,z, X,y,z, X,y,Z, x,y,Z, )),view_coords) # bottom
         batch.add(4,GL_QUADS,view,('v3f',(x,Y,Z, X,Y,Z, X,Y,z, x,Y,z, )),view_coords) # top
+        """

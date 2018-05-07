@@ -16,9 +16,9 @@ from strategie.strat70 import Strat70 as Strat
 #from strategie.stratRotD90 import StratRotD90 as Strat
 
 LXA,LYA,LZA=10000,10000,3000 #En mm
-POS=(LXA/2,LYA/2,1)
-DIR=90
-V=30
+POS=(LXA/2,LYA/2,10)
+DIR=0
+V=0
 
 r=Robot(POS,DIR,V)
 
