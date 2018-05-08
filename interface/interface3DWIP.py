@@ -13,6 +13,7 @@ from strategies.strategieToutDroit70 import *
 from strategies.strategieRot90 import *
 from strategies.strategieRot_90 import *
 from strategies.simulation import *
+from strategies.stop_robot_simul import *
 
 from images.traitementimage import *
 from robot_sim.robot2 import *
@@ -26,20 +27,18 @@ from robot_sim.utilitaires_geometrie import *
 #code
 
 #___________________________________________CLASS WINDOW___________________________________________
+#__________________________________________________________________________________________________
 class Window(pyglet.window.Window):
     def __init__(self, *args, **kwargs):
         super(Window, self).__init__(*args, **kwargs)
-        # attributs qui serviront pour la simu
-        self.frame_rate = 1 / 600.0
-        #fps_display = FPSDisplay(self)
-        #fps_display.label.font_size = 20
-        
+        #self.frame_rate = 1 / 600.0
+
         #variable de temps
         self.delta_update = 0.1
-
         pyglet.clock.schedule_interval(self.on_update, self.delta_update)
-        self.time = 0
-        self.set_minimum_size(100, 100)  # securite
+
+        #securite
+        self.set_minimum_size(720, 480) 
 
         # variables d'objet
         self.attributVueSol = None
@@ -73,8 +72,10 @@ class Window(pyglet.window.Window):
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
     xRotation = yRotation = zRotation = 22.5
+    
 
 #___________________________________________ADDVUE & ADD STRAT___________________________________________
+#________________________________________________________________________________________________________
     def addVueCube(self, objet):
         self.listVueCube.append(VueCube(objet))
     
@@ -102,14 +103,12 @@ class Window(pyglet.window.Window):
 
     def addStrat(self, strategie):
             self.strat = strategie
+            
 
 #___________________________________________UPDATE___________________________________________
+#____________________________________________________________________________________________
     def on_update(self, dt):
-        self.time += dt
-        #print(self.time)
         if (self.attributVueRobot != None and self.strat != None and self.strat.stop == False):
-            #print("perimetre roue (mm)",self.attributVueRobot.robot.WHEEL_CIRCUMFERENCE)
-            #print("cercle rotation (mm)",self.attributVueRobot.robot.WHEEL_BASE_CIRCUMFERENCE)
             self.strat.update()
             self.addVueRobot(self.strat.robot)
             #print("(%.0f, %.0f, %.0f)"%(self.attributVueRobot.robot.position[0],self.attributVueRobot.robot.position[1],self.attributVueRobot.robot.position[2]))
@@ -169,12 +168,12 @@ class Window(pyglet.window.Window):
             glMatrixMode(GL_MODELVIEW)
             glLoadIdentity()
             #FIN DE LA PARTIE MAGIQUE xD
+            
         
 #___________________________________________DRAW___________________________________________
+#__________________________________________________________________________________________
     def on_draw(self):
-        # type: () -> object
-        # Push Matrix onto stack
-        #glEnable(GL_TEXTURE_2D) 
+        
         glPushMatrix()
         self.clear()
 
@@ -189,11 +188,11 @@ class Window(pyglet.window.Window):
             
         if (self.attributVueSol != None):
             self.attributVueSol.batch.draw()
-
-        # Pop Matrix off stack
         glPopMatrix()
+        
 
-#___________________________________________RESIZE___________________________________________    
+#___________________________________________RESIZE___________________________________________
+#____________________________________________________________________________________________
     def on_resize(self, w, h):
         
         glViewport(0, 0, w, h)
@@ -209,87 +208,51 @@ class Window(pyglet.window.Window):
         
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-#___________________________________________KEYBOARD BINDING___________________________________________    
+        
+        
+#___________________________________________KEYBOARD BINDING___________________________________________
+#______________________________________________________________________________________________________
     def on_key_press(self, symbol, modifiers):
         
-        vitesse = 30
-        #ne sert plus a rien on peut controler le robot directement avec les differentes strategies
-        """if symbol == key.Z:
-            robot = self.attributVueRobot.robot
-            #print(robot.position)
-            robot.direction = (0,1)
-            robot.set_motor_dps(3,vitesse)
-            (x,y,z) = robot.position
-            #print(robot.direction)
-            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
-            #print(robot.coords)
-            self.addVueRobot(robot)
-            
-        elif symbol == key.S:
-            robot = self.attributVueRobot.robot
-            #print(robot.direction)
-            robot.direction = (0,-1)
-            robot.set_motor_dps(3,vitesse)
-            (x,y,z) = robot.position
-            #print(robot.direction)
-            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
-            self.addVueRobot(robot)
-
-        elif symbol == key.Q:
-            robot = self.attributVueRobot.robot
-            #print(robot.direction)
-            robot.direction = (-1,0)
-            robot.set_motor_dps(3,vitesse)
-            (x,y,z) = robot.position
-            #print(robot.direction)
-            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
-            self.addVueRobot(robot)
-        
-        elif symbol == key.D:
-            robot = self.attributVueRobot.robot
-            #print(robot.direction)
-            robot.direction = (1,0)
-            robot.set_motor_dps(3,vitesse)
-            (x,y,z) = robot.position
-            #print(robot.direction)
-            robot.calcul_coords() # fonction qui calcule et assigne directement le resultat du calcul a l attribut coords du robot
-            self.addVueRobot(robot)"""
 #___________________________________________CLOSE & MVT CAMERA___________________________________________
         if symbol == key.RIGHT:
             glRotatef(-self.yRotation, 0, 1, 0)
 
         elif symbol == key.LEFT:
             glRotatef(self.yRotation, 0, 1, 0)
-
-        elif symbol == key.SPACE: # Pertmet d'arreter le robot
- 
-            robot = self.attributVueRobot.robot
-            stop_robot = stop(robot)
-            self.addStrat(stop_robot)
                       
         elif symbol == key.ESCAPE:
+            print("fermeture de la fenetre")
             self.close()
 
 #___________________________________________BINDS STRATEGIES___________________________________________
+        elif symbol == key.SPACE:
+            print("ARRET de la strategie en cours")
+            robot = self.attributVueRobot.robot
+            stop_robot = stop(robot)
+            self.addStrat(stop_robot)
+
         elif symbol == key.G :
+            print("debut de la strategie avance 70cm")
             robot = self.attributVueRobot.robot
             strat70 = strategieToutDroit70(robot)
             self.addStrat(strat70)
 
         elif symbol == key.F:
-            print("debut strategie Rotation90")
+            print("debut strategie Rotation -90")
             robot = self.attributVueRobot.robot
             strat90 = strategieRot_90(robot)
             self.addStrat(strat90)
 
             
         elif symbol == key.H:
-            print("debut strategie Rotation90")
+            print("debut strategie Rotation 90")
             robot = self.attributVueRobot.robot
             strat90 = strategieRot90(robot)
             self.addStrat(strat90)
 
-        elif symbol == key.X: # detecte si il y a une balise ou non dans le champ de vision du robot
+        elif symbol == key.X:
+            print("debut de la detetction de la balise")
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.jpg')
             balise = traitement_image('screen')
             if balise == -1 :
@@ -300,7 +263,7 @@ class Window(pyglet.window.Window):
                 robot.direction = (0,-1)
                 robot.set_motor_dps(3,vitesse)
                 (x,y,z) = robot.position
-                robot.rotation_bis(0)
+                robot.rotation(0)
                 self.addVueRobot(robot)
 
             

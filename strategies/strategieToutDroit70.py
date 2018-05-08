@@ -21,9 +21,10 @@ class strategieToutDroit70:
             #print("angle actuel",angle_actuel)
             dist = ((angle_actuel - self.angle_prec)/360.0) * math.pi * (self.robot.WHEEL_DIAMETER/2.0) * 2
             #print(dist)
-            #if dist > 700:  POUR LE VRAI ROBOT
-            if dist > 700: #POUR LE ROBOT 3D
+
+            if dist > 700:
                 self.stop = True
+                print("fin de la strategie avance 70")
 
         
             

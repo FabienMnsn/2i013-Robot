@@ -8,7 +8,8 @@ from robot_sim.utilitaires_geometrie import *
 from basiques.arene import *
 
 #code
-
+#___________________________________________CLASS WRAPPER DE ROBOT GOPIGO___________________________________________
+#___________________________________________________________________________________________________________________
 class Robot:
     """
         Classe caractérisé par:
@@ -40,7 +41,6 @@ class Robot:
         self.dps_roue_gauche = 0 # vitesse de chacune des roues
         self.arene = arene
         self.max = -1
-
 
 
     def set_motor_limits(self,port,dps):
@@ -189,8 +189,8 @@ class Robot:
         return teta
 
 
-    def rotation_bis(self,angle):
-        """Effectue une rotation du robot (sur lui-même) de teta°"""
+    def rotation(self,angle):
+        """Effectue une rotation du robot (sur lui-même) de angle°"""
         (x0,y0,z0), (x1,y1,z1), (x2,y2,z2), (x3,y3,z3), (x4,y4,z4), (x5,y5,z5), (x6,y6,z6), (x7,y7,z7) = self.coords
         
         x0 = x0 - (self.position[0])
@@ -210,8 +210,6 @@ class Robot:
         z6 = z6 - (self.position[2])
         z7 = z7 - (self.position[2])
 
-        #print("avant :(%.0f, %.0f)"%(x0, z0))
-
         ctx0,ctz0 = rotation2D((x0,z0),angle)
         ctx1,ctz1 = rotation2D((x1,z1),angle)
         ctx2,ctz2 = rotation2D((x2,z2),angle)
@@ -220,27 +218,6 @@ class Robot:
         ctx5,ctz5 = rotation2D((x5,z5),angle)
         ctx6,ctz6 = rotation2D((x6,z6),angle)
         ctx7,ctz7 = rotation2D((x7,z7),angle)
-
-        
-        """
-        ctx0 = (x0-self.position[0])*math.cos(angle) - (z0-self.position[1])*math.sin(angle) + self.position[0]
-        ctz0 = (x0-self.position[0])*math.sin(angle) + (z0-self.position[1])*math.cos(angle) + self.position[1]
-        ctx1 = (x1-self.position[0])*math.cos(angle) - (z1-self.position[1])*math.sin(angle) + self.position[0]
-        ctz1 = (x1-self.position[0])*math.sin(angle) + (z1-self.position[1])*math.cos(angle) + self.position[1]
-        ctx2 = (x2-self.position[0])*math.cos(angle) - (z2-self.position[1])*math.sin(angle) + self.position[0]
-        ctz2 = (x2-self.position[0])*math.sin(angle) + (z2-self.position[1])*math.cos(angle) + self.position[1]
-        ctx3 = (x3-self.position[0])*math.cos(angle) - (z3-self.position[1])*math.sin(angle) + self.position[0]
-        ctz3 = (x3-self.position[0])*math.sin(angle) + (z3-self.position[1])*math.cos(angle) + self.position[1]
-        ctx4 = (x4-self.position[0])*math.cos(angle) - (z4-self.position[1])*math.sin(angle) + self.position[0]
-        ctz4 = (x4-self.position[0])*math.sin(angle) + (z4-self.position[1])*math.cos(angle) + self.position[1]
-        ctx5 = (x5-self.position[0])*math.cos(angle) - (z5-self.position[1])*math.sin(angle) + self.position[0]
-        ctz5 = (x5-self.position[0])*math.sin(angle) + (z5-self.position[1])*math.cos(angle) + self.position[1]
-        ctx6 = (x6-self.position[0])*math.cos(angle) - (z6-self.position[1])*math.sin(angle) + self.position[0]
-        ctz6 = (x6-self.position[0])*math.sin(angle) + (z6-self.position[1])*math.cos(angle) + self.position[1]
-        ctx7 = (x7-self.position[0])*math.cos(angle) - (z7-self.position[1])*math.sin(angle) + self.position[0]
-        ctz7 = (x7-self.position[0])*math.sin(angle) + (z7-self.position[1])*math.cos(angle) + self.position[1]
-        """
-        #print("apres :(%.0f, %.0f)"%(ctx0, ctz0))
         
         cx0 = ctx0 + (self.position[0])
         cx1 = ctx1 + (self.position[0])
@@ -258,8 +235,6 @@ class Robot:
         cz5 = ctz5 + (self.position[2])
         cz6 = ctz6 + (self.position[2])
         cz7 = ctz7 + (self.position[2])
-        
-        #print("apres :(%.0f, %.0f)"%(cx0, cz0))
         
         newcoords = [ ((cx0), 0,(cz0)),
                       ((cx1), 0,(cz1)),
@@ -285,99 +260,13 @@ class Robot:
         newdir = ( (dirxy2[0]-dirxy1[0]), (dirxy2[1]-dirxy1[1]) )
         self.setAndNormaliseDirection(newdir)
 
-        
-    """def calcul_coords(self):
-        #cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D#
-        
-        #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
-        coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
-                  +self.dimension[0]/2, 0, +self.dimension[2]/2, # base
-                  +self.dimension[0]/2, 0, -self.dimension[2]/2, # base
-                  -self.dimension[0]/2, 0, -self.dimension[2]/2, # base
-                  -self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
-                  +self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
-                  +self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2, # haut
-                  -self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2,)# haut
-        #on calcul la difference d'angle entre la direction du robot et un vecteur arbitraire representant le nord ici l'axe z (profondeur)
-        #comme le robot ne se deplace pas sur 3 axe on peut travailler en 2D (x,y)
-        angle = calcul_angle2D( (self.direction), (0,-1) ) #(0,-1) = le nord arbitraire
-        #angle1 = calcul_angle2D( (self.direction), (-1,0) )
-        #print("angles:[",angle,"]",round(self.direction[0],1),round(self.direction[1],1))#[,angle1,"]")
-        #calcul des rotation de 'angle' degres sur chaque coordonnees
-        #print(angle)
-        #if (angle < 0 ):
-            #angle = -angle
-            #print(angle)
-            #print("angles:[",angle,"][",angle1,"]")
-        s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
-        s1 = rotation2D( (coords[3], coords[5]), angle)
-        s2 = rotation2D( (coords[6], coords[8]), angle)
-        s3 = rotation2D( (coords[9], coords[11]), angle)
-        s4 = rotation2D( (coords[12], coords[14]), angle)
-        s5 = rotation2D( (coords[15], coords[17]), angle)
-        s6 = rotation2D( (coords[18], coords[20]), angle)
-        s7 = rotation2D( (coords[21], coords[23]), angle)
-
-        #tous les (s0,s1,...,s7) sont des tuples de type (x,z)
-        #on remplace chaque valeur de x et z (sans toucher a y qui est la hauteur du robot et qui ne change pas)
-        #par sa valeur apres rotation contenue dans les (s0,s1,...,s7)
-        #on profite de cette assignation pour redeplacer le robot a sa position initiale
-        new_coords = ( (s0[0]+self.position[0], 0, s0[1]+self.position[2]),
-                       (s1[0]+self.position[0], 0, s1[1]+self.position[2]),
-                       (s2[0]+self.position[0], 0, s2[1]+self.position[2]),
-                       (s3[0]+self.position[0], 0, s3[1]+self.position[2]),
-                       (s4[0]+self.position[0], self.dimension[1], s4[1]+self.position[2]),
-                       (s5[0]+self.position[0], self.dimension[1], s5[1]+self.position[2]),
-                       (s6[0]+self.position[0], self.dimension[1], s6[1]+self.position[2]),
-                       (s7[0]+self.position[0], self.dimension[1], s7[1]+self.position[2]),)
-        
-        #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
-        self.coords = new_coords
-
-
-    def calcul_coords_angle(self, angle):
-        #cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D
-        
-        #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
-        coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
-                  +self.dimension[0]/2, 0, +self.dimension[2]/2, # base
-                  +self.dimension[0]/2, 0, -self.dimension[2]/2, # base
-                  -self.dimension[0]/2, 0, -self.dimension[2]/2, # base
-                  -self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
-                  +self.dimension[0]/2, self.dimension[1], +self.dimension[2]/2, # haut
-                  +self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2, # haut
-                  -self.dimension[0]/2, self.dimension[1], -self.dimension[2]/2,)# haut
-        
-        s0 = rotation2D( (coords[0], coords[2]), angle) #s0 = sommet correspondant au premier point de coords tourne de angle degres
-        s1 = rotation2D( (coords[3], coords[5]), angle)
-        s2 = rotation2D( (coords[6], coords[8]), angle)
-        s3 = rotation2D( (coords[9], coords[11]), angle)
-        s4 = rotation2D( (coords[12], coords[14]), angle)
-        s5 = rotation2D( (coords[15], coords[17]), angle)
-        s6 = rotation2D( (coords[18], coords[20]), angle)
-        s7 = rotation2D( (coords[21], coords[23]), angle)
-
-        #tous les (s0,s1,...,s7) sont des tuples de type (x,z)
-        #on remplace chaque valeur de x et z (sans toucher a y qui est la hauteur du robot et qui ne change pas)
-        #par sa valeur apres rotation contenue dans les (s0,s1,...,s7)
-        #on profite de cette assignation pour redeplacer le robot a sa position initiale
-        new_coords = ( (s0[0]+self.position[0], 0, s0[1]+self.position[2]),
-                       (s1[0]+self.position[0], 0, s1[1]+self.position[2]),
-                       (s2[0]+self.position[0], 0, s2[1]+self.position[2]),
-                       (s3[0]+self.position[0], 0, s3[1]+self.position[2]),
-                       (s4[0]+self.position[0], self.dimension[1], s4[1]+self.position[2]),
-                       (s5[0]+self.position[0], self.dimension[1], s5[1]+self.position[2]),
-                       (s6[0]+self.position[0], self.dimension[1], s6[1]+self.position[2]),
-                       (s7[0]+self.position[0], self.dimension[1], s7[1]+self.position[2]),)
-        
-        #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
-        self.coords = new_coords"""
 
     def servo_rotate(self, position):
         """tourne la tete du robot a la position 'position'"""
         self.tete.rotation(position)
 
-
+#___________________________________________METHODE D'AFFICHAGE___________________________________________
+#_________________________________________________________________________________________________________
     def toString(self):
         return "ROBOT[Corps]|position: {0}, direction: {1}, dimension{2}, vitesse: {3}".format(self.getPosition(),self.getDirection(),self.getDimension(),self.getVitesse())+"\n"+self.tete.toString()
 
@@ -389,7 +278,8 @@ class Robot:
                 return "ROBOT([Corps] position: {0}, direction: {1}, dimension{2}, vitesse: {3}".format(self.getPosition(),self.getDirection(),self.getDimension(),self.getVitesse())#||| "+self.tete.safficher()+")"
                 
 
-    """-----------------------GETTTER-------------------------"""
+#___________________________________________GETTER QUI EN SERVENT A RIEN EN PYTHON xD___________________________________________
+#_______________________________________________________________________________________________________________________________
     def getPosition(self):
         return self.position
 
@@ -402,7 +292,8 @@ class Robot:
     def getVitesse(self):
         return self.vitesse
 
-    """-----------------------SETTER-------------------------"""
+#___________________________________________SETTER QUI EN SERVENT A RIEN EN PYTHON xD___________________________________________
+#_______________________________________________________________________________________________________________________________
     def setPosition(self, position):
         self.position = position
 
@@ -424,16 +315,18 @@ class Robot:
         self.coords = coords
         
     
-    """-----------------------SAVER-------------------------"""
+#___________________________________________SAVER (PAS A JOUR)___________________________________________
+#________________________________________________________________________________________________________
     def toSaveF(self, f):
         """Ecrit les coordonnees du robot dans le fichier ouvert passe en argument, avec ';' comme separation"""
         f.write('Robot;' + str(self.position) + ';' +  str(self.direction) + ';' + str(self.dimension) + ';' + str(self.vitesse) + ';\n')
 
 
 
-
+#___________________________________________CONSTRUCTEUR RAPIDE ET SA FONCTIONDE CALCUL DES COORDS DU ROBOT___________________________________________
+#_____________________________________________________________________________________________________________________________________________________
 def __calcul_coords(x,y,z, larg,long,haut, direX,direY):
-    """cette fonction calcul les coordonnees des 8 sommet du pave droit
+    """cette fonction calcul les coordonnees des 8 sommet du pave droit elle n'est utilisee que par le constructeur rapide d'ou le '__' devant
         de centre (x,y,z)
         de dimension (larg,long,haut)
         et de direction(direX,direY)"""
@@ -477,28 +370,6 @@ def __calcul_coords(x,y,z, larg,long,haut, direX,direY):
                    (s7[0]+x, long, s7[1]+z))
     return new_coords
 
-def Creation_Robot():
-    """creation d'un Robot avec une position aleatoire"""
-
-    x = 0
-    y = 0
-    z = 0 #un robot est posé sur le sol
-
-    larg = 140
-    long = 120
-    haut = 250
-    
-    vitesse = 1
-         
-    newdir = (1,1)
-
-    a=Creation_Arene()
-    
-    #coords = ((x-larg/2, y+long/2), (x+larg/2, y+long/2), (x+larg/2, y-long/2), (x-larg/2, y-long/2))
-
-    #coords = calcul_coords(x,y,z, larg,long,haut, newdir[0],newdir[1])
-    print(coords)
-    return Robot((x,y,z), coords, newdir, (larg,long,haut), vitesse, a)
 
 
 def Creation_Robot(x,z, dirX,dirZ):

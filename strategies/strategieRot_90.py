@@ -21,10 +21,10 @@ class strategieRot_90():
         if self.angle < 30:
             self.angle += 1
             #self.robot.calcul_coords_angle(self.angle)
-            self.robot.rotation_bis(-3)
+            self.robot.rotation(-3)
             #print(self.angle)
         else:
-            print("STOP")
+            print("fin de la strategie rotation -90")
             self.stop = True
             self.robot.stop()
             
