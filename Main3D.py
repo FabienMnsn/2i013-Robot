@@ -1,6 +1,6 @@
 #imports
 
-from interface.interface3DWIP import *
+from interface.interface3D import *
 
 from basiques.cube import *
 from basiques.mur import *

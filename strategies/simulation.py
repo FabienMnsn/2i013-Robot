@@ -1,8 +1,5 @@
 #import
 
-from tkinter import *
-from interface.interface import *
-
 #code
 
 class Simulation:
@@ -12,20 +9,10 @@ class Simulation:
     def run(self):
         cpt=0
         
-        ######
-        #view = Interface()
-        ######
-        
         while self.strategie.stop==False:
             self.strategie.update()
-
-            ######
-            #test = self.strategie.robot
-            #print(self.strategie.robot.safficher())
-            #view.rafraichir(test)
-            ######
-            
             cpt+=1
+
         print("Arret")
         self.strategie.robot.stop()
         
