@@ -14,6 +14,7 @@ from strategies.strategieRot90 import *
 from strategies.strategieRot_90 import *
 from strategies.simulation import *
 from strategies.stop_robot_simul import *
+from strategies.strategieCarre_simul import *
 
 from images.traitementimage import *
 from robot_sim.robot2 import *
@@ -265,5 +266,11 @@ class Window(pyglet.window.Window):
                 (x,y,z) = robot.position
                 robot.rotation(0)
                 self.addVueRobot(robot)
+                
+        elif symbol == key.C:
+            print("debut strategie Carre")
+            robot = self.attributVueRobot.robot
+            stratCarre = strategieCarre(robot)
+            self.addStrat(stratCarre)
 
             
