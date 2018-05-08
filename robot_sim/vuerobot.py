@@ -10,7 +10,7 @@ class VueRobot:
     def __init__(self, robot_att):
 
         self.robot = robot_att
-        print("(%.0f, %.0f, %.0f)"%(self.robot.position[0],self.robot.position[1],self.robot.position[2]))
+        #print("(%.0f, %.0f, %.0f)"%(self.robot.position[0],self.robot.position[1],self.robot.position[2]))
         #position = self.robot.getPosition() + self.robot.getDimension()
         #dimension = (position[3], position[4], position[5])
         

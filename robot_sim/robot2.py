@@ -189,11 +189,40 @@ class Robot:
         return teta
 
 
-    def rotation_bis(self,teta):
+    def rotation_bis(self,angle):
         """Effectue une rotation du robot (sur lui-même) de teta°"""
-        angle = math.radians(teta)
         (x0,y0,z0), (x1,y1,z1), (x2,y2,z2), (x3,y3,z3), (x4,y4,z4), (x5,y5,z5), (x6,y6,z6), (x7,y7,z7) = self.coords
         
+        x0 = x0 - (self.position[0])
+        x1 = x1 - (self.position[0])
+        x2 = x2 - (self.position[0])
+        x3 = x3 - (self.position[0])
+        x4 = x4 - (self.position[0])
+        x5 = x5 - (self.position[0])
+        x6 = x6 - (self.position[0])
+        x7 = x7 - (self.position[0])
+        z0 = z0 - (self.position[2])
+        z1 = z1 - (self.position[2])
+        z2 = z2 - (self.position[2])
+        z3 = z3 - (self.position[2])
+        z4 = z4 - (self.position[2])
+        z5 = z5 - (self.position[2])
+        z6 = z6 - (self.position[2])
+        z7 = z7 - (self.position[2])
+
+        #print("avant :(%.0f, %.0f)"%(x0, z0))
+
+        ctx0,ctz0 = rotation2D((x0,z0),angle)
+        ctx1,ctz1 = rotation2D((x1,z1),angle)
+        ctx2,ctz2 = rotation2D((x2,z2),angle)
+        ctx3,ctz3 = rotation2D((x3,z3),angle)
+        ctx4,ctz4 = rotation2D((x4,z4),angle)
+        ctx5,ctz5 = rotation2D((x5,z5),angle)
+        ctx6,ctz6 = rotation2D((x6,z6),angle)
+        ctx7,ctz7 = rotation2D((x7,z7),angle)
+
+        
+        """
         ctx0 = (x0-self.position[0])*math.cos(angle) - (z0-self.position[1])*math.sin(angle) + self.position[0]
         ctz0 = (x0-self.position[0])*math.sin(angle) + (z0-self.position[1])*math.cos(angle) + self.position[1]
         ctx1 = (x1-self.position[0])*math.cos(angle) - (z1-self.position[1])*math.sin(angle) + self.position[0]
@@ -210,20 +239,40 @@ class Robot:
         ctz6 = (x6-self.position[0])*math.sin(angle) + (z6-self.position[1])*math.cos(angle) + self.position[1]
         ctx7 = (x7-self.position[0])*math.cos(angle) - (z7-self.position[1])*math.sin(angle) + self.position[0]
         ctz7 = (x7-self.position[0])*math.sin(angle) + (z7-self.position[1])*math.cos(angle) + self.position[1]
-
-
-        newcoords = [ ((ctx0), 0,(ctz0)),
-                      ((ctx1), 0,(ctz1)),
-                      ((ctx2), 0,(ctz2)),
-                      ((ctx3), 0,(ctz3)),
-                      ((ctx4), self.dimension[1],(ctz4)),
-                      ((ctx5), self.dimension[1],(ctz5)),
-                      ((ctx6), self.dimension[1],(ctz6)),
-                      ((ctx7), self.dimension[1],(ctz7))]
+        """
+        #print("apres :(%.0f, %.0f)"%(ctx0, ctz0))
+        
+        cx0 = ctx0 + (self.position[0])
+        cx1 = ctx1 + (self.position[0])
+        cx2 = ctx2 + (self.position[0])
+        cx3 = ctx3 + (self.position[0])
+        cx4 = ctx4 + (self.position[0])
+        cx5 = ctx5 + (self.position[0])
+        cx6 = ctx6 + (self.position[0])
+        cx7 = ctx7 + (self.position[0])
+        cz0 = ctz0 + (self.position[2])
+        cz1 = ctz1 + (self.position[2])
+        cz2 = ctz2 + (self.position[2])
+        cz3 = ctz3 + (self.position[2])
+        cz4 = ctz4 + (self.position[2])
+        cz5 = ctz5 + (self.position[2])
+        cz6 = ctz6 + (self.position[2])
+        cz7 = ctz7 + (self.position[2])
+        
+        #print("apres :(%.0f, %.0f)"%(cx0, cz0))
+        
+        newcoords = [ ((cx0), 0,(cz0)),
+                      ((cx1), 0,(cz1)),
+                      ((cx2), 0,(cz2)),
+                      ((cx3), 0,(cz3)),
+                      ((cx4), self.dimension[1],(cz4)),
+                      ((cx5), self.dimension[1],(cz5)),
+                      ((cx6), self.dimension[1],(cz6)),
+                      ((cx7), self.dimension[1],(cz7))]
         
         self.setCoords(newcoords)   #maj coords des 4 points du robot
         #print("coords=",self.coords)
-        self.tete.rotation(teta)
+        self.tete.rotation(angle)
         self.calcdir()              #maj direction du robot
         
 
@@ -231,14 +280,14 @@ class Robot:
         """ Calcule la direction du robot (correspond a l'avant du robot) et retourne cette derniere sous la forme : (x, y) """
         (x0,y0,z0), (x1,y1,z1), (x2,y2,z2), (x3,y3,z3), (x4,y4,z4), (x5,y5,z5), (x6,y6,z6), (x7,y7,z7) = self.coords
 
-        dirxy1 = (self.position[0], self.position[1])
+        dirxy1 = (self.position[0], self.position[2])
         dirxy2 = ( ((x0 + x1)/2), ((z0+z1)/2) )
         newdir = ( (dirxy2[0]-dirxy1[0]), (dirxy2[1]-dirxy1[1]) )
         self.setAndNormaliseDirection(newdir)
 
         
-    def calcul_coords(self):
-        """cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D"""
+    """def calcul_coords(self):
+        #cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D#
         
         #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
         coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
@@ -287,7 +336,7 @@ class Robot:
 
 
     def calcul_coords_angle(self, angle):
-        """cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D"""
+        #cette fonction calcul les coordonnees (en fct de la position du robot qui appel la methode) des 8 sommet du pave droit qui represente le robot en 3D
         
         #on ramene la position du robot en 0 pour calculer les 8 coords des sommets
         coords = (-self.dimension[0]/2, 0, +self.dimension[2]/2, # base
@@ -322,7 +371,7 @@ class Robot:
                        (s7[0]+self.position[0], self.dimension[1], s7[1]+self.position[2]),)
         
         #pour finir on remplace les coords (en attribut du robot) par celle fraichement calculees (new_coords)
-        self.coords = new_coords
+        self.coords = new_coords"""
 
     def servo_rotate(self, position):
         """tourne la tete du robot a la position 'position'"""
@@ -383,7 +432,7 @@ class Robot:
 
 
 
-def calcul_coords(x,y,z, larg,long,haut, direX,direY):
+def __calcul_coords(x,y,z, larg,long,haut, direX,direY):
     """cette fonction calcul les coordonnees des 8 sommet du pave droit
         de centre (x,y,z)
         de dimension (larg,long,haut)
@@ -465,7 +514,7 @@ def Creation_Robot(x,z, dirX,dirZ):
     
     a=Creation_Arene()
     
-    coords = calcul_coords(x,y,z, larg,long,haut, dirX,dirZ)
+    coords = __calcul_coords(x,y,z, larg,long,haut, dirX,dirZ)
     #print(coords)
     return Robot((x,y,z), coords, (dirX,dirZ), (larg,long,haut), vitesse, a)
 

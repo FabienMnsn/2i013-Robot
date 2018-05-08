@@ -20,7 +20,7 @@ class strategieToutDroit70:
             angle_actuel,y = self.robot.get_motor_position()
             #print("angle actuel",angle_actuel)
             dist = ((angle_actuel - self.angle_prec)/360.0) * math.pi * (self.robot.WHEEL_DIAMETER/2.0) * 2
-            print(dist)
+            #print(dist)
             #if dist > 700:  POUR LE VRAI ROBOT
             if dist > 700: #POUR LE ROBOT 3D
                 self.stop = True

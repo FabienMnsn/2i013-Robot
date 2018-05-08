@@ -24,9 +24,9 @@ a.generateur_arene()
 
 b = Balise(0,0,-2000,500)
 
-r = Creation_Robot(0,0,1,0)
+r = Creation_Robot(500,500,1,0)
 
-c0 = Cube(400,0,-1000,500,500,500)
+c0 = Cube(500,0,500,100,100,100)
 c1 = Cube(2000,0,2500,400,400,400)
 a.ajouter_cube(c0)
 a.ajouter_cube(c1)
@@ -39,7 +39,7 @@ main.addVueBalise(b)
 #main.addStrat(strat70)
 
 #setup position camera
-main.eye = (0,200,400)
+main.eye = (0,7000,0)
 main.lookat = (0,100,0)
 main.up = (0,0,-1)
 main.delta_update = 3
