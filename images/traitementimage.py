@@ -69,7 +69,7 @@ def traitement_image(image):
                 #print('Balise trouvee')
                 #img.putpixel((x+(taille_carre//2),y+(taille_carre//2)),(255,0,255)) # pixel violet pour reperer le centre 
                 #img.show() 
-                return ((x+(taille_carre//2),y+(taille_carre//2))) # coordonnées du centre
+                return ((x+(taille_carre//2),y+(taille_carre//2)), (img.size[0], img.size[1])) # coordonnées du centre
 
     return -1 # valeur qui indique qu'aucune balise n'a ete trouvee
 
