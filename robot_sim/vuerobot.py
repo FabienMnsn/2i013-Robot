@@ -10,8 +10,9 @@ class VueRobot:
     def __init__(self, robot_att):
 
         self.robot = robot_att
-        position = self.robot.getPosition() + self.robot.getDimension()
-        dimension = (position[3], position[4], position[5])
+        print("(%.0f, %.0f, %.0f)"%(self.robot.position[0],self.robot.position[1],self.robot.position[2]))
+        #position = self.robot.getPosition() + self.robot.getDimension()
+        #dimension = (position[3], position[4], position[5])
         
         self.batch = pyglet.graphics.Batch()
 
@@ -39,7 +40,6 @@ class VueRobot:
         view_coordsT = ('t2f',(0,1, 1,1, 1,0, 0,0, ))
         view_coordsB = ('t2f',(0,1, 1,1, 1,0, 0,0, ))
         
-        #print("pos:", position,"dim:",dimension)
         
         colorf1 = ('c3f', (1., 1., 1.,) * 4)
         colorf2 = ('c3f', (0.95, 0.95, 0.95,) * 4)
@@ -47,7 +47,7 @@ class VueRobot:
         colorf4 = ('c3f', (0.8, 0, 0,)*2 +(0.85, 0.85, 0.85,) * 2)
         colorf5 = ('c3f', (0.80, 0.80, 0.80,) * 4)
         colorf6 = ('c3f', (0.75, 0.75, 0.75,) * 4)
-        
+
         # faces
         # f1 arriere
         self.batch.add(4, GL_QUADS, view4, (
@@ -97,4 +97,3 @@ class VueRobot:
                     self.robot.coords[3][0], self.robot.coords[3][1], self.robot.coords[3][2],
                     self.robot.coords[7][0], self.robot.coords[7][1], self.robot.coords[7][2])),
                        view_coordsL)
-    

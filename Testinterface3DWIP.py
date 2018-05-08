@@ -22,7 +22,7 @@ main = Window(720, 480, "Arena", resizable=True)
 a = Arene(8000,800,8000,[],[]) # en changeant les 3 premieres valeurs on modifie la taille de l'arene
 a.generateur_arene()
 
-b = Balise(160,0,-80,500)
+b = Balise(0,0,-2000,500)
 
 r = Creation_Robot(0,0,1,0)
 
@@ -39,7 +39,7 @@ main.addVueBalise(b)
 #main.addStrat(strat70)
 
 #setup position camera
-main.eye = (0,500,2000)
+main.eye = (0,200,400)
 main.lookat = (0,100,0)
 main.up = (0,0,-1)
 main.delta_update = 3

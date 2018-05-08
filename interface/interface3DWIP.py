@@ -114,6 +114,10 @@ class Window(pyglet.window.Window):
             #print("cercle rotation (mm)",self.attributVueRobot.robot.WHEEL_BASE_CIRCUMFERENCE)
             self.strat.update()
             self.addVueRobot(self.strat.robot)
+            #print("(%.0f, %.0f, %.0f)"%(self.attributVueRobot.robot.position[0],self.attributVueRobot.robot.position[1],self.attributVueRobot.robot.position[2]))
+            #self.attributVueRobot.robot.set_motor_dps(1,-40)
+            #self.attributVueRobot.robot.set_motor_dps(2,40)
+            #self.addVueRobot(self.attributVueRobot.robot)
             """print("(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f),(%.0f,%.0f,%.0f)"
                   %(self.attributVueRobot.robot.coords[0][0],
                     self.attributVueRobot.robot.coords[0][1],
@@ -264,10 +268,14 @@ class Window(pyglet.window.Window):
         elif symbol == key.LEFT:
             glRotatef(self.yRotation, 0, 1, 0)
 
-        elif symbol == key.SPACE: # Pertmet d'arreter le robot 
-            robot = self.attributVueRobot.robot 
-            stop_robot = stop(robot) 
-            self.addStrat(stop_robot) 
+        elif symbol == key.SPACE: # Pertmet d'arreter le robot
+ 
+            robot = self.attributVueRobot.robot
+ 
+            stop_robot = stop(robot)
+ 
+            self.addStrat(stop_robot)
+ 
                       
         elif symbol == key.ESCAPE:
             self.close()

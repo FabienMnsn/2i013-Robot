@@ -101,7 +101,12 @@ class Robot:
         else:
             print('Erreur : port > 3')
             return -1
-        
+
+        if (self.dps_roue_gauche < 0 and self.dps_roue_gauche == -self.dps_roue_droite):
+            self.rotation_bis(-self.dps_roue_gauche)
+        elif (self.dps_roue_droite < 0 and self.dps_roue_droite == -self.dps_roue_gauche):
+            self.rotation_bis(self.dps_roue_gauche)
+            
         x += v0
         z += v1
             
