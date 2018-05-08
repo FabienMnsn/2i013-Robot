@@ -39,7 +39,7 @@ main.addVueBalise(b)
 #main.addStrat(strat70)
 
 #setup position camera
-main.eye = (0,2000,2000)
+main.eye = (0,500,2000)
 main.lookat = (0,100,0)
 main.up = (0,0,-1)
 main.delta_update = 3
