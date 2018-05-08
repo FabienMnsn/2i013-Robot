@@ -15,7 +15,7 @@ class VueRobot:
         
         self.batch = pyglet.graphics.Batch()
 
-        texture_fileR = "robot_sim/textures/right.png"
+        texture_fileR = "robot_sim/textures/right2.png"
         texture_fileF = "robot_sim/textures/front.png"
         
         tex1 = pyglet.image.load(texture_fileR).texture

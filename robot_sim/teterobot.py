@@ -28,7 +28,7 @@ class TeteRobot:
         dir_robot_tmp = self.direction_robot
         if (angle <= 180 or angle >= 0):
             nouvelle_orientation = self.rotationVecteur(dir_robot_tmp, angle-90)
-            print("nouvelle_orientation",nouvelle_orientation)
+            #print("nouvelle_orientation",nouvelle_orientation)
             self.setOrientation(nouvelle_orientation)
         else:
             return -1

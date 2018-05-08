@@ -187,24 +187,34 @@ class Robot:
     def rotation_bis(self,teta):
         """Effectue une rotation du robot (sur lui-même) de teta°"""
         angle = math.radians(teta)
-        (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
+        (x0,y0,z0), (x1,y1,z1), (x2,y2,z2), (x3,y3,z3), (x4,y4,z4), (x5,y5,z5), (x6,y6,z6), (x7,y7,z7) = self.coords
         
-        ctx0 = (x0-self.position[0])*math.cos(angle) - (y0-self.position[1])*math.sin(angle) + self.position[0]
-        cty0 = (x0-self.position[0])*math.sin(angle) + (y0-self.position[1])*math.cos(angle) + self.position[1]
+        ctx0 = (x0-self.position[0])*math.cos(angle) - (z0-self.position[1])*math.sin(angle) + self.position[0]
+        ctz0 = (x0-self.position[0])*math.sin(angle) + (z0-self.position[1])*math.cos(angle) + self.position[1]
+        ctx1 = (x1-self.position[0])*math.cos(angle) - (z1-self.position[1])*math.sin(angle) + self.position[0]
+        ctz1 = (x1-self.position[0])*math.sin(angle) + (z1-self.position[1])*math.cos(angle) + self.position[1]
+        ctx2 = (x2-self.position[0])*math.cos(angle) - (z2-self.position[1])*math.sin(angle) + self.position[0]
+        ctz2 = (x2-self.position[0])*math.sin(angle) + (z2-self.position[1])*math.cos(angle) + self.position[1]
+        ctx3 = (x3-self.position[0])*math.cos(angle) - (z3-self.position[1])*math.sin(angle) + self.position[0]
+        ctz3 = (x3-self.position[0])*math.sin(angle) + (z3-self.position[1])*math.cos(angle) + self.position[1]
+        ctx4 = (x4-self.position[0])*math.cos(angle) - (z4-self.position[1])*math.sin(angle) + self.position[0]
+        ctz4 = (x4-self.position[0])*math.sin(angle) + (z4-self.position[1])*math.cos(angle) + self.position[1]
+        ctx5 = (x5-self.position[0])*math.cos(angle) - (z5-self.position[1])*math.sin(angle) + self.position[0]
+        ctz5 = (x5-self.position[0])*math.sin(angle) + (z5-self.position[1])*math.cos(angle) + self.position[1]
+        ctx6 = (x6-self.position[0])*math.cos(angle) - (z6-self.position[1])*math.sin(angle) + self.position[0]
+        ctz6 = (x6-self.position[0])*math.sin(angle) + (z6-self.position[1])*math.cos(angle) + self.position[1]
+        ctx7 = (x7-self.position[0])*math.cos(angle) - (z7-self.position[1])*math.sin(angle) + self.position[0]
+        ctz7 = (x7-self.position[0])*math.sin(angle) + (z7-self.position[1])*math.cos(angle) + self.position[1]
 
-        ctx1 = (x1-self.position[0])*math.cos(angle) - (y1-self.position[1])*math.sin(angle) + self.position[0]
-        cty1 = (x1-self.position[0])*math.sin(angle) + (y1-self.position[1])*math.cos(angle) + self.position[1]
-    
-        ctx2 = (x2-self.position[0])*math.cos(angle) - (y2-self.position[1])*math.sin(angle) + self.position[0]
-        cty2 = (x2-self.position[0])*math.sin(angle) + (y2-self.position[1])*math.cos(angle) + self.position[1]
-    
-        ctx3 = (x3-self.position[0])*math.cos(angle) - (y3-self.position[1])*math.sin(angle) + self.position[0]
-        cty3 = (x3-self.position[0])*math.sin(angle) + (y3-self.position[1])*math.cos(angle) + self.position[1]
 
-        newcoords = [ ((ctx0), (cty0)),
-                      ((ctx1), (cty1)),
-                      ((ctx2), (cty2)),
-                      ((ctx3), (cty3))]
+        newcoords = [ ((ctx0), 0,(ctz0)),
+                      ((ctx1), 0,(ctz1)),
+                      ((ctx2), 0,(ctz2)),
+                      ((ctx3), 0,(ctz3)),
+                      ((ctx4), self.dimension[1],(ctz4)),
+                      ((ctx5), self.dimension[1],(ctz5)),
+                      ((ctx6), self.dimension[1],(ctz6)),
+                      ((ctx7), self.dimension[1],(ctz7))]
         
         self.setCoords(newcoords)   #maj coords des 4 points du robot
         #print("coords=",self.coords)
@@ -214,12 +224,12 @@ class Robot:
 
     def calcdir(self):
         """ Calcule la direction du robot (correspond a l'avant du robot) et retourne cette derniere sous la forme : (x, y) """
-        (x0,y0), (x1,y1), (x2,y2), (x3,y3) = self.coords
+        (x0,y0,z0), (x1,y1,z1), (x2,y2,z2), (x3,y3,z3), (x4,y4,z4), (x5,y5,z5), (x6,y6,z6), (x7,y7,z7) = self.coords
 
         dirxy1 = (self.position[0], self.position[1])
-        dirxy2 = ( ((x0 + x1)/2), ((y0+y1)/2) )
+        dirxy2 = ( ((x0 + x1)/2), ((z0+z1)/2) )
         newdir = ( (dirxy2[0]-dirxy1[0]), (dirxy2[1]-dirxy1[1]) )
-        self.__setAndNormaliseDirection(newdir)
+        self.setAndNormaliseDirection(newdir)
 
         
     def calcul_coords(self):
