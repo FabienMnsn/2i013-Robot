@@ -253,6 +253,7 @@ class Window(pyglet.window.Window):
             self.addStrat(strat90)
 
         elif symbol == key.X:
+            vitesse = 30
             print("debut de la detetction de la balise")
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.jpg')
             balise = traitement_image('screen')
