@@ -259,6 +259,7 @@ class Window(pyglet.window.Window):
             if balise == -1 :
                 print('Aucune balise detectee')
             else :
+                vitesse = 60
                 print('Balise detectee',balise)
                 robot = self.attributVueRobot.robot
                 robot.direction = (0,-1)
