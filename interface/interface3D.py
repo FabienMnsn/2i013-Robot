@@ -51,7 +51,7 @@ class Window(pyglet.window.Window):
         self.strat = None
         
         #variables de camera
-        self.eyeX = 0
+        """self.eyeX = 0
         self.eyeY = 10
         self.eyeZ = 400
 
@@ -65,7 +65,7 @@ class Window(pyglet.window.Window):
         
         self.eye = (0,80,400)
         self.lookat = (0,0,0)
-        self.up = (0,1,0)
+        self.up = (0,1,0)"""
         
         # methodes et variables de champ fenetre
         glClearColor(0.09, 0.6, 0.8, 1)
@@ -253,6 +253,7 @@ class Window(pyglet.window.Window):
             self.addStrat(strat90)
 
         elif symbol == key.X:
+            vitesse = 30
             print("debut de la detetction de la balise")
             pyglet.image.get_buffer_manager().get_color_buffer().save('screen.jpg')
             balise = traitement_image('screen')
